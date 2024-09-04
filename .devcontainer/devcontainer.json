@@ -1,0 +1,80 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/anaconda
+{
+	"name": "eng-ai-agents",
+	"dockerComposeFile": [
+		// -central for centralized s3 supported by NAS or -local for s3 supported by a minio container
+		"../docker-compose-local.yaml", // primary compose file
+		"./docker-compose-local.yaml" // extension for compose file to allow launch with vscode and different settings
+	],
+	// The 'service' property is the name of the service for the container that VS Code should
+	// use. Update this value and .devcontainer/docker-compose.yml to the real service name.
+	"service": "eng-ai-agents",
+	// The optional 'workspaceFolder' property is the path VS Code should open by default when
+	// connected. This is typically a file mount in .devcontainer/docker-compose.yml
+	"workspaceFolder": "/workspaces/eng-ai-agents",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	"features": {
+		"ghcr.io/devcontainers-contrib/features/pre-commit:2": {},
+		"ghcr.io/dhoeric/features/hadolint:1": {},
+	},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [
+	//     //4222, 5222, 6222, 8222, 3500, 3000
+	// ],ops
+	// Uncomment the next line if you want start specific services in your Docker Compose config.
+	// "runServices": [],
+	// Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+	// "shutdownAction": "none",
+	// Uncomment the next line to run commands after the container is created.
+	//"postCreateCommand": " "
+	//"postStartCommand": " "
+	// Configure tool-specific properties.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"charliermarsh.ruff",
+				"codezombiech.gitignore",
+				"eamodio.gitlens",
+				"exiasr.hadolint",
+				"kevinrose.vsc-python-indent",
+				"mosapride.zenkaku",
+				"ms-azuretools.vscode-docker",
+				"ms-python.python",
+				"njpwerner.autodocstring",
+				"oderwat.indent-rainbow",
+				"pkief.material-icon-theme",
+				"shardulm94.trailing-spaces",
+				"usernamehw.errorlens",
+				"yzhang.markdown-all-in-one",
+				"quarto.quarto",
+				"iterative.dvc",
+				"ms-toolsai.datawrangler",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.tensorboard",
+				"redhat.vscode-yaml"
+			],
+			"settings": {
+				"python.defaultInterpreterPath": "/opt/rye/shims/python",
+				"[python]": {
+					"editor.defaultFormatter": "charliermarsh.ruff",
+					"editor.codeActionsOnSave": {
+						"source.fixAll.ruff": "explicit",
+						"source.organizeImports.ruff": "explicit"
+					},
+					"editor.formatOnSave": true
+				},
+				"files.insertFinalNewline": true,
+				"files.trimTrailingWhitespace": true,
+				"terminal.integrated.defaultProfile.linux": "zsh",
+				"terminal.integrated.profiles.linux": {
+					"zsh": {
+						"path": "/bin/zsh"
+					}
+				}
+			}
+		}
+	},
+	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
+	"remoteUser": "vscode"
+}
