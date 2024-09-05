@@ -15,6 +15,6 @@ It currently includes the following tools:
 
 ## What should I do with it?
 
-* Follow all instructions under resources in the class website as you will need it to submit your work. 
+* Follow all instructions under [resources in the class website](https://pantelis.github.io/aiml-common/resources/environment/) as you will need it to submit your work. 
 * Familiarize yourself with the `rye` package manager as you will use it it build the library and manage all your dependencies. 
-* Follow the instructions in the course web site under resources to submit your repo to the course's LLM system (Canvas or Brightspace). 
+* Follow the instructions in the course web site under resources to [submit your repo to the course's LLM system](https://pantelis.github.io/aiml-common/resources/environment/assignment-submission.html) (Canvas/Brightspace). 
