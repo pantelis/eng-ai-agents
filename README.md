@@ -6,14 +6,15 @@ This is a template docker-based dev environment. It currently supports NVIDIA GP
 
 It currently includes the following tools:
 
-* an empty CLI tool that should be based on `typer`. 
 * an empty library called `artagents`  where you can include your code / logic that you want to import across assignments and projects.
-* a `notebooks` directory with an empty notebook where you need to populate with your code. The notebook can use the artagents library. 
-* a `docs` directory that contains the source code of a `quarto` based publishing system based on markdown and `ipynb` notebooks. 
-* a `tests` directory that should contains `pytest` based tests  for your `artagents` library and other code.
+* a `assignments` directory with an empty notebook where you need to populate with your code. The notebook can optionally use the artagents library. 
+* a `project` directory for your project source code. The documentation for the project is stored separately in the `docs` directory. 
+* a `docs` directory that contains the source code of a [quarto](https://quarto.org/) based publishing system with markdown (qmd) and `ipynb` notebooks content. You use the docs folder to publish your project work. 
+* an empty CLI tool that should be based on `typer` and you can optionally use to implement a CLI for your project or assignments. 
+* a `tests` directory that should contains `pytest` based tests  for your `artagents` library and all other code.
 
 ## What should I do with it?
 
-* Clone it as you will need it to submit your work in this class. 
+* Follow all instructions under resources in the class website as you will need it to submit your work. 
 * Familiarize yourself with the `rye` package manager as you will use it it build the library and manage all your dependencies. 
 * Follow the instructions in the course web site under resources to submit your repo to the course's LLM system (Canvas or Brightspace). 
