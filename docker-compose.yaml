@@ -15,22 +15,6 @@ services:
     networks:
       - eng-ai-agents-net
 
-# Uncomment services below if needed and make similar adjustments
-#   minio:
-#     image: minio/minio:latest
-#     container_name: minio
-#     ports:
-#       - "9000:9000"
-#       - "9001:9001"  # MinIO Console
-#     environment:
-#       MINIO_ROOT_USER: minioadmin
-#       MINIO_ROOT_PASSWORD: minioadmin
-#     command: server /data --console-address ":9001"
-#     volumes:
-#       - minio_data:/data
-#     networks:
-#       - eng-ai-agents-net
-
 networks:
   eng-ai-agents-net:
     driver: bridge
