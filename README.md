@@ -9,7 +9,7 @@ It currently includes the following tools:
 * an empty library called `artagents`  where you can include your code / logic that you want to import across assignments and projects.
 * a `assignments` directory with an empty notebook where you need to populate with your code. The notebook can optionally use the artagents library. 
 * a `project` directory for your project source code. The documentation for the project is stored separately in the `docs` directory. 
-* a `docs` directory that contains the source code of a [quarto](https://quarto.org/) based publishing system with markdown (qmd) and `ipynb` notebooks content. You use the docs folder to publish your project work. 
+* a `docs` directory that contains the source code of [quarto](https://quarto.org/) markdown (qmd) and `ipynb` notebooks content. You use the docs folder to publish your project work. 
 * an empty CLI tool that should be based on `typer` and you can optionally use to implement a CLI for your project or assignments. 
 * a `tests` directory that should contains `pytest` based tests  for your `artagents` library and all other code.
 
