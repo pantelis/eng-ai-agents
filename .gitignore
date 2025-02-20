@@ -175,3 +175,7 @@ runs/
 
 *.pth
 .ipynb_checkpoints
+
+*.tar.xz
+datasets/*
+datasets/MVTec/

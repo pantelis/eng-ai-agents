@@ -40,6 +40,7 @@ amqp==5.2.0
     # via kombu
 annotated-types==0.7.0
     # via pydantic
+anomalib==1.2.0
 antlr4-python3-runtime==4.9.3
     # via hydra-core
     # via omegaconf
@@ -173,6 +174,9 @@ distlib==0.3.8
 distro==1.9.0
     # via dvc
     # via iterative-telemetry
+docstring-parser==0.16
+    # via anomalib
+    # via jsonargparse
 dpath==2.2.0
     # via dvc
 dulwich==0.22.1
@@ -197,6 +201,7 @@ dvc-studio-client==0.21.0
 dvc-task==0.4.0
     # via dvc
 dvclive==3.48.0
+einops==0.8.1
 entrypoints==0.4
     # via gto
 executing==2.1.0
@@ -220,6 +225,7 @@ fonttools==4.53.1
     # via matplotlib
 fqdn==1.5.1
     # via jsonschema
+freia==0.2
 frozenlist==1.4.1
     # via aiohttp
     # via aiosignal
@@ -237,6 +243,8 @@ fsspec==2024.6.0
     # via s3fs
     # via scmrepo
     # via torch
+ftfy==6.3.1
+    # via open-clip-torch
 funcy==2.0
     # via dvc
     # via dvc-data
@@ -284,6 +292,7 @@ httpx==0.27.2
     # via jupyterlab
 huggingface-hub==0.24.6
     # via datasets
+    # via open-clip-torch
     # via timm
 hydra-colorlog==1.2.0
 hydra-core==1.3.2
@@ -301,7 +310,11 @@ idna==3.8
     # via requests
     # via yarl
 imageio==2.35.1
+    # via imgaug
     # via scikit-image
+imgaug==0.4.0
+importlib-resources==6.5.2
+    # via typeshed-client
 ipykernel==6.29.5
     # via jupyter
     # via jupyter-console
@@ -332,6 +345,8 @@ joblib==1.4.2
     # via scikit-learn
 json5==0.9.25
     # via jupyterlab-server
+jsonargparse==4.37.0
+    # via anomalib
 jsonpointer==3.0.0
     # via jsonschema
 jsonschema==4.23.0
@@ -388,6 +403,9 @@ kombu==5.4.0
     # via celery
     # via dvc
     # via dvc-task
+kornia==0.8.0
+kornia-rs==0.1.8
+    # via kornia
 lazy-loader==0.4
     # via scikit-image
 lightly==1.5.12
@@ -395,6 +413,7 @@ lightly-utils==0.0.2
     # via lightly
 lightning==2.4.0
 lightning-utilities==0.11.7
+    # via anomalib
     # via lightning
     # via pytorch-lightning
     # via torchmetrics
@@ -415,6 +434,7 @@ markupsafe==2.1.5
 matplotlib==3.9.2
     # via captum
     # via hist
+    # via imgaug
     # via mplhep
     # via pycocotools
     # via seaborn
@@ -465,7 +485,7 @@ numba==0.60.0
     # via pynndescent
     # via umap-learn
 numexpr==2.10.1
-numpy==2.0.2
+numpy==1.26.0
     # via boost-histogram
     # via bottleneck
     # via captum
@@ -474,15 +494,18 @@ numpy==2.0.2
     # via contourpy
     # via datasets
     # via fastparquet
+    # via freia
     # via hist
     # via histoprint
     # via imageio
+    # via imgaug
     # via lightly
     # via lightly-utils
     # via matplotlib
     # via mplhep
     # via numba
     # via numexpr
+    # via opencv-python
     # via opencv-python-headless
     # via optuna
     # via pandas
@@ -492,6 +515,7 @@ numpy==2.0.2
     # via scikit-learn
     # via scipy
     # via seaborn
+    # via shapely
     # via tensorboard
     # via tensorboard-logger
     # via tifffile
@@ -528,8 +552,12 @@ nvidia-nvjitlink-cu12==12.6.68
 nvidia-nvtx-cu12==12.1.105
     # via torch
 omegaconf==2.3.0
+    # via anomalib
     # via dvc
     # via hydra-core
+open-clip-torch==2.30.0
+opencv-python==4.11.0.86
+    # via imgaug
 opencv-python-headless==4.10.0.84
 optuna==2.10.1
     # via hydra-optuna-sweeper
@@ -551,6 +579,7 @@ packaging==24.1
     # via jupyter-server
     # via jupyterlab
     # via jupyterlab-server
+    # via kornia
     # via lazy-loader
     # via lightning
     # via lightning-utilities
@@ -582,6 +611,7 @@ pexpect==4.9.0
 pillow==10.4.0
     # via clearml
     # via imageio
+    # via imgaug
     # via lightly-utils
     # via matplotlib
     # via scikit-image
@@ -687,6 +717,7 @@ pyyaml==6.0.2
     # via cliff
     # via datasets
     # via huggingface-hub
+    # via jsonargparse
     # via jupyter-events
     # via lightning
     # via omegaconf
@@ -706,6 +737,8 @@ referencing==0.35.1
     # via jsonschema
     # via jsonschema-specifications
     # via jupyter-events
+regex==2024.11.6
+    # via open-clip-torch
 requests==2.32.3
     # via clearml
     # via datasets
@@ -723,9 +756,13 @@ rfc3986-validator==0.1.1
     # via jsonschema
     # via jupyter-events
 rich==13.8.0
+    # via anomalib
     # via dvc
     # via gto
+    # via rich-argparse
     # via typer
+rich-argparse==1.7.0
+    # via anomalib
 rootutils==1.0.7
 rpds-py==0.20.0
     # via jsonschema
@@ -744,12 +781,16 @@ s3torchconnectorclient==1.2.4
 s3transfer==0.10.2
     # via boto3
 safetensors==0.4.4
+    # via open-clip-torch
     # via timm
 scikit-image==0.24.0
+    # via imgaug
 scikit-learn==1.5.1
     # via pynndescent
     # via umap-learn
 scipy==1.14.1
+    # via freia
+    # via imgaug
     # via optuna
     # via pynndescent
     # via scikit-image
@@ -771,6 +812,8 @@ setuptools==74.1.1
     # via lightning-utilities
     # via tensorboard
     # via zc-lockfile
+shapely==2.0.7
+    # via imgaug
 shellingham==1.5.4
     # via typer
 shortuuid==1.0.13
@@ -785,6 +828,7 @@ six==1.16.0
     # via configobj
     # via flatten-dict
     # via furl
+    # via imgaug
     # via lightly
     # via orderedmultidict
     # via pathlib2
@@ -827,6 +871,7 @@ threadpoolctl==3.5.0
 tifffile==2024.8.30
     # via scikit-image
 timm==1.0.9
+    # via open-clip-torch
 tinycss2==1.3.0
     # via nbconvert
 toml==0.10.2
@@ -834,8 +879,11 @@ tomlkit==0.13.2
     # via dvc
 torch==2.4.0
     # via captum
+    # via freia
+    # via kornia
     # via lightly
     # via lightning
+    # via open-clip-torch
     # via pytorch-lightning
     # via s3torchconnector
     # via timm
@@ -849,6 +897,7 @@ torchmetrics==1.4.1
 torchsummary==1.5.1
 torchvision==0.19.0
     # via lightly
+    # via open-clip-torch
     # via timm
 torchviz==0.0.2
 tornado==6.4.1
@@ -867,6 +916,7 @@ tqdm==4.66.5
     # via huggingface-hub
     # via lightly
     # via lightning
+    # via open-clip-torch
     # via optuna
     # via pinecone-client
     # via pytorch-lightning
@@ -894,6 +944,8 @@ typer==0.12.5
 types-python-dateutil==2.9.0.20240821
     # via arrow
 types-requests==2.32.0.20240712
+typeshed-client==2.7.0
+    # via jsonargparse
 typing-extensions==4.12.2
     # via alembic
     # via asyncssh
@@ -909,6 +961,7 @@ typing-extensions==4.12.2
     # via sqlalchemy
     # via torch
     # via typer
+    # via typeshed-client
 tzdata==2024.1
     # via celery
     # via pandas
@@ -937,6 +990,7 @@ voluptuous==0.15.2
     # via dvc-studio-client
 wcwidth==0.2.13
     # via cmd2
+    # via ftfy
     # via prettytable
     # via prompt-toolkit
 webcolors==24.8.0

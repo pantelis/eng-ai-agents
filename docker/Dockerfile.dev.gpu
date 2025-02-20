@@ -76,7 +76,15 @@ RUN rye pin "$(cat .python-version)" && rye sync
 
 #---------------------------------------------------------------- 2nd STAGE ----------------------------------------------------------------
 FROM mcr.microsoft.com/vscode/devcontainers/python:dev-3.11-bookworm
+
+# Copy system dependencies from the builder stage
+COPY --from=builder /var/lib/dpkg /var/lib/dpkg
+COPY --from=builder /var/lib/apt /var/lib/apt
+COPY --from=builder /usr/lib /usr/lib
+COPY --from=builder /usr/include /usr/include
+COPY --from=builder /usr/local /usr/local
 COPY --from=builder /opt/rye /opt/rye
+
 
 ENV RYE_HOME="/opt/rye"
 ENV PATH="$RYE_HOME/shims:$PATH"
@@ -88,7 +96,8 @@ RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb && \
 
 ENV PYTHONUNBUFFERED True
 
+RUN chown -R vscode $RYE_HOME
+
 RUN rye config --set-bool behavior.global-python=true && \
     rye config --set-bool behavior.use-uv=true
 
-RUN chown -R vscode $RYE_HOME

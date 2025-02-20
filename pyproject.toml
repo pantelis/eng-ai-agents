@@ -65,6 +65,13 @@ dependencies = [
     "optuna<3.0.0",
     "ray>=2.35.0",
     "captum>=0.7.0",
+    "anomalib==1.2.0",
+    "imgaug>=0.4.0",
+    "numpy==1.26",
+    "kornia>=0.8.0",
+    "einops>=0.8.1",
+    "freia>=0.2",
+    "open-clip-torch>=2.30.0",
 ]
 readme = "README.md"
 requires-python = "== 3.11.9"
