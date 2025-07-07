@@ -1,103 +1,189 @@
-[tool.rye.workspace]
-members = ["cli", "artagents"]
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "eng-ai-agents"
-version = "0.1.0"
-description = "Course docker container"
-authors = [
-    { name = "Pantelis Monogioudis", email = "pantelis.monogioudis@aegean.ai" }
-]
-dependencies = [
-    "pre-commit>=3.7.1",
-    "jupyterlab-quarto>=0.3.3",
-    "jupyter>=1.0.0",
-    "torch>=2.3.1",
-    "torchmetrics>=1.4.0.post0",
-    "rich>=13.7.1",
-    "lightning>=2.3.3",
-    "hydra-core>=1.3.2",
-    "rootutils>=1.0.7",
-    "hydra-colorlog>=1.2.0",
-    "hydra-optuna-sweeper>=1.2.0",
-    "nats-py>=2.8.0",
-    "requests>=2.32.3",
-    "types-requests>=2.32.0.20240602",
-    "grpcio>=1.64.1",
-    "grpcio-tools<=1.64.1",
-    "dapr>=1.13.0",
-    "dapr-ext-grpc>=1.12.0",
-    "s3fs<=2024.6.0",
-    "datasets>=2.20.0",
-    "pillow>=10.3.0",
-    "dvc>=3.51.2",
-    "dvclive>=3.46.1",
-    "smart-open>=7.0.4",
-    "geopy>=2.4.1",
-    "typer>=0.12.5",
-    "torchvision>=0.18.1",
-    "torchinfo>=1.8.0",
-    "torchviz>=0.0.2",
-    "toml>=0.10.2",
-    "s3path>=0.5.7",
-    "tensorboard-logger>=0.1.0",
-    "fastparquet>=2024.5.0",
-    "numba>=0.60.0",
-    "numexpr>=2.10.1",
-    "bottleneck>=1.4.0",
-    "ipykernel>=6.29.5",
-    "tensorboard<2.17.0",
-    "s3torchconnector>=1.2.3",
-    "opencv-python-headless>=4.10.0.84",
-    "scikit-learn>=1.5.1",
-    "timm>=1.0.7",
-    "python-dotenv>=1.0.1",
-    "lightly>=1.5.10",
-    "pinecone-client>=5.0.1",
-    "umap-learn>=0.5.6",
-    "pycocotools>=2.0.8",
-    "torchsummary>=1.5.1",
-    "seaborn>=0.13.2",
-    "scikit-image>=0.24.0",
-    "hist[plot]>=2.7.3",
-    "tqdm>=4.66.5",
-    "clearml>=1.16.4",
-    "optuna<3.0.0",
-    "ray>=2.35.0",
-    "captum>=0.7.0",
-    "anomalib==1.2.0",
-    "imgaug>=0.4.0",
-    "numpy==1.26",
-    "kornia>=0.8.0",
-    "einops>=0.8.1",
-    "freia>=0.2",
-    "open-clip-torch>=2.30.0",
-]
+version = "1.0.0.dev0"
+description = "Learning Transformers library for PyTorch"
 readme = "README.md"
-requires-python = "== 3.11.9"
-
-[tool.rye]
-managed = true
-virtual = true
-dev-dependencies = [
-     "pytest>=8.2.1",
-    "pre-commit>=3.7.0",
-    "ruff>=0.4.7",
-    "pytest-check>=2.3.1",
-    "pytest-cov>=5.0.0",
+license = { text = "Apache-2.0" }
+authors = [
+    { name = "Members of Technical Staff @ Aegean AI", email = "pantelis.monogioudis@aegean.ai" }
+]
+keywords = ["deep learning", "transformer", "pytorch"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education", 
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.10"
+dependencies = [
+    "datasets>=3.6.0",
+    "pydantic>=2.0.0",
+    "transformers>=4.53.0",
 ]
 
-[tool.hatch.metadata]
-allow-direct-references = true
+[project.urls]
+Homepage = "https://github.com/pantelis/eng-ai-agents"
+Repository = "https://github.com/pantelis/eng-ai-agents"
+Documentation = "https://github.com/pantelis/eng-ai-agents"
+Issues = "https://github.com/pantelis/eng-ai-agents/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=5.0.0",
+    "pytest-xdist>=3.0.0",
+    "ruff>=0.8.0",
+    "mypy>=1.13.0",
+    "pre-commit>=4.0.0",
+]
+
+[project.scripts]
+eng-ai-agents-cli = "eng-ai-agents.commands.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/aiml_common_solutions"]
+packages = ["src/eng-ai-agents"]
 
-[[tool.rye.sources]]
-name = "pytorch"
-url = "https://download.pytorch.org/whl/gpu"
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/README.md",
+    "/pyproject.toml",
+]
 
+[tool.ruff]
+target-version = "py310"
+line-length = 119
+extend-exclude = [
+    "build",
+    "dist",
+    ".eggs",
+    "*.egg-info",
+]
+
+[tool.ruff.lint]
+# Enable rules: pycodestyle errors (E), pycodestyle warnings (W), pyflakes (F), 
+# isort (I), complexity (C), and other quality rules
+select = ["E", "W", "F", "I", "C", "N", "UP", "B", "A", "S", "T20", "SIM", "ARG", "PTH", "PL", "RUF"]
+ignore = [
+    "C901",  # too complex
+    "E501",  # line too long (handled by formatter)
+    "E741",  # ambiguous variable name
+    "F402",  # import redefined
+    "F823",  # local variable referenced before assignment
+    "PLR0913",  # too many arguments
+    "PLR0912",  # too many branches
+    "PLR0915",  # too many statements
+    "S101",  # use of assert
+    "S603",  # subprocess call without shell=True
+    "T201",  # print statements
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402", "F401", "F403", "F811"]
+"src/eng-ai-agents/file_utils.py" = ["F401"]
+"src/eng-ai-agents/utils/dummy_*.py" = ["F401"]
+"tests/*" = ["S101", "ARG", "PLR2004"]
+
+[tool.ruff.lint.isort]
+lines-after-imports = 2
+known-first-party = ["eng-ai-agents"]
+force-single-line = false
+split-on-trailing-comma = true
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+show_error_codes = true
+
+[[tool.mypy.overrides]]
+module = [
+    "diagrams.*",
+    "optuna.*",
+    "filterpy.*",
+    "transformers.*",
+    "datasets.*",
+    "accelerate.*",
+    "gi.*",
+]
+ignore_missing_imports = true
 
 [tool.pytest.ini_options]
-addopts = "--cov"
-filterwarnings = ["ignore::pytest.PytestCacheWarning"]
+minversion = "8.0"
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "--cov=eng-ai-agents",
+    "--cov-report=term-missing",
+    "--cov-report=html",
+    "--cov-report=xml",
+]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+python_paths = ["src"]
+doctest_optionflags = ["NUMBER", "NORMALIZE_WHITESPACE", "ELLIPSIS"]
+doctest_glob = "**/*.md"
+markers = [
+    "flash_attn_test: marks tests related to flash attention (deselect with '-m \"not flash_attn_test\"')",
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+]
+filterwarnings = [
+    "error",
+    "ignore::UserWarning",
+    "ignore::DeprecationWarning",
+]
+
+[tool.coverage.run]
+source = ["src/eng-ai-agents"]
+branch = true
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]
+show_missing = true
+precision = 2

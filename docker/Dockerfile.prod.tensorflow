@@ -1,0 +1,65 @@
+FROM nvcr.io/nvidia/tensorflow:23.07-tf2-py3
+
+# specify vscode as the user name in the docker
+# This user name should match that of the VS Code .devcontainer to allow seamless development inside the docker container via vscode 
+ARG USERNAME=vscode
+ARG USER_UID=1001
+ARG USER_GID=$USER_UID
+
+# Create a non-root user
+RUN groupadd --gid $USER_GID $USERNAME \
+  && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
+  # [Optional] Add sudo support for the non-root user - this is ok for development dockers only
+  && apt-get update \
+  && apt-get install -y sudo \
+  && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME\
+  && chmod 0440 /etc/sudoers.d/$USERNAME \
+  # Cleanup
+  && rm -rf /var/lib/apt/lists/* \
+  # Set up git completion.
+  && echo "source /usr/share/bash-completion/completions/git" >> /home/$USERNAME/.bashrc 
+
+# Packages installation (eg git-lfs)
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends curl git-lfs ffmpeg libsm6 libxext6 graphviz libsndfile1-dev libgraphviz-dev xdg-utils swig gringo gobject-introspection libcairo2-dev libgirepository1.0-dev pkg-config python3-dev python3-gi
+
+COPY docker/docker-font.conf /etc/fonts/local.conf
+#ENV FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+RUN echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends fontconfig ttf-mscorefonts-installer
+
+
+USER vscode
+
+# ACT for executing locally Github workflows
+RUN curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh |  sudo bash
+
+# NVM for managing npm versions
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh |  sudo bash
+
+# Git LFS repo configuration
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh |  sudo  bash
+
+# inscape installation for managing svg files
+RUN sudo apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && sudo apt-get -y install --no-install-recommends inkscape
+
+
+SHELL ["/bin/bash", "-c"]
+ENV PATH="/home/vscode/.local/bin:$PATH"
+ENV GI_TYPELIB_PATH="/usr/lib/x86_64-linux-gnu/girepository-1.0"
+
+# Install dependencies:
+# COPY . . 
+# RUN pip install -r requirements.txt
+
+RUN pip install --upgrade pip
+RUN pip install pipenv
+COPY Pipfile.lock Pipfile /tmp/
+WORKDIR /tmp
+RUN pipenv install --system --deploy --ignore-pipfile
+
+WORKDIR /workspaces/artificial_intelligence
+
+COPY . . 

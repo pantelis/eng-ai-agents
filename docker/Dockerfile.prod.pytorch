@@ -1,0 +1,164 @@
+FROM nvcr.io/nvidia/pytorch:23.10-py3 as builder
+
+# store the existing installed packages in the NVIDIA docker container 
+# as constrains for the subsequent pip-tools compilation
+RUN pip freeze > /tmp/constraints.txt
+
+# Packages installation (eg git-lfs)
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+  && apt-get -y install --no-install-recommends curl git-lfs ffmpeg libsm6 libxext6 graphviz graphviz-dev libsndfile1-dev libgraphviz-dev xdg-utils swig gringo gobject-introspection libcairo2-dev libgirepository1.0-dev pkg-config python3-dev python3-gi libgl1 \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# ------------------------- GIS --------------------------------------------------------
+RUN apt-get update && \
+  DEBIAN_FRONTEND=noninteractive apt-get install -y libgeos-dev libproj-dev gdal-bin libgdal-dev tzdata \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV CPLUS_INCLUDE_PATH=/usr/include/gdal
+ENV C_INCLUDE_PATH=/usr/include/gdal
+RUN gdal-config --version
+# --------------------------------------------------------------------------------------
+
+# Quarto
+RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb
+RUN dpkg -i quarto-linux-amd64.deb
+
+
+COPY docker/docker-font.conf /etc/fonts/local.conf
+#ENV FREETYPE_PROPERTIES="truetype:interpreter-version=35"
+RUN echo "ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true" | debconf-set-selections
+RUN apt-get update \
+	&& apt-get install -y --no-install-recommends fontconfig ttf-mscorefonts-installer
+
+
+# ACT for executing locally Github workflows
+RUN curl -s https://raw.githubusercontent.com/nektos/act/master/install.sh |  bash
+
+# NVM for managing npm versions
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.3/install.sh |  bash
+
+# Git LFS repo configuration
+RUN curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh |  bash
+
+# inscape installation for managing svg files
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends inkscape
+
+
+SHELL ["/bin/bash", "-c"]
+ENV PATH="/home/vscode/.local/bin:$PATH"
+ENV GI_TYPELIB_PATH="/usr/lib/x86_64-linux-gnu/girepository-1.0"
+
+
+# # Install python packages other than development dependencies
+# RUN pip install --upgrade pip
+# RUN pip install pre-commit
+# RUN pip install pip-tools
+# RUN pip install invoke
+# WORKDIR /tmp
+# COPY requirements/requirements.in .
+# COPY requirements/docs.requirements.in .
+# COPY requirements/tasks.py .
+# # freeze the nvidia requirements.txt into two constraint files : local and other.  
+# RUN invoke split-dependency-constraints
+# RUN invoke compile-dependencies
+
+# RUN pip install --index-url https://pypi.nvidia.com/simple --extra-index-url https://pypi.org/simple --trusted-host pypi.nvidia.com --constraint other_constraints.txt  -r requirements.txt
+
+
+# RUN apt-get update \
+# 	&& apt-get install -y --no-install-recommends \
+# 		software-properties-common \
+#                 dirmngr \
+#                 ed \
+#                 gpg-agent \
+# 		less \
+# 		locales \
+# 		vim-tiny \
+# 		wget \
+# 		ca-certificates \
+#         && wget -q -O - https://cloud.r-project.org/bin/linux/ubuntu/marutter_pubkey.asc \
+#                 | tee -a /etc/apt/trusted.gpg.d/cran_ubuntu_key.asc  \
+#         && add-apt-repository --yes "ppa:marutter/rrutter4.0" \
+#         && add-apt-repository --yes "ppa:c2d4u.team/c2d4u4.0+" \
+#         && add-apt-repository --yes "ppa:edd/misc"
+
+
+# ## Configure default locale, see https://github.com/rocker-org/rocker/issues/19
+# RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen \
+# 	&& locale-gen en_US.utf8 \
+# 	&& /usr/sbin/update-locale LANG=en_US.UTF-8
+
+# ENV LC_ALL en_US.UTF-8
+# ENV LANG en_US.UTF-8
+
+# ## This was not needed before but we need it now
+# ENV DEBIAN_FRONTEND noninteractive
+
+# ## Otherwise timedatectl will get called which leads to 'no systemd' inside Docker
+# ENV TZ UTC
+
+
+FROM builder as runtime
+
+# COPY --from=builder /tmp/requirements.txt /tmp/requirements.txt
+# COPY --from=builder /tmp/other_constraints.txt /tmp/other_constraints.txt
+
+# specify vscode as the user name in the docker
+# This user name should match that of the VS Code .devcontainer to allow seamless development inside the docker container via vscode 
+ARG USERNAME=vscode
+ARG USER_UID=1001
+ARG USER_GID=$USER_UID
+
+# Create a non-root user
+RUN groupadd --gid $USER_GID $USERNAME \
+  && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
+  # [Optional] Add sudo support for the non-root user - this is ok for development dockers only
+  && apt-get update \
+  && apt-get install -y sudo \
+  && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME\
+  && chmod 0440 /etc/sudoers.d/$USERNAME \
+  # Cleanup
+  && rm -rf /var/lib/apt/lists/* \
+  # Set up git completion.
+  && echo "source /usr/share/bash-completion/completions/git" >> /home/$USERNAME/.bashrc 
+
+
+# Copy system dependencies from the builder stage
+COPY --from=builder /var/lib/dpkg /var/lib/dpkg
+COPY --from=builder /var/lib/apt /var/lib/apt
+COPY --from=builder /usr/lib /usr/lib
+COPY --from=builder /usr/include /usr/include
+COPY --from=builder /usr/local /usr/local
+
+# # # Install python packages other than development dependencies
+# RUN pip install --upgrade pip
+# RUN pip install pre-commit
+# RUN pip install pip-tools
+# RUN pip install invoke
+# WORKDIR /tmp
+# COPY requirements/dev.requirements.in .
+# COPY requirements/tasks.py .
+# # compile-dependencies to compile all the files without updating the existing 
+# # dependencies. Do not use the pip-sync option in NVIDIA docker containers
+# RUN invoke compile-dev-dependencies
+# RUN pip install --index-url https://pypi.nvidia.com/simple --extra-index-url https://pypi.org/simple --trusted-host pypi.nvidia.com -r dev.requirements.txt
+
+RUN pip install uv
+
+WORKDIR /workspaces/artificial_intelligence
+
+COPY requirements.lock ./
+RUN uv pip install --no-cache --system -r requirements.lock
+
+COPY . . 
+
+#RUN pwd
+# COPY /tmp/requirements.txt requirements/requirements.txt
+# COPY /tmp/dev.requirements.txt requirements/dev.requirements.txt
+# COPY /tmp/constraints.txt requirements/constraints.txt
+
+USER vscode
+

@@ -178,4 +178,5 @@ runs/
 
 *.tar.xz
 datasets/*
-datasets/MVTec/
+
+.uv-cache
