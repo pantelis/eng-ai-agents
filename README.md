@@ -20,86 +20,16 @@ This repository includes a VS Code development container configuration that can 
 2. **Install Docker** and ensure it's running
 3. **For GPU support**: Install NVIDIA Container Toolkit (for Linux) or Docker Desktop with GPU support
 
-### Environment Configuration
-
-The repository includes a `.env` file that controls the container configuration. You can modify this file to customize your setup:
-
-```env
-# UV Extra for PyTorch (cpu or cu128 for CUDA)
-UV_EXTRA=cpu
-
-# Workspace configuration
-WORKSPACE_DIR=/workspaces/eng-ai-agents
-WORKSPACE_USER=vscode
-
-# Container configuration
-CONTAINER_NAME=eng-ai-agents-dev
-
-# Port mappings
-QUARTO_PORT=4199
-JUPYTER_PORT=8890
-DEV_PORT=8088
-```
-
-### Option 1: CPU-Only Setup (Default)
-
-The default configuration uses CPU-only PyTorch:
-
-1. Ensure the `.env` file has `UV_EXTRA=cpu` (this is the default)
-2. Open the repository in VS Code
-3. When prompted, click "Reopen in Container" or use the command palette (`Ctrl+Shift+P`) and select "Dev Containers: Reopen in Container"
-
-### Option 2: GPU Setup (CUDA Support)
-
-To enable GPU support with CUDA:
-
-1. **Edit the `.env` file** and change `UV_EXTRA=cpu` to `UV_EXTRA=cu128`
-2. Open the repository in VS Code
-3. When prompted, click "Reopen in Container" or use the command palette and select "Dev Containers: Reopen in Container"
-
-### Manual Setup Commands
-
-The project uses a comprehensive Makefile for all environment management tasks:
+After the container is launched you can install femtotransformer, run the following command:
 
 ```bash
-# View all available commands
-make help
-
-# Setup virtual environment based on .env file settings
-make setup-venv
-
-# Or explicitly choose CPU/GPU setup
-make setup-venv-cpu    # For CPU-only setup
-make setup-venv-gpu    # For GPU setup (CUDA 12.8)
-
-# Update dependencies after changing UV_EXTRA in .env
-make sync-cpu          # Sync CPU dependencies
-make sync-gpu          # Sync GPU dependencies
-
-# Docker container management
-make docker-build      # Build container
-make docker-up         # Start container
-make docker-down       # Stop container
-make docker-rebuild    # Rebuild and restart container
-
-# Development tools
-make jupyter           # Start Jupyter Lab
-make pre-commit        # Run pre-commit hooks
+make start
 ```
 
-### Verification
-
-After the container starts, you can verify your setup:
+Dont forget to source the environment after the make command:
 
 ```bash
-# Check Python environment
-python --version
-
-# Check UV_EXTRA setting
-echo $UV_EXTRA
-
-# Check if GPU is available (for GPU setup)
-python -c "import torch; print(f'CUDA available: {torch.cuda.is_available()}')"
+source .venv/bin/activate
 ```
 
 ### Port Customization
