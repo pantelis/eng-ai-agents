@@ -5,7 +5,7 @@ FROM mcr.microsoft.com/vscode/devcontainers/python:dev-3.11-bookworm
 ARG UV_EXTRA=cpu
 
 # Build arguments for workspace configuration
-ARG WORKSPACE_DIR=/workspaces/llm-from-scratch
+ARG WORKSPACE_DIR=/workspaces/eng-ai-agents
 ARG WORKSPACE_USER=vscode
 
 # Set environment variables for Python and UV
@@ -71,6 +71,13 @@ RUN apt-get clean && \
         && rm -rf /var/lib/apt/lists/* \
         && apt-get clean
 
+RUN pip3 install --no-cache-dir \
+        pip \
+        setuptools \
+        wheel \
+        cython
+
+RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
 # Install UV with caching
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/

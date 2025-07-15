@@ -39,6 +39,19 @@ RUN pip list --format=freeze > /etc/pip/constraint.txt
 RUN sed -i 's/^fsspec==2025\.5\.1$/fsspec==2025.3.0/' /etc/pip/constraint.txt
 
 
+# Install Node.js (required for some Quarto extensions)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
+
+# Quarto
+RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb && \
+    dpkg -i quarto-linux-amd64.deb
+#RUN quarto install tinytex
+
+RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc | gpg --dearmor > /usr/share/keyrings/1password-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main" > /etc/apt/sources.list.d/1password.list \
+    && apt update \
+    && apt install -y 1password-cli
 
 USER vscode
 

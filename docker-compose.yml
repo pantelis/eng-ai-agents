@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile.dev.pytorch
       args:
-        UV_EXTRA: ${UV_EXTRA:-cpu}  # Change to cu128 for CUDA support
+        #UV_EXTRA: ${UV_EXTRA:-cpu}  # Change to cu128 for CUDA support
         WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
         WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
     container_name: ${CONTAINER_NAME:-eng-ai-agents-dev}
@@ -17,7 +17,7 @@ services:
     working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
     environment:
       - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
-      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}:$PYTHONPATH
       - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
       - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
       - UV_EXTRA=${UV_EXTRA:-cpu}

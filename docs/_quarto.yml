@@ -2,7 +2,7 @@ project:
   type: book
 
 book:
-  title: "docs"
+  title: "Courses on AI Agents"
   author: "Norah Jones"
   date: "9/4/2024"
   chapters:
@@ -15,7 +15,7 @@ bibliography: references.bib
 
 format:
   html:
-    theme: cosmo
+    theme: darkly
   pdf:
     documentclass: scrreprt
 
