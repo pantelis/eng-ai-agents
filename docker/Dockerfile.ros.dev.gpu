@@ -1,9 +1,10 @@
-## DO NOT USE THIS DOCKERFILE FOR YOUR ROBOTICS PROJECT - IT IS DRAFT AND NOT TESTED YET
-
 ARG ROS_DISTRO=${ROS_DISTRO:-jazzy}
-ARG FROM_IMAGE=ros:${ROS_DISTRO}-desktop
+ARG FROM_IMAGE=osrf/ros:${ROS_DISTRO}-desktop-full
+ARG UV_EXTRA=gpu
+ARG WORKSPACE_DIR=/workspaces/eng-ai-agents
+ARG WORKSPACE_USER=vscode
 
-FROM ${FROM_IMAGE} as builder
+FROM ${FROM_IMAGE} AS builder
 
 ENV NVIDIA_VISIBLE_DEVICES \
     ${NVIDIA_VISIBLE_DEVICES:-all}
@@ -15,17 +16,29 @@ ENV XDG_RUNTIME_DIR=/tmp
 ENV GZ_VERSION=garden
 
 RUN apt-get update && apt-get install -y \
+    build-essential \
     cmake \
     curl \
     lsb-release \
     gnupg \
+    git \
+    wget \
+    unzip \
+    zip \
+    ffmpeg \
     # gazebo \
     libglu1-mesa-dev \
     nano \
     python3-pip \
     python3-venv \
+    python3-dev \
+    python3-numpy \
+    python3-setuptools \
+    python3-pyqt5 \
+    python3-opencv \
     python3-pydantic \
     python3-catkin-pkg \
+    python3-argcomplete \
     # ros-jazzy-gazebo-ros \
     # ros-jazzy-gazebo-ros-pkgs \
     ros-jazzy-joint-state-publisher \
@@ -44,11 +57,63 @@ RUN apt-get update && apt-get install -y \
     ros-jazzy-usb-cam \
     ros-jazzy-xacro \
     ros-jazzy-tf-transformations \
+    ros-jazzy-foxglove-bridge \
     ruby-dev \
-    rviz \
+    # rviz \
     tmux \
-    wget \
-    xorg-dev
+    xorg-dev \
+    # Additional development libraries \
+    libboost-python-dev \
+    libboost-thread-dev \
+    # libatlas-base-dev \
+    libavcodec-dev \
+    libavformat-dev \
+    libavutil-dev \
+    libcanberra-gtk3-module \
+    libeigen3-dev \
+    libglew-dev \
+    libgl1 \
+    libglx-mesa0 \
+    libglib2.0-0 \
+    libgtk2.0-dev \
+    libgtk-3-dev \
+    libjpeg-dev \
+    liblapack-dev \
+    liblapacke-dev \
+    libopenblas-dev \
+    libopencv-dev \
+    libpng-dev \
+    libpostproc-dev \
+    libpq-dev \
+    libsm6 \
+    libswscale-dev \
+    libtbb-dev \
+    libtesseract-dev \
+    libtiff-dev \
+    libtiff5-dev \
+    libv4l-dev \
+    libx11-dev \
+    libxext6 \
+    libxine2-dev \
+    libxrender-dev \
+    libxvidcore-dev \
+    libx264-dev \
+    libgtkglext1 \
+    libgtkglext1-dev \
+    libvtk9-dev \
+    libdc1394-dev \
+    libgstreamer-plugins-base1.0-dev \
+    libgstreamer1.0-dev \
+    libopenexr-dev \
+    openexr \
+    pkg-config \
+    qv4l2 \
+    v4l-utils \
+    zlib1g-dev \
+    locales \
+    && locale-gen en_US.UTF-8 \
+    && LC_ALL=en_US.UTF-8 \
+    && rm -rf /var/lib/apt/lists/*
 
 # libraries for opengl in the container
 ENV DEBIAN_FRONTEND=noninteractive
@@ -89,23 +154,22 @@ RUN gem install tmuxinator && \
     wget https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.bash -O /etc/bash_completion.d/tmuxinator.bash
 
 # specify vscode as the user name in the docker
-# This user name should match that of the VS Code .devcontainer to allow seamless development inside the docker container via vscode
-ARG USERNAME=vscode
+# USERNAME is already defined above using WORKSPACE_USER
 ARG USER_UID=1001
-ARG USER_GID=$USER_UID
+ARG USER_GID=1001
 
 # Create a non-root user
-RUN groupadd --gid $USER_GID $USERNAME \
-  && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
+RUN groupadd --gid $USER_GID vscode \
+  && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m vscode \
   # [Optional] Add sudo support for the non-root user - this is ok for development dockers only
   && apt-get update \
   && apt-get install -y sudo \
-  && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME\
-  && chmod 0440 /etc/sudoers.d/$USERNAME \
+  && echo vscode ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/vscode \
+  && chmod 0440 /etc/sudoers.d/vscode \
   # Cleanup
   && rm -rf /var/lib/apt/lists/* \
   # Set up git completion.
-  && echo "source /usr/share/bash-completion/completions/git" >> /home/$USERNAME/.bashrc
+  && echo "source /usr/share/bash-completion/completions/git" >> /home/vscode/.bashrc
 
 USER vscode
 
@@ -122,8 +186,8 @@ RUN echo 'export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp' >> ~/.bashrc
 
 # RUN echo "autoload -U bashcompinit" >> ~/.bashrc
 # RUN echo "bashcompinit" >> ~/.bashrc
-RUN echo 'eval "$(register-python-argcomplete3 ros2)"' >> ~/.bashrc
-RUN echo 'eval "$(register-python-argcomplete3 colcon)"' >> ~/.bashrc
+RUN echo 'eval "$(register-python-argcomplete ros2)"' >> ~/.bashrc
+RUN echo 'eval "$(register-python-argcomplete colcon)"' >> ~/.bashrc
 
 # Setup colcon
 RUN echo "source /usr/share/colcon_cd/function/colcon_cd.sh" >> ~/.bashrc
@@ -137,106 +201,43 @@ RUN \
 
 RUN ln -s ~/.Xauthority:ro ~/.Xauthority
 
-# Set up auto-source of workspace for the user
-ARG WORKSPACE
-WORKDIR /workspaces
-RUN echo "if [ -f ${WORKSPACE}/install/setup.bash ]; then source ${WORKSPACE}/install/setup.bash; fi" >> ~/.bashrc
+# Install uv for modern Python package management (as root)
+USER root
+COPY --from=ghcr.io/astral-sh/uv:latest --chown=${USERNAME}: /uv /uvx /bin/
 
-COPY . .
-RUN pip3 install -r requirements.txt
+# Copy the constraint file - we respect the existing package versions
+RUN mkdir -p /etc/pip
+RUN pip list --format=freeze > /etc/pip/constraint.txt
+# This is a workaround to avoid issues with fsspec version 2025.5.1 as it conflicts with HF datasets 3.6.0
+RUN sed -i 's/^fsspec==2025\.5\.1$/fsspec==2025.3.0/' /etc/pip/constraint.txt
 
-# # RUN SNIPPET="export PROMPT_COMMAND='history -a' && export HISTFILE=/commandhistory/.bash_history" \
-# #     && mkdir /commandhistory \
-# #     && touch /commandhistory/.bash_history \
-# #     && chown -R $USERNAME /commandhistory \
-# #     && echo $SNIPPET >> "/home/$USERNAME/.bashrc"
-
-# CMD [ "tmuxinator", "start", "-p", "~/.session.yml" ]
-
-WORKDIR /opt
-
-ENV RYE_HOME="/opt/rye"
-ENV PATH="$RYE_HOME/shims:$PATH"
-
-# hadolint ignore=DL3008
-RUN \
-    --mount=type=cache,target=/var/lib/apt/lists \
-    --mount=type=cache,target=/var/cache/apt/archives \
-    apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ca-certificates \
-        curl  \
-        unzip && \
-    rm -rf /var/lib/apt/lists/*
-
-# hadolint ignore=DL3008
-RUN apt-get clean && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends --fix-missing \
-        build-essential binutils \
-       cmake cmake-qt-gui curl \
-        dbus-x11 \
-        ffmpeg \
-        gdb gcc g++ gfortran git \
-        tar \
-        lsb-release \
-        procps \
-        manpages-dev \
-        unzip \
-        zip \
-        wget \
-        xauth \
-        swig \
-        python3-pip python3-dev python3-numpy python3-distutils \
-        python3-setuptools python3-pyqt5 python3-opencv \
-        libboost-python-dev libboost-thread-dev libatlas-base-dev libavcodec-dev \
-        libavformat-dev libavutil-dev libcanberra-gtk3-module libeigen3-dev \
-        libglew-dev libgl1-mesa-dev libgl1 libgl1-mesa-glx libglib2.0-0 libgtk2.0-dev \
-        libgtk-3-dev libjpeg-dev liblapack-dev \
-        liblapacke-dev libopenblas-dev libopencv-dev libpng-dev libpostproc-dev \
-        libpq-dev libsm6 libswscale-dev libtbb-dev libtesseract-dev \
-        libtiff-dev libtiff5-dev libv4l-dev libx11-dev libxext6 libxine2-dev \
-        libxrender-dev libxvidcore-dev libx264-dev libgtkglext1 libgtkglext1-dev \
-        libvtk9-dev libdc1394-dev libgstreamer-plugins-base1.0-dev \
-        libgstreamer1.0-dev libopenexr-dev \
-        openexr \
-        pkg-config \
-        qv4l2 \
-        v4l-utils \
-        zlib1g-dev \
-        locales \
-        && locale-gen en_US.UTF-8 \
-        && LC_ALL=en_US.UTF-8 \
-        && rm -rf /var/lib/apt/lists/* \
-        && apt-get clean
-
-SHELL [ "/bin/bash", "-o", "pipefail", "-c" ]
-
-# Install Rye with caching
-RUN \
-    --mount=type=cache,target=/opt/rye/cache \
-    curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash && \
-    rye config --set-bool behavior.global-python=true && \
-    rye config --set-bool behavior.use-uv=true
-
-COPY ./.python-version ./pyproject.toml ./requirements* ./
-RUN rye pin "$(cat .python-version)" && rye sync
-
-#---------------------------------------------------------------- 2nd STAGE ----------------------------------------------------------------
-FROM mcr.microsoft.com/vscode/devcontainers/python:dev-3.11-bookworm
-COPY --from=builder /opt/rye /opt/rye
-
-ENV RYE_HOME="/opt/rye"
-ENV PATH="$RYE_HOME/shims:$PATH"
+# Install Node.js (required for some Quarto extensions)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs
 
 # Quarto
 RUN curl -LO https://quarto.org/download/latest/quarto-linux-amd64.deb && \
     dpkg -i quarto-linux-amd64.deb
 #RUN quarto install tinytex
 
-ENV PYTHONUNBUFFERED True
+# Install 1Password CLI
+RUN curl -sS https://downloads.1password.com/linux/keys/1password.asc | gpg --dearmor > /usr/share/keyrings/1password-archive-keyring.gpg \
+    && echo "deb [signed-by=/usr/share/keyrings/1password-archive-keyring.gpg] https://downloads.1password.com/linux/debian/amd64 stable main" > /etc/apt/sources.list.d/1password.list \
+    && apt update \
+    && apt install -y 1password-cli
 
-RUN rye config --set-bool behavior.global-python=true && \
-    rye config --set-bool behavior.use-uv=true
+# Switch back to user
+USER vscode
 
-RUN chown -R vscode $RYE_HOME
+# Disable GPG signing for git commits
+RUN git config --global commit.gpgsign false
+
+# Set up auto-source of workspace for the user
+WORKDIR ${WORKSPACE_DIR}
+RUN echo "if [ -f ${WORKSPACE_DIR}/install/setup.bash ]; then source ${WORKSPACE_DIR}/install/setup.bash; fi" >> ~/.bashrc
+
+# Copy project files
+COPY pyproject.toml uv.lock ./
+COPY Makefile ./
+
+ENV PYTHONUNBUFFERED=True

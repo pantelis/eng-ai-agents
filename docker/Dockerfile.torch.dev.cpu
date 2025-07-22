@@ -46,7 +46,7 @@ RUN apt-get clean && \
         swig \
         coreutils \
         util-linux \
-        python3-pip python3-dev python3-numpy python3-distutils \
+        python3-pip python3-dev python3-numpy python3-distutils python3-venv \
         python3-setuptools python3-pyqt5 python3-opencv \
         libboost-python-dev libboost-thread-dev libatlas-base-dev libavcodec-dev \
         libavformat-dev libavutil-dev libcanberra-gtk3-module libeigen3-dev \

@@ -1,35 +1,94 @@
 services:
-  dev:
+  torch.dev.gpu:
     build:
       context: .
-      dockerfile: docker/Dockerfile.dev.pytorch
+      dockerfile: docker/Dockerfile.torch.dev.gpu
       args:
-        #UV_EXTRA: ${UV_EXTRA:-cpu}  # Change to cu128 for CUDA support
+        UV_EXTRA: ${UV_EXTRA:-cpu}
         WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
         WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
-    container_name: ${CONTAINER_NAME:-eng-ai-agents-dev}
+    container_name: eng-ai-agents-dev
     ports:
-      - "${QUARTO_PORT:-4100}:4100"  # Quarto preview port
-      - "${JUPYTER_PORT:-8888}:8888"  # Jupyter notebook port
+      - "${DEV_QUARTO_PORT:-4100}:4100"  # Quarto preview port
+      - "${DEV_JUPYTER_PORT:-8888}:8888"  # Jupyter notebook port
       - "${DEV_PORT:-8000}:8000"  # Additional development port
     volumes:
       - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
     working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
     environment:
       - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
-      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}:$PYTHONPATH
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
       - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
       - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
       - UV_EXTRA=${UV_EXTRA:-cpu}
     env_file:
       - path: .env
         required: true
+    command:  bash -c "tail -f /dev/null"
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - ai-agents-network
+  ros.dev.gpu: 
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ros.dev.gpu
+      args:
+        UV_EXTRA: ${UV_EXTRA:-cpu}
+        WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+        WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
+        ROS_DISTRO: ${ROS_DISTRO:-jazzy}
+    container_name: eng-ai-agents-ros
+    ports:
+      - "${ROS_PORT:-11311}:11311"  # ROS master port
+      - "${ROS_QUARTO_PORT:-4180}:4100"  # Quarto preview port
+      - "${ROS_JUPYTER_PORT:-8880}:8888"  # Jupyter notebook port
+      - "${ROS_DEV_PORT:-8078}:8000"  # Additional development port
+      - "${FOXGLOVE_PORT:-8765}:8765"  # Additional development port
+    volumes:
+      - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    environment:
+      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
+      - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
+      - UV_EXTRA=${UV_EXTRA:-cpu}
+      - ROS_DISTRO=${ROS_DISTRO:-jazzy}
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    env_file:
+      - path: .env
+        required: true
     command: bash -c "tail -f /dev/null"
     stdin_open: true
     tty: true
+    privileged: true
+    ipc: host
+    shm_size: 8g
+    ulimits:
+      stack: 67108864
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
     networks:
       - ai-agents-network
-
   # ##########
   # # Vector Database
   # ##########

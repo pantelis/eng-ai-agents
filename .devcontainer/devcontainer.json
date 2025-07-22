@@ -1,43 +1,27 @@
 // For format details, see https://aka.ms/devcontainer.json.
 {
-	"name": "course-devcontainer",
-	"build": {
-		"context": "..",
-		"dockerfile": "../docker/Dockerfile.torch.gpu"
-	},
-	"runArgs": [
-		"--rm",
-		"--privileged",
-		"--gpus",
-		"all",
-		"--shm-size=8g",
-		"--ipc=host",
-		"--ulimit=stack=67108864",
-		"--network=host",
-		"--security-opt=seccomp:unconfined",
-		"--security-opt=apparmor:unconfined",
-		"--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+	"name": "Engineering AI Agents - Course Container",
+	"dockerComposeFile": [
+		"../docker-compose.yml"
 	],
+	"service": "ros.dev.gpu", //"torch.dev.gpu",
+	"workspaceFolder": "/workspaces/eng-ai-agents",
+	"remoteUser": "vscode",
+	"postCreateCommand": "bash -c 'if [ -d \".venv\" ]; then source .venv/bin/activate && echo \"Dev container setup complete! Python available at: $(which python)\" && echo \"UV version: $(uv --version)\"; else echo \"Virtual environment not found. Please run: make start and source your environment\"; fi'",
 	"containerEnv": {
 		"DISPLAY": "${localEnv:DISPLAY}",
 		"PYTHONUNBUFFERED": "True",
 		"UV_LINK_MODE": "copy",
 		"UV_PROJECT_ENVIRONMENT": "${workspaceFolder}/.venv"
 	},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	//"forwardPorts": [8000],
-	// Use 'postCreateCommand' to run commands after the container is created.
-	//"postCreateCommand": "",
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	"remoteUser": "vscode",
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {
 			"installZsh": false,
 			"installOhMyZsh": false,
 			"upgradePackages": false,
 			"username": "vscode",
-			"uid": "1000",
-			"gid": "1000"
+			"uid": "1001",
+			"gid": "1001"
 		},
 		"ghcr.io/devcontainers/features/git:1": {
 			"version": "latest",
@@ -47,29 +31,46 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
+				"ms-python.python",
 				"ms-python.vscode-pylance",
-				"ExecutableBookProject.myst-highlight",
-				"GitHub.copilot",
-				"njpwerner.autodocstring",
+				"ms-python.debugpy",
 				"ms-toolsai.jupyter",
 				"ms-toolsai.vscode-jupyter-powertoys",
+				"ExecutableBookProject.myst-highlight",
+				"GitHub.copilot",
+				"GitHub.copilot-chat",
+				"njpwerner.autodocstring",
 				"eamodio.gitlens",
 				"github.vscode-github-actions",
 				"jan-dolejsi.pddl",
 				"mechatroner.rainbow-csv",
 				"atlassian.atlascode",
-				"tamasfe.even-better-toml",
-				"1password.op-ssh-agent"
+				"marimo-team.vscode-marimo",
+				"quarto.quarto",
+				"streetsidesoftware.code-spell-checker",
+				"RooVeterinaryInc.roo-cline",
+				"1Password.op-vscode",
+				"charliermarsh.ruff",
+				"tamasfe.even-better-toml"
 			],
 			"settings": {
+				"python.defaultInterpreterPath": "/workspaces/eng-ai-agents/.venv/bin/python",
+				"python.terminal.activateEnvironment": true,
+				"python.analysis.extraPaths": [
+					"/workspaces/eng-ai-agents"
+				],
 				"terminal.integrated.profiles.linux": {
 					"bash": {
-						"path": "bash"
+						"path": "/bin/bash"
 					}
 				},
-				"terminal.integrated.defaultProfile.linux": "bash"
+				"terminal.integrated.defaultProfile.linux": "bash",
+				"dev.containers.copyGitConfig": true
 			}
 		}
 	},
-	"postStartCommand": "echo 'source /usr/share/bash-completion/completions/make' >> ~/.bashrc && eval \"$(ssh-agent -s)\" && ssh-add -l || true"
+	"remoteEnv": {
+		"PATH": "/opt/conda/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+	}
+	// "postStartCommand": "echo 'source /usr/share/bash-completion/completions/make' >> ~/.bashrc && eval \"$(ssh-agent -s)\" && ssh-add -l || true"
 }
