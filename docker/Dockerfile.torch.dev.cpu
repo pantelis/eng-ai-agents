@@ -60,6 +60,7 @@ RUN apt-get clean && \
         libgstreamer1.0-dev libopenexr-dev \
         openexr \
         pkg-config \
+        openssh-client \
         qv4l2 \
         v4l-utils \
         zlib1g-dev \

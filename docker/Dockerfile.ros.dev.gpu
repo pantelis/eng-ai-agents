@@ -26,6 +26,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     zip \
     ffmpeg \
+    bash-completion \
     # gazebo \
     libglu1-mesa-dev \
     nano \
@@ -111,6 +112,7 @@ RUN apt-get update && apt-get install -y \
     v4l-utils \
     zlib1g-dev \
     locales \
+    jstest-gtk \
     && locale-gen en_US.UTF-8 \
     && LC_ALL=en_US.UTF-8 \
     && rm -rf /var/lib/apt/lists/*
@@ -170,6 +172,9 @@ RUN groupadd --gid $USER_GID vscode \
   && rm -rf /var/lib/apt/lists/* \
   # Set up git completion.
   && echo "source /usr/share/bash-completion/completions/git" >> /home/vscode/.bashrc
+
+# Add the vscode user to the input group in the container so that it has access to input devices such as joysticks
+RUN groupadd -g 107 input && usermod -aG input vscode
 
 USER vscode
 
@@ -241,3 +246,7 @@ COPY pyproject.toml uv.lock ./
 COPY Makefile ./
 
 ENV PYTHONUNBUFFERED=True
+
+RUN echo 'if [ -f /workspaces/eng-ai-agents/ros_ws/install/setup.bash ]; then \
+    source /workspaces/eng-ai-agents/ros_ws/install/setup.bash; \
+fi' >> /home/vscode/.bashrc

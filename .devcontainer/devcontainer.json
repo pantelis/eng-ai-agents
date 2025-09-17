@@ -1,10 +1,10 @@
 // For format details, see https://aka.ms/devcontainer.json.
 {
-	"name": "Engineering AI Agents - Course Container",
+	"name": "eng-ai-agents",
 	"dockerComposeFile": [
 		"../docker-compose.yml"
 	],
-	"service": "ros.dev.gpu", //"torch.dev.gpu",
+	"service": "torch.dev.gpu",
 	"workspaceFolder": "/workspaces/eng-ai-agents",
 	"remoteUser": "vscode",
 	"postCreateCommand": "bash -c 'if [ -d \".venv\" ]; then source .venv/bin/activate && echo \"Dev container setup complete! Python available at: $(which python)\" && echo \"UV version: $(uv --version)\"; else echo \"Virtual environment not found. Please run: make start and source your environment\"; fi'",
@@ -71,6 +71,6 @@
 	},
 	"remoteEnv": {
 		"PATH": "/opt/conda/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-	}
-	// "postStartCommand": "echo 'source /usr/share/bash-completion/completions/make' >> ~/.bashrc && eval \"$(ssh-agent -s)\" && ssh-add -l || true"
+	},
+	"postStartCommand": "echo 'source /usr/share/bash-completion/completions/make' >> ~/.bashrc && eval \"$(ssh-agent -s)\" && ssh-add -l || true"
 }

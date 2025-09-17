@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "eng-ai-agents"
 version = "1.0.0.dev0"
-description = "Learning Transformers library for PyTorch"
+description = "Course development environment."
 readme = "README.md"
 license = { text = "Apache-2.0" }
 authors = [
@@ -22,11 +22,10 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
     "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
-requires-python = ">=3.12, <3.12.4"
+requires-python = ">=3.11, <3.12.4"
 dependencies = [
     "datasets>=3.6.0",
     "foxglove>=0.1.10",
-    "transformers>=4.53.0",
 ]
 
 [project.urls]

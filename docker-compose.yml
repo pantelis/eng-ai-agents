@@ -55,6 +55,10 @@ services:
     volumes:
       - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
+     # - /dev/bus/usb:/dev/bus/usb            # --device=/dev/bus/usb:/dev/bus/usb
+    devices:
+       - /dev/bus/usb/:/dev/bus/usb/
+       - /dev/input/:/dev/input/
     working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
     environment:
       - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
