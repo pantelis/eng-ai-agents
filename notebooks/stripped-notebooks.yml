@@ -4,14 +4,19 @@
 #
 # When converting aiml-common notebooks to MDX, always run the strip skill
 # and add the stripped notebook here.
+#
+# Use "---" as a separator between topic groups.
 
 notebooks:
+  # Regression & Optimization
   - source: aiml-common/lectures/regression/linear-regression/sgd_sinusoidal_dataset.ipynb
     stripped: regression/linear-regression/sgd_sinusoidal_dataset.ipynb
     code_cells: 10
     description: SGD with polynomial regression and Optuna hyperparameter tuning
-
+  - "---"
+  # Maximum Likelihood Estimation
   - source: aiml-common/lectures/optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
     stripped: optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
     code_cells: 7
     description: Maximum likelihood estimation for marginal distributions
+  - "---"
