@@ -20,3 +20,27 @@ notebooks:
     code_cells: 7
     description: Maximum likelihood estimation for marginal distributions
   - "---"
+  # Whitening & Preprocessing
+  - source: aiml-common/lectures/optimization/whitening/corr-cov-matrix.ipynb
+    stripped: optimization/whitening/corr-cov-matrix.ipynb
+    code_cells: 40
+    description: Covariance matrix and image whitening (ZCA)
+  - "---"
+  # Batch Normalization
+  - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
+    stripped: optimization/batch-normalization/index.ipynb
+    code_cells: 3
+    description: Batch normalization implementation and effects
+  - "---"
+  # Regularization
+  - source: aiml-common/lectures/optimization/regularization/index.ipynb
+    stripped: optimization/regularization/index.ipynb
+    code_cells: 4
+    description: L2 regularization, dropout, and early stopping examples
+  - "---"
+  # Transfer Learning
+  - source: aiml-common/lectures/transfer-learning/transfer_learning_tutorial.ipynb
+    stripped: transfer-learning/transfer_learning_tutorial.ipynb
+    code_cells: 13
+    description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
+  - "---"
