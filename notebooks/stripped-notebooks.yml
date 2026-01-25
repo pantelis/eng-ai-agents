@@ -44,3 +44,35 @@ notebooks:
     code_cells: 13
     description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
   - "---"
+  # Reinforcement Learning - Prediction
+  - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
+    stripped: reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
+    code_cells: 1
+    description: Monte Carlo vs TD(0) comparison on Random Walk MRP (Sutton & Barto Example 6.2)
+  - "---"
+  # Reinforcement Learning - Control
+  - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/control/sarsa/gridworld/sarsa_gridworld.ipynb
+    stripped: reinforcement-learning/control/sarsa/sarsa_gridworld.ipynb
+    code_cells: 3
+    description: SARSA algorithm on gridworld with Q-value heatmap visualization
+  - "---"
+  # CNN - Small Datasets
+  - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
+    stripped: cnn/using_convnets_with_small_datasets.ipynb
+    code_cells: 24
+    description: Training ConvNets on small datasets with data augmentation (F. Chollet)
+  - source: aiml-common/lectures/cnn/cnn-example-architectures/visualizing-what-convnets-learn.ipynb
+    stripped: cnn/visualizing-what-convnets-learn.ipynb
+    code_cells: 26
+    description: Visualizing CNN activations, filters, and class activation maps (Grad-CAM)
+  - "---"
+  # Semantic Segmentation - Mask R-CNN
+  - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference.ipynb
+    stripped: scene-understanding/maskrcnn/maskrcnn_torchvision_inference.ipynb
+    code_cells: 7
+    description: Mask R-CNN instance segmentation inference with TorchVision
+  - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/detectron_tutorial.ipynb
+    stripped: scene-understanding/maskrcnn/detectron_tutorial.ipynb
+    code_cells: 22
+    description: Detectron2 tutorial - inference and training on custom datasets
+  - "---"
