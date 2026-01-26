@@ -76,3 +76,13 @@ notebooks:
     code_cells: 22
     description: Detectron2 tutorial - inference and training on custom datasets
   - "---"
+  # Dimensionality Reduction - PCA
+  - source: aiml-common/lectures/dim-reduction/pca/principal_component_analysis.ipynb
+    stripped: dim-reduction/pca/principal_component_analysis.ipynb
+    code_cells: 25
+    description: PCA workshop - dimensionality reduction, noise filtering, and eigenfaces (VanderPlas)
+  - source: aiml-common/lectures/dim-reduction/pca/3d_pca.ipynb
+    stripped: dim-reduction/pca/3d_pca.ipynb
+    code_cells: 33
+    description: 3D PCA visualization with projections and interactive Plotly plots
+  - "---"
