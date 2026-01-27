@@ -1,0 +1,84 @@
+services:
+  torch.dev.mac: 
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.torch.mac.dev # <-- Mac Dockerfile
+      args:
+        UV_EXTRA: ${UV_EXTRA:-cpu}
+        WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+        WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
+    container_name: eng-ai-agents-dev-mac
+    ports:
+      - "${DEV_QUARTO_PORT:-4100}:4100"
+      - "${DEV_JUPYTER_PORT:-8888}:8888"
+      - "${DEV_PORT:-8000}:8000"
+    volumes:
+      - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    environment:
+      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
+      - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
+      - UV_EXTRA=${UV_EXTRA:-cpu}
+    env_file:
+      - path: .env
+        required: true
+    command:  bash -c "tail -f /dev/null"
+    stdin_open: true
+    tty: true
+    networks:
+      - ai-agents-network
+
+
+  ros.dev.gpu:
+    platform: linux/amd64 
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ros.dev.gpu
+      args:
+        UV_EXTRA: ${UV_EXTRA:-cpu}
+        WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+        WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
+        ROS_DISTRO: ${ROS_DISTRO:-jazzy}
+    container_name: eng-ai-agents-ros
+    ports:
+      - "${ROS_PORT:-11311}:11311"
+      - "${ROS_QUARTO_PORT:-4180}:4100"
+      - "${ROS_JUPYTER_PORT:-8880}:8888"
+      - "${ROS_DEV_PORT:-8078}:8000"
+      - "${FOXGLOVE_PORT:-8765}:8765"
+    volumes:
+      - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    environment:
+      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
+      - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
+      - UV_EXTRA=${UV_EXTRA:-cpu}
+      - ROS_DISTRO=${ROS_DISTRO:-jazzy}
+      - DISPLAY=${DISPLAY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    env_file:
+      - path: .env
+        required: true
+    command: bash -c "tail -f /dev/null"
+    stdin_open: true
+    tty: true
+    privileged: true
+    ipc: host
+    shm_size: 8g
+    ulimits:
+      stack: 67108864
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    networks:
+      - ai-agents-network
+
+networks:
+  ai-agents-network:
+    driver: bridge
