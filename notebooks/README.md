@@ -1,0 +1,1 @@
+This folder contains notebooks from the site https://aegean.ai/courses. You are free to edit those and issue Pull Requests with improvements. We are considering each PR for inclusion in the main repository.

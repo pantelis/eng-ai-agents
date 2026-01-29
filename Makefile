@@ -1,17 +1,20 @@
 .PHONY: install install-dev format lint lint-check type-check test test-cov test-examples clean build deps-update deps-sync quality style fixup venv venv-recreate setup-dev docker-build-gpu docker-build-cpu docker-build docker-run-gpu docker-run-cpu ci-quality ci-test
-# Use stage 0 container pip constraints
-CONSTRAINTS := --constraint /etc/pip/constraint.txt
+# Use stage 0 container pip constraints (only if file exists)
+CONSTRAINT_FILE := /etc/pip/constraint.txt
+CONSTRAINTS := $(if $(wildcard $(CONSTRAINT_FILE)),--constraint $(CONSTRAINT_FILE),)
 
 export PYTHONPATH = src
 check_dirs := examples tests src utils
 VENV_DIR := .venv
 VENV_PY := $(VENV_DIR)/bin/python
-UV := /usr/bin/uv
+UV := $(shell which uv)
+# Find Python 3.11+ (prefer system python to avoid venv shadowing)
+PYTHON := $(shell /usr/bin/python3 --version 2>/dev/null | grep -qE "3\.(1[1-9]|[2-9][0-9])" && echo /usr/bin/python3 || which python3.12 2>/dev/null || which python3.11 2>/dev/null || echo python3)
 
 # Create venv with access to system packages (from stage 0 container)
 $(VENV_DIR)/bin/activate:
 	rm -rf $(VENV_DIR)
-	python3 -m venv $(VENV_DIR) --system-site-packages
+	$(UV) venv $(VENV_DIR) --python $(PYTHON) --system-site-packages
 
 venv: $(VENV_DIR)/bin/activate
 
