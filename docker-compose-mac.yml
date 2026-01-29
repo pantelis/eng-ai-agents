@@ -1,0 +1,93 @@
+# =============================================================================
+# Docker Compose for macOS (Apple Silicon & Intel)
+# =============================================================================
+# Usage:
+#   docker compose -f docker-compose-mac.yml up -d torch.dev.mac
+#   docker compose -f docker-compose-mac.yml up -d ros.dev.mac
+#
+# IMPORTANT: GPU acceleration (MPS) is NOT available inside Docker on macOS.
+# Docker uses virtualization which lacks access to Apple's GPU APIs.
+# For GPU-accelerated training, run PyTorch natively on macOS.
+# =============================================================================
+
+services:
+  torch.dev.mac:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.torch.dev.mac
+      args:
+        UV_EXTRA: ${UV_EXTRA:-cpu}
+        WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+        WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
+    container_name: eng-ai-agents-dev-mac
+    ports:
+      - "${DEV_QUARTO_PORT:-4100}:4100"
+      - "${DEV_JUPYTER_PORT:-8888}:8888"
+      - "${DEV_PORT:-8000}:8000"
+    volumes:
+      - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    environment:
+      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
+      - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
+      - UV_EXTRA=${UV_EXTRA:-cpu}
+      # For XQuartz GUI support on macOS
+      - DISPLAY=host.docker.internal:0
+    env_file:
+      - path: .env
+        required: true
+    command: bash -c "tail -f /dev/null"
+    stdin_open: true
+    tty: true
+    networks:
+      - ai-agents-network
+
+  ros.dev.mac:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.ros.dev.mac
+      args:
+        UV_EXTRA: ${UV_EXTRA:-cpu}
+        WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+        WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
+        ROS_DISTRO: ${ROS_DISTRO:-jazzy}
+    container_name: eng-ai-agents-ros-mac
+    ports:
+      - "${ROS_PORT:-11311}:11311"
+      - "${ROS_QUARTO_PORT:-4180}:4100"
+      - "${ROS_JUPYTER_PORT:-8880}:8888"
+      - "${ROS_DEV_PORT:-8078}:8000"
+      - "${FOXGLOVE_PORT:-8765}:8765"
+    volumes:
+      - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      # Optional: Mount X11 socket for GUI apps
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+    working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    environment:
+      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
+      - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
+      - UV_EXTRA=${UV_EXTRA:-cpu}
+      - ROS_DISTRO=${ROS_DISTRO:-jazzy}
+      # XQuartz GUI support on macOS
+      - DISPLAY=host.docker.internal:0
+      # ROS 2 discovery settings for Docker networking
+      - ROS_AUTOMATIC_DISCOVERY_RANGE=LOCALHOST
+      - ROS_DOMAIN_ID=42
+    env_file:
+      - path: .env
+        required: true
+    command: bash -c "tail -f /dev/null"
+    stdin_open: true
+    tty: true
+    ipc: host
+    shm_size: 8g
+    networks:
+      - ai-agents-network
+
+networks:
+  ai-agents-network:
+    driver: bridge

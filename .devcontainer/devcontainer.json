@@ -72,5 +72,5 @@
 	"remoteEnv": {
 		"PATH": "/opt/conda/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 	},
-	"postStartCommand": "echo 'source /usr/share/bash-completion/completions/make' >> ~/.bashrc && eval \"$(ssh-agent -s)\" && ssh-add -l || true"
+	"postStartCommand": "echo 'source /usr/share/bash-completion/completions/make' >> ~/.bashrc"
 }

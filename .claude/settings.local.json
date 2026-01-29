@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(make start:*)",
+      "Bash(command -v:*)",
+      "Bash(test:*)",
+      "Bash(.venv/bin/python:*)",
+      "Bash(/usr/bin/python3:*)",
+      "Bash(gh pr list:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh pr diff:*)",
+      "WebSearch",
+      "WebFetch(domain:qurobotics.de)"
+    ]
+  }
+}
