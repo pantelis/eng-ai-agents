@@ -26,6 +26,9 @@ requires-python = ">=3.11, <3.12.4"
 dependencies = [
     "datasets>=3.6.0",
     "foxglove>=0.1.10",
+    "jupyter>=1.1.1",
+    "jupyterlab>=4.3.4",
+    "ipykernel>=6.29.0",
 ]
 
 [project.urls]
