@@ -10,7 +10,10 @@
       "Bash(gh pr view:*)",
       "Bash(gh pr diff:*)",
       "WebSearch",
-      "WebFetch(domain:qurobotics.de)"
+      "WebFetch(domain:qurobotics.de)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push)"
     ]
   }
 }
