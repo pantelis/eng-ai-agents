@@ -155,9 +155,32 @@ ifndef NOTEBOOK
 endif
 	@echo "Getting environment for notebook: $(NOTEBOOK)"
 	$(eval ENV := $(shell python3 scripts/get_notebook_environment.py $(NOTEBOOK)))
-	@echo "Executing notebook in environment: $(ENV)"
-	docker compose run --rm $(ENV) python scripts/execute_notebook.py $(NOTEBOOK)
-	@echo "✓ Notebook execution complete"
+	@echo "Environment: $(ENV)"
+	@if [ "$(ENV)" = "colab" ]; then \
+		echo ""; \
+		echo "═══════════════════════════════════════════════════════════════"; \
+		echo "  This notebook requires Google Colab"; \
+		echo "═══════════════════════════════════════════════════════════════"; \
+		echo ""; \
+		echo "This notebook uses Colab-specific features and cannot be"; \
+		echo "executed locally. Please run it in Google Colab instead."; \
+		echo ""; \
+		echo "📂 Notebook: $(NOTEBOOK)"; \
+		echo ""; \
+		echo "🔗 Open in Colab:"; \
+		echo "   https://colab.research.google.com/github/pantelis/eng-ai-agents/blob/main/notebooks/$(NOTEBOOK)"; \
+		echo ""; \
+		echo "Manual steps:"; \
+		echo "  1. Click the link above to open in Colab"; \
+		echo "  2. Run all cells in Colab"; \
+		echo "  3. Download any generated artifacts manually"; \
+		echo ""; \
+		echo "═══════════════════════════════════════════════════════════════"; \
+	else \
+		echo "Executing notebook in Docker environment: $(ENV)"; \
+		docker compose run --rm $(ENV) python scripts/execute_notebook.py $(NOTEBOOK); \
+		echo "✓ Notebook execution complete"; \
+	fi
 
 execute-all-notebooks: venv
 	@echo "Executing all notebooks from registry..."
