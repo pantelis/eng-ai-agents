@@ -41,6 +41,12 @@ def add_parameters_cell(notebook: dict) -> bool:
             'videos_dir = "./videos"\n',
             'audio_dir = "./audio"\n',
             'text_dir = "./text"\n',
+            "\n",
+            "# Import cv2 for saving supervision images\n",
+            "try:\n",
+            "    import cv2\n",
+            "except ImportError:\n",
+            "    pass\n",
         ],
     }
 
@@ -68,7 +74,7 @@ def generate_plot_filename(cell_source: str, plot_index: int) -> str:
 
 def add_savefig_calls(notebook: dict) -> int:
     """
-    Add plt.savefig() calls before plt.show() in code cells.
+    Add plt.savefig() and sv.plot_image saving calls in code cells.
 
     Returns:
         Number of modifications made
@@ -85,13 +91,15 @@ def add_savefig_calls(notebook: dict) -> int:
         if isinstance(source, str):
             source = source.split("\n")
 
-        # Check if this cell has plt.show()
-        has_show = any("plt.show()" in line for line in source)
-        if not has_show:
+        # Check if this cell has plotting calls
+        has_plt_show = any("plt.show()" in line for line in source)
+        has_sv_plot = any("sv.plot_image(" in line or "sv.plot_images_grid(" in line for line in source)
+
+        if not (has_plt_show or has_sv_plot):
             continue
 
         # Check if savefig is already present
-        has_savefig = any("savefig" in line for line in source)
+        has_savefig = any("savefig" in line or "cv2.imwrite" in line for line in source)
         if has_savefig:
             continue
 
@@ -99,15 +107,33 @@ def add_savefig_calls(notebook: dict) -> int:
         cell_source_str = "".join(source)
         filename = generate_plot_filename(cell_source_str, plot_counter)
 
-        # Insert savefig before plt.show()
+        # Insert save calls
         new_source = []
         for i, line in enumerate(source):
+            # Handle plt.show()
             if "plt.show()" in line:
-                # Add savefig before show
                 indent = len(line) - len(line.lstrip())
                 savefig_line = " " * indent + f'plt.savefig(f"{{images_dir}}/{filename}", dpi=150, bbox_inches="tight")\n'
                 new_source.append(savefig_line)
                 modifications += 1
+
+            # Handle sv.plot_image() - save the image before displaying
+            elif "sv.plot_image(" in line:
+                indent = len(line) - len(line.lstrip())
+                # Extract the variable being plotted
+                var_match = re.search(r'sv\.plot_image\((\w+)', line)
+                if var_match:
+                    var_name = var_match.group(1)
+                    save_line = " " * indent + f'cv2.imwrite(f"{{images_dir}}/{filename}", cv2.cvtColor({var_name}, cv2.COLOR_RGB2BGR))\n'
+                    new_source.append(save_line)
+                    modifications += 1
+
+            # Handle sv.plot_images_grid()
+            elif "sv.plot_images_grid(" in line:
+                # For grids, we'll save after the complete call
+                indent = len(line) - len(line.lstrip())
+                # This is more complex, skip for now or add comment
+                pass
 
             new_source.append(line)
 
