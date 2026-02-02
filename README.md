@@ -20,17 +20,14 @@ This repository includes a VS Code development container configuration that can 
 2. **Install Docker** and ensure it's running
 3. **For GPU support**: Install NVIDIA Container Toolkit (for Linux) or Docker Desktop with GPU support
 
-After the container is launched, run the following command to set up the environment:
+**IMPORTANT:** After the container is launched, you must run the following commands **inside the container** to set up the environment:
 
 ```bash
-make start
+make start                    # Must run inside container (uses uv package manager)
+source .venv/bin/activate     # Activate the virtual environment
 ```
 
-Don't forget to activate the virtual environment after the make command:
-
-```bash
-source .venv/bin/activate
-```
+**Critical Note:** The `make start` command (and `make venv-recreate`) must be executed from within the devcontainer, not on the host machine. The Makefile uses the `uv` package manager which is only available inside the container and respects container-specific constraints.
 
 ## Running with Docker Compose (without VS Code)
 
@@ -178,35 +175,17 @@ The repository supports multiple container configurations:
 - **`torch.dev.mac`**: PyTorch development environment for macOS (CPU-only)
 - **`ros.dev.mac`**: ROS 2 (Jazzy) development environment for macOS
 
-#### Using Shell Script (Recommended)
+#### Switching Services
 
-Switch between services using the provided shell script:
-
-```bash
-# Configure for PyTorch development
-./devcontainer.sh dev
-
-# Configure for ROS development  
-./devcontainer.sh ros
-```
-
-The script will:
-
-1. Update the `.devcontainer/devcontainer.json` service configuration
-2. Update environment files (`.env` and `.devcontainer/devcontainer.env`)
-3. Optionally launch VS Code for you
-
-#### Manual Configuration
-
-To manually switch services, modify the `service` field in `.devcontainer/devcontainer.json`:
+To switch between services, modify the `service` field in `.devcontainer/devcontainer.json`:
 
 ```json
 {
-  "service": "torch.dev.gpu"  // or "ros.dev.gpu"
+  "service": "torch.dev.gpu"  // or "ros.dev.gpu", "torch.dev.mac", "ros.dev.mac"
 }
 ```
 
-After changing the service configuration, close and reopen VS Code, then select "Reopen in Container" when prompted.
+After changing the service configuration, rebuild the container using VS Code's "Dev Containers: Rebuild Container" command.
 
 #### Why Two Containers Launch by Default
 
