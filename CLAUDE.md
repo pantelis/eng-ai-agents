@@ -6,11 +6,33 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 Educational Docker-based development environment for AI/ML and robotics courses. Supports PyTorch with GPU acceleration and ROS 2 (Jazzy) for robotics development.
 
+## Development Workflow
+
+**CRITICAL**: This is a **container-first development environment**. All development workflows and make commands are designed to run **inside the devcontainer**, not on the host machine.
+
+### Starting Development
+1. Open the project in VS Code with the Dev Containers extension
+2. Use "Dev Containers: Reopen in Container" command
+3. Or use `./devcontainer.sh dev` (PyTorch) or `./devcontainer.sh ros` (ROS 2) to switch services
+4. Once inside the container, run `make start` to initialize the environment
+
+### Key Constraints
+- **Python environment setup** (`make start`, `make venv-recreate`) must run inside the container
+- The Makefile uses `uv` package manager which is only available in the container
+- Virtual environment at `.venv` has system-site-packages access to container-installed packages
+- UV package manager respects container constraints (`/etc/pip/constraint.txt`)
+
+### Host vs. Container Operations
+- **Inside Container**: All make commands, Python development, package management
+- **On Host**: Git operations, switching devcontainer services (`./devcontainer.sh`)
+
 ## Development Commands
 
-### Initial Setup
+**Note**: All commands below must be executed from within the devcontainer.
+
+### Initial Setup (Inside Container)
 ```bash
-make start                    # Create venv, sync deps, install package
+make start                    # Create venv, sync deps, install package (MUST run in container)
 source .venv/bin/activate     # Activate environment
 ```
 
