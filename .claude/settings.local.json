@@ -13,7 +13,24 @@
       "WebFetch(domain:qurobotics.de)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(bd show:*)",
+      "Bash(bd update eng-ai-agents-8yp --design=\"$\\(cat <<''EOF''\n## Architecture Overview\nLeverage EXISTING Docker infrastructure \\(Dockerfile.torch.dev.gpu, Dockerfile.ros.dev.gpu, etc.\\) \nto execute notebooks in isolated environments with per-notebook artifact storage.\n\n## Existing Infrastructure\n- Dockerfiles: torch.dev.{gpu,cpu,mac}, ros.dev.{gpu,mac}, tf.prod.gpu\n- Makefile: Already in place at project root\n- Registry: notebooks/stripped-notebooks.yml\n\n## Proposed Approach\n\n### 1. Enhanced Registry \\(stripped-notebooks.yml\\)\nAdd `environment` field to map notebooks to Docker targets:\n\n```yaml\nnotebooks:\n  - source: aiml-common/lectures/transfer-learning/transfer_learning_tutorial.ipynb\n    stripped: transfer-learning/transfer_learning_tutorial.ipynb\n    code_cells: 13\n    environment: torch.dev.gpu  # <- Maps to Dockerfile.torch.dev.gpu\n    description: Transfer learning tutorial with PyTorch\n    \n  - source: aiml-common/robotics/slam/cartographer.ipynb\n    stripped: robotics/slam/cartographer.ipynb\n    environment: ros.dev.gpu    # <- Maps to Dockerfile.ros.dev.gpu\n    description: SLAM with Cartographer\n```\n\n### 2. Artifact Storage Structure\nEach notebook execution creates outputs in its own directory:\n\n```\nnotebooks/\n  transfer-learning/\n    transfer_learning_tutorial.ipynb\n    transfer_learning_tutorial-executed.ipynb\n    output/\n      images/         # Generated plots, visualizations\n      videos/         # Training animations, demos\n      audio/          # Audio outputs \\(if applicable\\)\n      text/           # Logs, metrics, reports\n      models/         # Saved model checkpoints \\(optional\\)\n```\n\n### 3. Makefile Targets\nAdd notebook execution commands that:\n- Read stripped-notebooks.yml to determine environment\n- Execute notebook in appropriate Docker container\n- Mount output directories for artifact storage\n- Save executed notebook with outputs\n\nExample:\n```bash\nmake execute-notebook NOTEBOOK=transfer-learning/transfer_learning_tutorial.ipynb\n# Reads registry, sees environment: torch.dev.gpu\n# Runs: docker-compose run torch.dev.gpu papermill ...\n```\n\n### 4. GitHub Actions Integration\nCI/CD workflow that:\n- Parses registry to get notebook → environment mapping\n- Builds appropriate Docker image\n- Executes notebook in container\n- Stores artifacts\n- Commits executed notebooks back to repo\n\n## Benefits Over EXECUTION_PLAN.md Approach\n✅ Reuses existing Docker infrastructure\n✅ No need for per-notebook pyproject.toml files\n✅ Consistent with current devcontainer workflow\n✅ Frontend can query registry YML for execution environments\n✅ Simpler dependency management \\(handled by Dockerfiles\\)\n\n## Implementation Phases\n1. Enhance stripped-notebooks.yml schema \\(add environment field\\)\n2. Add Makefile targets for notebook execution\n3. Implement artifact storage directory structure\n4. Create GitHub Actions workflow\n5. Migrate existing notebooks and test\nEOF\n\\)\")",
+      "Bash(bd update:*)",
+      "Bash(bd sync:*)",
+      "Bash(chmod:*)",
+      "Bash(python scripts/get_notebook_environment.py:*)",
+      "Bash(docker compose run:*)",
+      "Bash(python3:*)",
+      "Bash(cat:*)",
+      "Bash(make execute-notebook:*)",
+      "Bash(git rm:*)",
+      "Bash(bd create --title=\"Allow environment ''colab'' for Google Colab execution\" --type=task --priority=2 --description=\"Add support for executing notebooks in Google Colab environment in addition to local Docker execution \\(torch.dev.gpu, ros.dev.gpu\\).\n\nRequirements:\n- Add ''colab'' as valid environment value in registry\n- Modify execution scripts to handle Colab execution\n- Notebooks with environment: colab should be executed remotely in Colab\n- Consider Colab API or manual upload workflow\n- Preserve artifact collection from Colab executions\n\nUse case: Basketball analytics notebook requires Colab-specific features \\(userdata, pip installs, gdown\\) that aren''t suitable for local Docker execution.\")",
+      "Bash(bd list:*)",
+      "Bash(bd create:*)",
+      "Bash(make execute-all-notebooks:*)",
+      "Bash(bd close:*)",
+      "Bash(bd stats:*)"
     ]
   }
 }
