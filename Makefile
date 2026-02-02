@@ -182,17 +182,15 @@ endif
 		echo "✓ Notebook execution complete"; \
 	fi
 
-execute-all-notebooks: venv
+execute-all-notebooks:
 	@echo "Executing all notebooks from registry..."
-	@$(VENV_PY) -c "import yaml; \
-		notebooks = yaml.safe_load(open('notebooks/stripped-notebooks.yml'))['notebooks']; \
-		[print(n['stripped']) for n in notebooks if n != '---']" | while read nb; do \
-			echo ""; \
-			echo "========================================"; \
-			echo "Executing: $$nb"; \
-			echo "========================================"; \
-			$(MAKE) execute-notebook NOTEBOOK=$$nb || true; \
-		done
+	@python3 scripts/list_notebooks.py | while read nb; do \
+		echo ""; \
+		echo "========================================"; \
+		echo "Executing: $$nb"; \
+		echo "========================================"; \
+		$(MAKE) execute-notebook NOTEBOOK=$$nb || true; \
+	done
 	@echo ""
 	@echo "✓ All notebooks processed"
 
