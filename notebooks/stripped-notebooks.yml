@@ -5,6 +5,13 @@
 # When converting aiml-common notebooks to MDX, always run the strip skill
 # and add the stripped notebook here.
 #
+# Schema:
+#   source: Path in aiml-common repository
+#   stripped: Destination path in this repository
+#   code_cells: Number of code cells
+#   environment: Docker environment (torch.dev.gpu, ros.dev.gpu, etc.)
+#   description: Brief description of notebook content
+#
 # Use "---" as a separator between topic groups.
 
 notebooks:
@@ -12,77 +19,91 @@ notebooks:
   - source: aiml-common/lectures/regression/linear-regression/sgd_sinusoidal_dataset.ipynb
     stripped: regression/linear-regression/sgd_sinusoidal_dataset.ipynb
     code_cells: 10
+    environment: torch.dev.gpu
     description: SGD with polynomial regression and Optuna hyperparameter tuning
   - "---"
   # Maximum Likelihood Estimation
   - source: aiml-common/lectures/optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
     stripped: optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
     code_cells: 7
+    environment: torch.dev.gpu
     description: Maximum likelihood estimation for marginal distributions
   - "---"
   # Whitening & Preprocessing
   - source: aiml-common/lectures/optimization/whitening/corr-cov-matrix.ipynb
     stripped: optimization/whitening/corr-cov-matrix.ipynb
     code_cells: 40
+    environment: torch.dev.gpu
     description: Covariance matrix and image whitening (ZCA)
   - "---"
   # Batch Normalization
   - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
     stripped: optimization/batch-normalization/index.ipynb
     code_cells: 3
+    environment: torch.dev.gpu
     description: Batch normalization implementation and effects
   - "---"
   # Regularization
   - source: aiml-common/lectures/optimization/regularization/index.ipynb
     stripped: optimization/regularization/index.ipynb
     code_cells: 4
+    environment: torch.dev.gpu
     description: L2 regularization, dropout, and early stopping examples
   - "---"
   # Transfer Learning
   - source: aiml-common/lectures/transfer-learning/transfer_learning_tutorial.ipynb
     stripped: transfer-learning/transfer_learning_tutorial.ipynb
     code_cells: 13
+    environment: torch.dev.gpu
     description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
   - "---"
   # Reinforcement Learning - Prediction
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
     stripped: reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
     code_cells: 1
+    environment: torch.dev.gpu
     description: Monte Carlo vs TD(0) comparison on Random Walk MRP (Sutton & Barto Example 6.2)
   - "---"
   # Reinforcement Learning - Control
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/control/sarsa/gridworld/sarsa_gridworld.ipynb
     stripped: reinforcement-learning/control/sarsa/sarsa_gridworld.ipynb
     code_cells: 3
+    environment: torch.dev.gpu
     description: SARSA algorithm on gridworld with Q-value heatmap visualization
   - "---"
   # CNN - Small Datasets
   - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
     stripped: cnn/using_convnets_with_small_datasets.ipynb
     code_cells: 24
+    environment: torch.dev.gpu
     description: Training ConvNets on small datasets with data augmentation (F. Chollet)
   - source: aiml-common/lectures/cnn/cnn-example-architectures/visualizing-what-convnets-learn.ipynb
     stripped: cnn/visualizing-what-convnets-learn.ipynb
     code_cells: 26
+    environment: torch.dev.gpu
     description: Visualizing CNN activations, filters, and class activation maps (Grad-CAM)
   - "---"
   # Semantic Segmentation - Mask R-CNN
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference.ipynb
     stripped: scene-understanding/maskrcnn/maskrcnn_torchvision_inference.ipynb
     code_cells: 7
+    environment: torch.dev.gpu
     description: Mask R-CNN instance segmentation inference with TorchVision
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/detectron_tutorial.ipynb
     stripped: scene-understanding/maskrcnn/detectron_tutorial.ipynb
     code_cells: 22
+    environment: torch.dev.gpu
     description: Detectron2 tutorial - inference and training on custom datasets
   - "---"
   # Dimensionality Reduction - PCA
   - source: aiml-common/lectures/dim-reduction/pca/principal_component_analysis.ipynb
     stripped: dim-reduction/pca/principal_component_analysis.ipynb
     code_cells: 25
+    environment: torch.dev.gpu
     description: PCA workshop - dimensionality reduction, noise filtering, and eigenfaces (VanderPlas)
   - source: aiml-common/lectures/dim-reduction/pca/3d_pca.ipynb
     stripped: dim-reduction/pca/3d_pca.ipynb
     code_cells: 33
+    environment: torch.dev.gpu
     description: 3D PCA visualization with projections and interactive Plotly plots
   - "---"
