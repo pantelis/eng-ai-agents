@@ -91,7 +91,7 @@ plt.close()
 
 ### Enabling Artifact Saving in Notebooks
 
-Notebooks need to be modified to save plots and other artifacts. Use the helper script to automatically add this functionality:
+**IMPORTANT**: Notebooks are modified in-place to include artifact saving code. This is a one-time setup per notebook.
 
 #### Process a Single Notebook
 
@@ -99,17 +99,21 @@ Notebooks need to be modified to save plots and other artifacts. Use the helper 
 make add-artifact-saving NOTEBOOK=transfer-learning/transfer_learning_tutorial.ipynb
 ```
 
-This will:
+This modifies the original notebook to:
 1. Add a parameters cell at the beginning (if not present)
 2. Insert `plt.savefig()` calls before each `plt.show()`
 3. Generate descriptive filenames from plot titles
 4. Use the injected `images_dir` variable for paths
+
+**The original notebook file is overwritten** with these additions. Commit the changes to git.
 
 #### Process All Notebooks
 
 ```bash
 make add-artifact-saving-all
 ```
+
+Modifies all notebooks in the registry in-place.
 
 #### What the Script Does
 
@@ -143,12 +147,34 @@ When adding a new notebook to the registry:
      description: Brief description
    ```
 
-2. Execute the notebook:
+2. Add artifact saving to the notebook (one-time setup):
+   ```bash
+   make add-artifact-saving NOTEBOOK=destination/path/notebook.ipynb
+   ```
+   This modifies the original notebook in-place. Commit the changes.
+
+3. Execute the notebook:
    ```bash
    make execute-notebook NOTEBOOK=destination/path/notebook.ipynb
    ```
 
-3. Verify outputs in the `output/` directory
+4. Verify outputs in the `output/` directory
+
+### Recommended Workflow
+
+For the best workflow, modify all notebooks once, then commit them:
+
+```bash
+# 1. Add artifact saving to all notebooks (one-time setup)
+make add-artifact-saving-all
+
+# 2. Review and commit the modified notebooks
+git add notebooks/
+git commit -m "Add artifact saving to notebooks"
+
+# 3. Now you can execute any notebook and get artifacts
+make execute-notebook NOTEBOOK=<any-notebook>
+```
 
 ### See Also
 
