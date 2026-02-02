@@ -1,4 +1,4 @@
-.PHONY: install install-dev format lint lint-check type-check test test-cov test-examples clean build deps-update deps-sync quality style fixup venv venv-recreate setup-dev docker-build-gpu docker-build-cpu docker-build docker-run-gpu docker-run-cpu ci-quality ci-test
+.PHONY: install install-dev format lint lint-check type-check test test-cov test-examples clean build deps-update deps-sync quality style fixup venv venv-recreate setup-dev docker-build-gpu docker-build-cpu docker-build docker-run-gpu docker-run-cpu ci-quality ci-test execute-notebook execute-all-notebooks
 # Use stage 0 container pip constraints (only if file exists)
 CONSTRAINT_FILE := /etc/pip/constraint.txt
 CONSTRAINTS := $(if $(wildcard $(CONSTRAINT_FILE)),--constraint $(CONSTRAINT_FILE),)
@@ -144,3 +144,31 @@ start:
 	$(MAKE) deps-sync
 	$(MAKE) install
 	@echo "To activate the virtual environment, run: source .venv/bin/activate"
+
+# Notebook execution targets
+execute-notebook:
+ifndef NOTEBOOK
+	@echo "Error: NOTEBOOK parameter is required"
+	@echo "Usage: make execute-notebook NOTEBOOK=<notebook-path>"
+	@echo "Example: make execute-notebook NOTEBOOK=transfer-learning/transfer_learning_tutorial.ipynb"
+	@exit 1
+endif
+	@echo "Getting environment for notebook: $(NOTEBOOK)"
+	$(eval ENV := $(shell $(VENV_PY) scripts/get_notebook_environment.py $(NOTEBOOK)))
+	@echo "Executing notebook in environment: $(ENV)"
+	docker-compose run --rm $(ENV) python scripts/execute_notebook.py $(NOTEBOOK)
+	@echo "✓ Notebook execution complete"
+
+execute-all-notebooks: venv
+	@echo "Executing all notebooks from registry..."
+	@$(VENV_PY) -c "import yaml; \
+		notebooks = yaml.safe_load(open('notebooks/stripped-notebooks.yml'))['notebooks']; \
+		[print(n['stripped']) for n in notebooks if n != '---']" | while read nb; do \
+			echo ""; \
+			echo "========================================"; \
+			echo "Executing: $$nb"; \
+			echo "========================================"; \
+			$(MAKE) execute-notebook NOTEBOOK=$$nb || true; \
+		done
+	@echo ""
+	@echo "✓ All notebooks processed"
