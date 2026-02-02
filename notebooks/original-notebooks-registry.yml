@@ -1,0 +1,17 @@
+notebooks:
+- source: aiml-common/projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
+  stripped:
+    code_cells: 55
+    size_bytes: 55173
+    reduction_percent: 51.7
+  stripped_at: '2026-02-02T17:04:05.924945Z'
+  environment: colab
+  description: Basketball player detection, tracking and identification using YOLO
+    and ByteTrack
+  original:
+    total_cells: 97
+    code_cells: 55
+    markdown_cells: 42
+    raw_cells: 0
+    size_bytes: 114310
+- '---'
