@@ -107,3 +107,10 @@ notebooks:
     environment: torch.dev.gpu
     description: 3D PCA visualization with projections and interactive Plotly plots
   - "---"
+  # Sports Analytics - Computer Vision
+  - source: aiml-common/projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
+    stripped: projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
+    code_cells: 55
+    environment: torch.dev.gpu
+    description: Basketball player detection, tracking and identification using YOLO and ByteTrack
+  - "---"
