@@ -9,8 +9,13 @@
 #   source: Path in aiml-common repository
 #   stripped: Destination path in this repository
 #   code_cells: Number of code cells
-#   environment: Docker environment (torch.dev.gpu, ros.dev.gpu, etc.)
+#   environment: Execution environment (torch.dev.gpu, ros.dev.gpu, or colab)
 #   description: Brief description of notebook content
+#
+# Environments:
+#   torch.dev.gpu - PyTorch with CUDA (local Docker)
+#   ros.dev.gpu   - ROS 2 Jazzy (local Docker)
+#   colab         - Google Colab (remote execution)
 #
 # Use "---" as a separator between topic groups.
 
@@ -111,6 +116,6 @@ notebooks:
   - source: aiml-common/projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
     stripped: projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
     code_cells: 55
-    environment: torch.dev.gpu
+    environment: colab
     description: Basketball player detection, tracking and identification using YOLO and ByteTrack
   - "---"

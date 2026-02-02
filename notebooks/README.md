@@ -59,8 +59,39 @@ notebooks/
 
 ### Available Environments
 
-- `torch.dev.gpu` - PyTorch development with CUDA support
-- `ros.dev.gpu` - ROS 2 (Jazzy) with GPU support
+- `torch.dev.gpu` - PyTorch development with CUDA support (local Docker execution)
+- `ros.dev.gpu` - ROS 2 (Jazzy) with GPU support (local Docker execution)
+- `colab` - Google Colab execution (for notebooks with Colab-specific dependencies)
+
+### Google Colab Execution
+
+Notebooks with `environment: colab` are designed to run in Google Colab and cannot be executed locally. When you run:
+
+```bash
+make execute-notebook NOTEBOOK=projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
+```
+
+You'll receive a Colab link instead of local execution:
+
+```
+═══════════════════════════════════════════════════════════════
+  This notebook requires Google Colab
+═══════════════════════════════════════════════════════════════
+
+🔗 Open in Colab:
+   https://colab.research.google.com/github/pantelis/eng-ai-agents/blob/main/notebooks/...
+
+Manual steps:
+  1. Click the link above to open in Colab
+  2. Run all cells in Colab
+  3. Download any generated artifacts manually
+```
+
+**When to use `colab` environment:**
+- Notebooks using `google.colab` imports
+- Notebooks with `!pip install` or `!apt-get` shell commands
+- Notebooks downloading data with `!gdown` or similar
+- Notebooks requiring dependencies not in Docker images
 
 ### Notebook Parameters
 
