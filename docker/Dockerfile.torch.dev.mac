@@ -22,6 +22,9 @@ ENV UV_EXTRA=${UV_EXTRA}
 ENV WORKSPACE_DIR=${WORKSPACE_DIR}
 ENV WORKSPACE_USER=${WORKSPACE_USER}
 
+# Remove problematic Yarn repository with expired GPG key
+RUN rm -f /etc/apt/sources.list.d/yarn.list || true
+
 # Install base dependencies with cache mount
 RUN --mount=type=cache,target=/var/lib/apt/lists \
     --mount=type=cache,target=/var/cache/apt/archives \
