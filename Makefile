@@ -154,9 +154,9 @@ ifndef NOTEBOOK
 	@exit 1
 endif
 	@echo "Getting environment for notebook: $(NOTEBOOK)"
-	$(eval ENV := $(shell $(VENV_PY) scripts/get_notebook_environment.py $(NOTEBOOK)))
+	$(eval ENV := $(shell python3 scripts/get_notebook_environment.py $(NOTEBOOK)))
 	@echo "Executing notebook in environment: $(ENV)"
-	docker-compose run --rm $(ENV) python scripts/execute_notebook.py $(NOTEBOOK)
+	docker compose run --rm $(ENV) python scripts/execute_notebook.py $(NOTEBOOK)
 	@echo "✓ Notebook execution complete"
 
 execute-all-notebooks: venv
