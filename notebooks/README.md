@@ -89,6 +89,47 @@ plt.savefig(f"{images_dir}/my_plot.png")
 plt.close()
 ```
 
+### Enabling Artifact Saving in Notebooks
+
+Notebooks need to be modified to save plots and other artifacts. Use the helper script to automatically add this functionality:
+
+#### Process a Single Notebook
+
+```bash
+make add-artifact-saving NOTEBOOK=transfer-learning/transfer_learning_tutorial.ipynb
+```
+
+This will:
+1. Add a parameters cell at the beginning (if not present)
+2. Insert `plt.savefig()` calls before each `plt.show()`
+3. Generate descriptive filenames from plot titles
+4. Use the injected `images_dir` variable for paths
+
+#### Process All Notebooks
+
+```bash
+make add-artifact-saving-all
+```
+
+#### What the Script Does
+
+**Before:**
+```python
+plt.title("Monte Carlo vs TD(0) on Random Walk")
+plt.show()
+```
+
+**After:**
+```python
+# Parameters (injected by papermill)
+images_dir = "./images"  # Added at top of notebook
+
+# ... later in code ...
+plt.title("Monte Carlo vs TD(0) on Random Walk")
+plt.savefig(f"{images_dir}/monte_carlo_vs_td0_on_random_walk.png", dpi=150, bbox_inches="tight")
+plt.show()
+```
+
 ### Adding New Notebooks
 
 When adding a new notebook to the registry:

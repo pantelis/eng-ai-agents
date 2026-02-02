@@ -171,6 +171,10 @@ save/
 datafiles/
 *.parquet
 
+# Notebook execution artifacts
+*-executed.ipynb
+notebooks/**/output/
+
 runs/
 
 *.pth
