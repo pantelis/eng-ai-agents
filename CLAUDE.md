@@ -13,7 +13,10 @@ Educational Docker-based development environment for AI/ML and robotics courses.
 ### Starting Development
 1. Open the project in VS Code with the Dev Containers extension
 2. Use "Dev Containers: Reopen in Container" command
-3. Or use `./devcontainer.sh dev` (PyTorch) or `./devcontainer.sh ros` (ROS 2) to switch services
+3. To switch services, edit `.devcontainer/devcontainer.json` and change the `"service"` field:
+   - `"torch.dev.gpu"` for PyTorch development (default)
+   - `"ros.dev.gpu"` for ROS 2 development
+   - Then rebuild the container using "Dev Containers: Rebuild Container"
 4. Once inside the container, run `make start` to initialize the environment
 
 ### Key Constraints
@@ -24,7 +27,7 @@ Educational Docker-based development environment for AI/ML and robotics courses.
 
 ### Host vs. Container Operations
 - **Inside Container**: All make commands, Python development, package management
-- **On Host**: Git operations, switching devcontainer services (`./devcontainer.sh`)
+- **On Host**: Git operations, editing `.devcontainer/devcontainer.json` to switch services
 
 ## Development Commands
 
@@ -57,7 +60,7 @@ make test-cov                 # Pytest with coverage (HTML + terminal)
 ```bash
 make deps-sync                # Sync dependencies from lock file
 make deps-update              # Update dependencies
-make venv-recreate            # Clean and recreate venv
+make venv-recreate            # Clean and recreate venv (MUST run in container)
 ```
 
 ### Build
@@ -72,7 +75,7 @@ make clean                    # Remove build artifacts
 - **torch.dev.gpu**: PyTorch development with CUDA 12.8 (default)
 - **ros.dev.gpu**: ROS 2 Jazzy with TurtleBot3, slam-toolbox, foxglove-bridge
 
-Switch services via `./devcontainer.sh dev` or `./devcontainer.sh ros`, or edit `.devcontainer/devcontainer.json`.
+Switch services by editing the `"service"` field in `.devcontainer/devcontainer.json` and rebuilding the container.
 
 ### Directory Structure
 - `assignments/` - Jupyter notebooks for course assignments
