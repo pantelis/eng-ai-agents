@@ -11,6 +11,8 @@
 #   code_cells: Number of code cells
 #   environment: Execution environment (torch.dev.gpu, ros.dev.gpu, or colab)
 #   description: Brief description of notebook content
+#   last_executed: Date of last successful execution (auto-updated, YYYY-MM-DD)
+#   duration_seconds: Execution time in seconds (auto-updated)
 #
 # Environments:
 #   torch.dev.gpu - PyTorch with CUDA (local Docker)
@@ -116,6 +118,8 @@ notebooks:
   - source: aiml-common/lectures/ml-math/probability/gaussians.ipynb
     stripped: ml-math/probability/gaussians.ipynb
     code_cells: 1
-    environment: colab
+    environment: torch.dev.gpu
     description: Correlated Gaussian random variable generation
+    last_executed: 2026-02-07
+    duration_seconds: 2.4
   - "---"

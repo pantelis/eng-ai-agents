@@ -1,4 +1,4 @@
-.PHONY: install install-dev install-notebooks format lint lint-check type-check test test-cov test-examples clean build deps-update deps-sync quality style fixup venv venv-recreate setup-dev docker-build-gpu docker-build-cpu docker-build docker-run-gpu docker-run-cpu ci-quality ci-test execute-notebook execute-all-notebooks add-artifact-saving add-artifact-saving-all
+.PHONY: install install-dev install-notebooks format lint lint-check type-check test test-cov test-examples clean build deps-update deps-sync quality style fixup venv venv-recreate setup-dev docker-build-gpu docker-build-cpu docker-build docker-run-gpu docker-run-cpu ci-quality ci-test execute-notebook execute-all-notebooks
 # Use stage 0 container pip constraints (only if file exists)
 CONSTRAINT_FILE := /etc/pip/constraint.txt
 CONSTRAINTS := $(if $(wildcard $(CONSTRAINT_FILE)),--constraint $(CONSTRAINT_FILE),)
@@ -194,25 +194,3 @@ execute-all-notebooks:
 	docker compose run --rm $(or $(ENV),torch.dev.gpu) bash -c \
 		"make install-notebooks && python scripts/execute_all_notebooks.py"
 
-# Add artifact saving to notebooks
-add-artifact-saving:
-ifndef NOTEBOOK
-	@echo "Error: NOTEBOOK parameter is required"
-	@echo "Usage: make add-artifact-saving NOTEBOOK=<notebook-path>"
-	@echo "Example: make add-artifact-saving NOTEBOOK=transfer-learning/transfer_learning_tutorial.ipynb"
-	@exit 1
-endif
-	@echo "Adding artifact saving to: notebooks/$(NOTEBOOK)"
-	python3 scripts/add_artifact_saving.py notebooks/$(NOTEBOOK)
-	@echo "✓ Notebook modified"
-
-add-artifact-saving-all: venv
-	@echo "Adding artifact saving to all notebooks in registry..."
-	@$(VENV_PY) -c "import yaml; \
-		notebooks = yaml.safe_load(open('notebooks/stripped-notebooks.yml'))['notebooks']; \
-		[print(n['stripped']) for n in notebooks if n != '---']" | while read nb; do \
-			echo "Processing: $$nb"; \
-			python3 scripts/add_artifact_saving.py notebooks/$$nb || true; \
-		done
-	@echo ""
-	@echo "✓ All notebooks processed"
