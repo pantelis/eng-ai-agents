@@ -49,6 +49,7 @@ notebooks = [
     "opencv-python>=4.9.0",
     "prml @ git+https://github.com/ctgk/PRML.git",
     "tensorflow>=2.15.0",
+    "wandb>=0.18.0",
 ]
 dev = [
     "pytest>=8.0.0",
@@ -159,6 +160,7 @@ module = [
     "datasets.*",
     "accelerate.*",
     "gi.*",
+    "wandb.*",
 ]
 ignore_missing_imports = true
 
