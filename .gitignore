@@ -183,6 +183,9 @@ runs/
 *.tar.xz
 datasets/*
 
+# Weights & Biases
+wandb/
+
 .uv-cache
 
 install/

@@ -11,6 +11,7 @@ import yaml
 
 from extract_artifacts import extract_artifacts
 from update_registry import update_registry_entry
+from wandb_utils import finish_wandb_run, init_wandb_run, log_notebook_result
 
 
 def main() -> int:
@@ -54,6 +55,9 @@ def main() -> int:
         print(f"Executing: {nb_rel}")
         print(f"{'=' * 60}")
 
+        # Start W&B run for this notebook execution
+        run = init_wandb_run(nb_rel, environment=env)
+
         try:
             start = time.monotonic()
             pm.execute_notebook(
@@ -79,11 +83,19 @@ def main() -> int:
                     f"{counts['plotly']} Plotly chart(s), "
                     f"{counts['html_table']} HTML table(s)"
                 )
+
+            # Log results to W&B
+            log_notebook_result(run, duration, executed_date, counts, output_dir)
+
             print(f"[PASS] {nb_rel}")
             passed.append(nb_rel)
         except Exception as e:
+            if run is not None:
+                run.summary["status"] = "failed"
             print(f"[FAIL] {nb_rel}: {e}", file=sys.stderr)
             failed.append(nb_rel)
+        finally:
+            finish_wandb_run(run)
 
     # Summary
     print(f"\n{'=' * 60}")

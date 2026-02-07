@@ -28,6 +28,8 @@ notebooks:
     code_cells: 10
     environment: torch.dev.gpu
     description: SGD with polynomial regression and Optuna hyperparameter tuning
+    last_executed: 2026-02-07
+    duration_seconds: 31.2
   - "---"
   # Maximum Likelihood Estimation
   - source: aiml-common/lectures/optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
@@ -35,6 +37,8 @@ notebooks:
     code_cells: 7
     environment: torch.dev.gpu
     description: Maximum likelihood estimation for marginal distributions
+    last_executed: 2026-02-07
+    duration_seconds: 4.3
   - "---"
   # Whitening & Preprocessing
   - source: aiml-common/lectures/optimization/whitening/corr-cov-matrix.ipynb
@@ -42,6 +46,8 @@ notebooks:
     code_cells: 40
     environment: torch.dev.gpu
     description: Covariance matrix and image whitening (ZCA)
+    last_executed: 2026-02-07
+    duration_seconds: 29.6
   - "---"
   # Batch Normalization
   - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
@@ -49,6 +55,8 @@ notebooks:
     code_cells: 3
     environment: torch.dev.gpu
     description: Batch normalization implementation and effects
+    last_executed: 2026-02-07
+    duration_seconds: 183.1
   - "---"
   # Regularization
   - source: aiml-common/lectures/optimization/regularization/index.ipynb
@@ -56,6 +64,8 @@ notebooks:
     code_cells: 4
     environment: torch.dev.gpu
     description: L2 regularization, dropout, and early stopping examples
+    last_executed: 2026-02-07
+    duration_seconds: 631.8
   - "---"
   # Transfer Learning
   - source: aiml-common/lectures/transfer-learning/transfer_learning_tutorial.ipynb
@@ -63,6 +73,8 @@ notebooks:
     code_cells: 13
     environment: torch.dev.gpu
     description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
+    last_executed: 2026-02-07
+    duration_seconds: 62.9
   - "---"
   # Reinforcement Learning - Prediction
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
@@ -77,6 +89,8 @@ notebooks:
     code_cells: 3
     environment: torch.dev.gpu
     description: SARSA algorithm on gridworld with Q-value heatmap visualization
+    last_executed: 2026-02-07
+    duration_seconds: 4.5
   - "---"
   # CNN - Small Datasets
   - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
@@ -96,6 +110,8 @@ notebooks:
     code_cells: 7
     environment: torch.dev.gpu
     description: Mask R-CNN instance segmentation inference with TorchVision
+    last_executed: 2026-02-07
+    duration_seconds: 9.1
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/detectron_tutorial.ipynb
     stripped: scene-understanding/maskrcnn/detectron_tutorial.ipynb
     code_cells: 22
@@ -108,11 +124,15 @@ notebooks:
     code_cells: 25
     environment: torch.dev.gpu
     description: PCA workshop - dimensionality reduction, noise filtering, and eigenfaces (VanderPlas)
+    last_executed: 2026-02-07
+    duration_seconds: 25.2
   - source: aiml-common/lectures/dim-reduction/pca/3d_pca.ipynb
     stripped: dim-reduction/pca/3d_pca.ipynb
     code_cells: 33
     environment: torch.dev.gpu
     description: 3D PCA visualization with projections and interactive Plotly plots
+    last_executed: 2026-02-07
+    duration_seconds: 12.6
   - "---"
   # Probability - Gaussians
   - source: aiml-common/lectures/ml-math/probability/gaussians.ipynb
@@ -121,5 +141,5 @@ notebooks:
     environment: torch.dev.gpu
     description: Correlated Gaussian random variable generation
     last_executed: 2026-02-07
-    duration_seconds: 2.4
+    duration_seconds: 2.7
   - "---"
