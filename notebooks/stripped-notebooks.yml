@@ -97,8 +97,8 @@ notebooks:
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/detectron_tutorial.ipynb
     stripped: scene-understanding/maskrcnn/detectron_tutorial.ipynb
     code_cells: 22
-    environment: torch.dev.gpu
-    description: Detectron2 tutorial - inference and training on custom datasets
+    environment: colab
+    description: Detectron2 tutorial - inference and training on custom datasets (requires Colab)
   - "---"
   # Dimensionality Reduction - PCA
   - source: aiml-common/lectures/dim-reduction/pca/principal_component_analysis.ipynb
@@ -111,4 +111,11 @@ notebooks:
     code_cells: 33
     environment: torch.dev.gpu
     description: 3D PCA visualization with projections and interactive Plotly plots
+  - "---"
+  # Probability - Gaussians
+  - source: aiml-common/lectures/ml-math/probability/gaussians.ipynb
+    stripped: ml-math/probability/gaussians.ipynb
+    code_cells: 1
+    environment: colab
+    description: Correlated Gaussian random variable generation
   - "---"

@@ -80,6 +80,10 @@ RUN pip3 install --no-cache-dir \
 
 RUN pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cpu
 
+# Constraint file — respect existing package versions
+RUN mkdir -p /etc/pip
+RUN pip3 list --format=freeze > /etc/pip/constraint.txt
+
 # Install UV with caching
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 

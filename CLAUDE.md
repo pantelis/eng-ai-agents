@@ -73,6 +73,7 @@ make clean                    # Remove build artifacts
 
 ### Container Services (docker-compose.yml)
 - **torch.dev.gpu**: PyTorch development with CUDA 12.8 (default)
+- **torch.dev.cpu**: PyTorch development, CPU-only (no GPU required)
 - **ros.dev.gpu**: ROS 2 Jazzy with TurtleBot3, slam-toolbox, foxglove-bridge
 
 Switch services by editing the `"service"` field in `.devcontainer/devcontainer.json` and rebuilding the container.
@@ -110,9 +111,35 @@ ros2 launch foxglove_bridge foxglove_bridge_launch.xml
 
 Useful aliases in ROS container: `cbuild` (colcon build), `ssetup` (source setup), `rosdi` (rosdep install), `cyclone`/`fastdds` (RMW selection).
 
+## Notebook Execution
+
+Notebooks are registered in `notebooks/stripped-notebooks.yml` with their execution environment. Notebooks marked `environment: colab` are automatically skipped during local execution.
+
+### Prerequisites (Inside Container)
+```bash
+make start                    # Initial environment setup
+make install-notebooks        # Install notebook deps (matplotlib, sklearn, etc.) + register kernel
+```
+
+### Running Notebooks
+```bash
+# Single notebook
+make execute-notebook NOTEBOOK=reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
+
+# All registered notebooks (GPU container, default)
+make execute-all-notebooks
+
+# All registered notebooks (CPU container)
+make execute-all-notebooks ENV=torch.dev.cpu
+```
+
+### Adding Notebook Dependencies
+Notebook-specific packages (matplotlib, seaborn, scikit-learn, etc.) live in `pyproject.toml` under `[project.optional-dependencies] notebooks`. Add new packages there and re-run `make install-notebooks`.
+
 ## Port Mappings (configurable via .env)
 
 | Service | Jupyter | Quarto | Dev Server | ROS Master | Foxglove |
 |---------|---------|--------|------------|------------|----------|
 | torch.dev.gpu | 8888 | 4100 | 8000 | - | - |
+| torch.dev.cpu | 8889 | 4101 | 8001 | - | - |
 | ros.dev.gpu | 8880 | 4180 | 8078 | 11311 | 8765 |
