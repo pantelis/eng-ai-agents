@@ -38,7 +38,39 @@ services:
               capabilities: [gpu]
     networks:
       - ai-agents-network
-  ros.dev.gpu: 
+  torch.dev.cpu:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.torch.dev.cpu
+      args:
+        UV_EXTRA: cpu
+        WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+        WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
+    container_name: eng-ai-agents-cpu
+    ports:
+      - "${CPU_QUARTO_PORT:-4101}:4100"
+      - "${CPU_JUPYTER_PORT:-8889}:8888"
+      - "${CPU_PORT:-8001}:8000"
+    volumes:
+      - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - ${SSH_AUTH_SOCK:-/dev/null}:/ssh-agent
+    working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    environment:
+      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
+      - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
+      - UV_EXTRA=cpu
+      - SSH_AUTH_SOCK=/ssh-agent
+    env_file:
+      - path: .env
+        required: true
+    command: bash -c "tail -f /dev/null"
+    stdin_open: true
+    tty: true
+    networks:
+      - ai-agents-network
+  ros.dev.gpu:
     build:
       context: .
       dockerfile: docker/Dockerfile.ros.dev.gpu

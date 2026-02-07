@@ -44,6 +44,7 @@ def execute_notebook(notebook_path: str, output_base: str = "notebooks") -> None
         pm.execute_notebook(
             str(nb_file),
             str(output_nb),
+            kernel_name="python3",
             parameters={
                 "output_dir": str(output_dir),
                 "images_dir": str(output_dir / "images"),

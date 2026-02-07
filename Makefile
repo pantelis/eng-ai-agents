@@ -1,4 +1,4 @@
-.PHONY: install install-dev format lint lint-check type-check test test-cov test-examples clean build deps-update deps-sync quality style fixup venv venv-recreate setup-dev docker-build-gpu docker-build-cpu docker-build docker-run-gpu docker-run-cpu ci-quality ci-test execute-notebook execute-all-notebooks add-artifact-saving add-artifact-saving-all
+.PHONY: install install-dev install-notebooks format lint lint-check type-check test test-cov test-examples clean build deps-update deps-sync quality style fixup venv venv-recreate setup-dev docker-build-gpu docker-build-cpu docker-build docker-run-gpu docker-run-cpu ci-quality ci-test execute-notebook execute-all-notebooks add-artifact-saving add-artifact-saving-all
 # Use stage 0 container pip constraints (only if file exists)
 CONSTRAINT_FILE := /etc/pip/constraint.txt
 CONSTRAINTS := $(if $(wildcard $(CONSTRAINT_FILE)),--constraint $(CONSTRAINT_FILE),)
@@ -143,7 +143,13 @@ start:
 	$(MAKE) venv-recreate
 	$(MAKE) deps-sync
 	$(MAKE) install
+	$(VENV_PY) -m ipykernel install --user --name python3 --display-name "Python 3 (eng-ai-agents)"
 	@echo "To activate the virtual environment, run: source .venv/bin/activate"
+
+# Install notebook dependencies and register kernel
+install-notebooks: venv
+	$(UV) pip install -e ".[notebooks]"
+	$(VENV_PY) -m ipykernel install --user --name python3 --display-name "Python 3 (eng-ai-agents)"
 
 # Notebook execution targets
 execute-notebook:
@@ -165,9 +171,9 @@ endif
 		echo "This notebook uses Colab-specific features and cannot be"; \
 		echo "executed locally. Please run it in Google Colab instead."; \
 		echo ""; \
-		echo "📂 Notebook: $(NOTEBOOK)"; \
+		echo "  Notebook: $(NOTEBOOK)"; \
 		echo ""; \
-		echo "🔗 Open in Colab:"; \
+		echo "  Open in Colab:"; \
 		echo "   https://colab.research.google.com/github/pantelis/eng-ai-agents/blob/main/notebooks/$(NOTEBOOK)"; \
 		echo ""; \
 		echo "Manual steps:"; \
@@ -178,21 +184,15 @@ endif
 		echo "═══════════════════════════════════════════════════════════════"; \
 	else \
 		echo "Executing notebook in Docker environment: $(ENV)"; \
-		docker compose run --rm $(ENV) python scripts/execute_notebook.py $(NOTEBOOK); \
-		echo "✓ Notebook execution complete"; \
+		docker compose run --rm $(ENV) bash -c \
+			"make install-notebooks && python scripts/execute_notebook.py $(NOTEBOOK)"; \
+		echo "Done: Notebook execution complete"; \
 	fi
 
 execute-all-notebooks:
 	@echo "Executing all notebooks from registry..."
-	@python3 scripts/list_notebooks.py | while read nb; do \
-		echo ""; \
-		echo "========================================"; \
-		echo "Executing: $$nb"; \
-		echo "========================================"; \
-		$(MAKE) execute-notebook NOTEBOOK=$$nb || true; \
-	done
-	@echo ""
-	@echo "✓ All notebooks processed"
+	docker compose run --rm $(or $(ENV),torch.dev.gpu) bash -c \
+		"make install-notebooks && python scripts/execute_all_notebooks.py"
 
 # Add artifact saving to notebooks
 add-artifact-saving:
