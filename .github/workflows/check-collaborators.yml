@@ -5,6 +5,7 @@ on: [push, public, workflow_dispatch]
 jobs:
   check-collaborators:
     runs-on: ubuntu-latest
+    if: vars.ENABLE_COLLABORATOR_CHECK == 'true'
 
     steps:
       - name: Set up Python
@@ -19,8 +20,9 @@ jobs:
 
       - name: Check Collaborators and Repository Privacy
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # This token is provided by Actions, no need to create one
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPOSITORY: ${{ github.repository }}
+          COLLABORATORS: ${{ vars.COLLABORATORS }}
         run: |
           import requests
           import os
@@ -30,8 +32,14 @@ jobs:
           GREEN = '\033[92m'
           RESET = '\033[0m'
 
-          # List of GitHub users to check
-          users_to_check = ['+++++++' ]  # !!!!!!!!!!!!! REPLACE ++++++ WITH THE GITHUB IDs OF YOUR TAs FOR THE SPECIFIC CLASS/SECTION !!!!!!!!!!!!!!
+          # Read collaborators from repository variable (comma-separated)
+          # Configure in Settings > Secrets and variables > Actions > Variables
+          collaborators_str = os.getenv('COLLABORATORS', '')
+          users_to_check = [u.strip() for u in collaborators_str.split(',') if u.strip()]
+
+          if not users_to_check:
+              print(RED + "[X] No collaborators configured. Set the COLLABORATORS repository variable (comma-separated GitHub usernames)." + RESET)
+              exit(1)
 
           action_result = 0
 

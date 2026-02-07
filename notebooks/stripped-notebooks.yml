@@ -80,13 +80,13 @@ notebooks:
   - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
     stripped: cnn/using_convnets_with_small_datasets.ipynb
     code_cells: 24
-    environment: torch.dev.gpu
-    description: Training ConvNets on small datasets with data augmentation (F. Chollet)
+    environment: colab
+    description: Training ConvNets on small datasets with data augmentation (F. Chollet) — requires Kaggle dogs-vs-cats dataset
   - source: aiml-common/lectures/cnn/cnn-example-architectures/visualizing-what-convnets-learn.ipynb
     stripped: cnn/visualizing-what-convnets-learn.ipynb
     code_cells: 26
-    environment: torch.dev.gpu
-    description: Visualizing CNN activations, filters, and class activation maps (Grad-CAM)
+    environment: colab
+    description: Visualizing CNN activations, filters, and class activation maps (Grad-CAM) — depends on convnets notebook model
   - "---"
   # Semantic Segmentation - Mask R-CNN
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference.ipynb
