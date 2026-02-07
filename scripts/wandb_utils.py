@@ -51,7 +51,7 @@ def init_wandb_run(
             "notebook": str(nb),
             "environment": environment,
         },
-        finish_previous=True,
+        reinit=True,  # noqa: wandb deprecation — finish_previous requires newer wandb
     )
     return run
 
