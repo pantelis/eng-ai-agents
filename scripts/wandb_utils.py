@@ -44,13 +44,14 @@ def init_wandb_run(
         project=WANDB_PROJECT,
         entity=WANDB_ENTITY,
         name=nb.stem,
+        group=category,
         tags=[category, environment],
         job_type="notebook-execution",
         config={
             "notebook": str(nb),
             "environment": environment,
         },
-        reinit=True,
+        finish_previous=True,
     )
     return run
 
