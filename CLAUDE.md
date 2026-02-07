@@ -113,24 +113,45 @@ Useful aliases in ROS container: `cbuild` (colcon build), `ssetup` (source setup
 
 ## Notebook Execution
 
-Notebooks are registered in `notebooks/stripped-notebooks.yml` with their execution environment. Notebooks marked `environment: colab` are automatically skipped during local execution.
+**CRITICAL**: Notebooks MUST always be executed inside their corresponding Docker container, never on the host. Each notebook's execution environment is specified in `notebooks/stripped-notebooks.yml`.
+
+### Execution Environments
+- **`torch.dev.gpu`** — PyTorch notebooks with CUDA (most notebooks)
+- **`torch.dev.cpu`** — PyTorch notebooks, CPU-only fallback
+- **`ros.dev.gpu`** — ROS 2 robotics notebooks
+- **`colab`** — Google Colab only (cannot run locally, skipped automatically)
+
+### Running Notebooks (from host)
+The `make execute-notebook` target automatically looks up the environment from the registry and runs via `docker compose run`:
+```bash
+# Single notebook — auto-detects Docker service from registry
+make execute-notebook NOTEBOOK=reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
+
+# All registered notebooks (uses torch.dev.gpu by default, colab notebooks are skipped)
+make execute-all-notebooks
+
+# All registered notebooks in CPU container
+make execute-all-notebooks ENV=torch.dev.cpu
+```
+
+These make targets:
+1. Look up the notebook's environment in `notebooks/stripped-notebooks.yml`
+2. Launch the appropriate Docker container via `docker compose run`
+3. Install notebook dependencies (`make install-notebooks`) inside the container
+4. Execute with papermill and extract output artifacts (images, Plotly HTML, tables)
+
+### Artifact Extraction
+After execution, artifacts are automatically extracted from notebook cell outputs into `notebooks/<topic>/output/`:
+- `output/images/*.png` — Matplotlib plots (base64-decoded from cell outputs)
+- `output/images/*.html` — Plotly interactive charts (self-contained HTML)
+- `output/text/*.html` — HTML tables (DataFrames, styled tables)
+
+All output dirs are gitignored via `notebooks/**/output/`.
 
 ### Prerequisites (Inside Container)
 ```bash
 make start                    # Initial environment setup
 make install-notebooks        # Install notebook deps (matplotlib, sklearn, etc.) + register kernel
-```
-
-### Running Notebooks
-```bash
-# Single notebook
-make execute-notebook NOTEBOOK=reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
-
-# All registered notebooks (GPU container, default)
-make execute-all-notebooks
-
-# All registered notebooks (CPU container)
-make execute-all-notebooks ENV=torch.dev.cpu
 ```
 
 ### Adding Notebook Dependencies

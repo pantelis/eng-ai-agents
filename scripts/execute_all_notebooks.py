@@ -2,10 +2,15 @@
 """Execute all notebooks from the registry in a single container session."""
 
 import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 
 import papermill as pm
 import yaml
+
+from extract_artifacts import extract_artifacts
+from update_registry import update_registry_entry
 
 
 def main() -> int:
@@ -50,19 +55,30 @@ def main() -> int:
         print(f"{'=' * 60}")
 
         try:
+            start = time.monotonic()
             pm.execute_notebook(
                 str(nb_file),
                 str(output_nb),
                 kernel_name="python3",
-                parameters={
-                    "output_dir": str(output_dir),
-                    "images_dir": str(output_dir / "images"),
-                    "videos_dir": str(output_dir / "videos"),
-                    "audio_dir": str(output_dir / "audio"),
-                    "text_dir": str(output_dir / "text"),
-                },
                 log_output=True,
             )
+            duration = time.monotonic() - start
+            executed_date = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+            print(f"  Duration: {duration:.1f}s")
+
+            # Update registry with execution metadata
+            update_registry_entry(nb_rel, executed_date, duration)
+
+            # Extract artifacts from the executed notebook
+            counts = extract_artifacts(output_nb, output_dir)
+            total = sum(counts.values())
+            if total > 0:
+                print(
+                    f"  Extracted {counts['png']} PNG(s), "
+                    f"{counts['plotly']} Plotly chart(s), "
+                    f"{counts['html_table']} HTML table(s)"
+                )
             print(f"[PASS] {nb_rel}")
             passed.append(nb_rel)
         except Exception as e:
