@@ -72,6 +72,9 @@ dev-dependencies = [
     "pre-commit>=4.0.0",
 ]
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/eng-ai-agents"]
 
