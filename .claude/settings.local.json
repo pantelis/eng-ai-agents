@@ -55,7 +55,8 @@
       "Bash(WANDB_API_KEY= python scripts/wandb_report.py:*)",
       "Bash(echo:*)",
       "WebFetch(domain:github.com)",
-      "WebFetch(domain:docs.ray.io)"
+      "WebFetch(domain:docs.ray.io)",
+      "Bash(docker rm:*)"
     ]
   }
 }
