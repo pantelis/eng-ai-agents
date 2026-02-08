@@ -30,7 +30,7 @@ def main() -> int:
     skipped = []
 
     for entry in notebooks:
-        nb_rel = entry["stripped"]
+        nb_rel = entry["notebook"]
         env = entry.get("environment", "torch.dev.gpu")
 
         if env == "colab":

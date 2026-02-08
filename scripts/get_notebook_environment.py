@@ -39,7 +39,7 @@ def get_notebook_environment(notebook_path: str, registry_path: str = "notebooks
         if entry == "---":
             continue
 
-        stripped = entry.get("stripped", "")
+        stripped = entry.get("notebook", "")
         if stripped == search_path:
             environment = entry.get("environment")
             if not environment:
