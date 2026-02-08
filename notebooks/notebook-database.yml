@@ -35,7 +35,7 @@ notebooks:
     environment: torch.dev.gpu
     description: Maximum likelihood estimation for marginal distributions
     last_executed: 2026-02-08
-    duration_seconds: 4.0
+    duration_seconds: 4.4
   - "---"
   # Whitening & Preprocessing
   - source: aiml-common/lectures/optimization/whitening/corr-cov-matrix.ipynb
@@ -44,7 +44,7 @@ notebooks:
     environment: torch.dev.gpu
     description: Covariance matrix and image whitening (ZCA)
     last_executed: 2026-02-08
-    duration_seconds: 20.8
+    duration_seconds: 25.0
   - "---"
   # Batch Normalization
   - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
@@ -53,7 +53,7 @@ notebooks:
     environment: torch.dev.gpu
     description: Batch normalization implementation and effects
     last_executed: 2026-02-08
-    duration_seconds: 172.2
+    duration_seconds: 181.0
   - "---"
   # Regularization
   - source: aiml-common/lectures/optimization/regularization/index.ipynb
@@ -62,7 +62,7 @@ notebooks:
     environment: torch.dev.gpu
     description: L2 regularization, dropout, and early stopping examples
     last_executed: 2026-02-08
-    duration_seconds: 584.1
+    duration_seconds: 634.6
   - "---"
   # Transfer Learning
   - source: aiml-common/lectures/transfer-learning/transfer_learning_tutorial.ipynb
@@ -71,7 +71,7 @@ notebooks:
     environment: torch.dev.gpu
     description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
     last_executed: 2026-02-08
-    duration_seconds: 301.5
+    duration_seconds: 304.4
   - "---"
   # Reinforcement Learning - Prediction
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
