@@ -10,6 +10,7 @@ import os
 from pathlib import Path
 from typing import Any
 
+
 try:
     import wandb
 except ImportError:
@@ -23,11 +24,25 @@ def _wandb_available() -> bool:
     return wandb is not None and bool(os.environ.get("WANDB_API_KEY"))
 
 
+def _make_run_id(prefix: str, notebook_path: str) -> str:
+    """Generate a deterministic W&B run ID from a prefix and notebook path.
+
+    Examples:
+        _make_run_id("exec", "optimization/regularization/index.ipynb")
+        → "exec-optimization-regularization-index"
+    """
+    stem = Path(notebook_path).with_suffix("").as_posix().replace("/", "-")
+    return f"{prefix}-{stem}"
+
+
 def init_wandb_run(
     notebook_path: str,
     environment: str = "torch.dev.gpu",
 ) -> Any:
     """Create a W&B run for a notebook execution.
+
+    Uses a deterministic run ID so re-executions overwrite previous runs
+    instead of creating duplicates.
 
     Returns the run object, or None if wandb is unavailable.
     """
@@ -43,6 +58,8 @@ def init_wandb_run(
     run = wandb.init(
         project=WANDB_PROJECT,
         entity=WANDB_ENTITY,
+        id=_make_run_id("exec", notebook_path),
+        resume="allow",
         name=nb.stem,
         group=category,
         tags=[category, environment],
@@ -51,7 +68,6 @@ def init_wandb_run(
             "notebook": str(nb),
             "environment": environment,
         },
-        reinit=True,  # noqa: wandb deprecation — finish_previous requires newer wandb
     )
     return run
 
