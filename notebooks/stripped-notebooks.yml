@@ -74,7 +74,7 @@ notebooks:
     environment: torch.dev.gpu
     description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
     last_executed: 2026-02-08
-    duration_seconds: 73.4
+    duration_seconds: 301.5
   - "---"
   # Reinforcement Learning - Prediction
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
@@ -92,7 +92,7 @@ notebooks:
     environment: torch.dev.gpu
     description: SARSA algorithm on gridworld with Q-value heatmap visualization
     last_executed: 2026-02-08
-    duration_seconds: 4.5
+    duration_seconds: 124.0
   - "---"
   # CNN - Small Datasets
   - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
