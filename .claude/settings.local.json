@@ -30,7 +30,32 @@
       "Bash(bd create:*)",
       "Bash(make execute-all-notebooks:*)",
       "Bash(bd close:*)",
-      "Bash(bd stats:*)"
+      "Bash(bd stats:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker-compose ps:*)",
+      "Bash(ls:*)",
+      "Bash(.venv/bin/jupyter:*)",
+      "Bash(xargs -I {} python3 -c \"import json; nb=json.load\\(open\\(''{}'', ''r''\\)\\); cells=[c for c in nb.get\\(''cells'', []\\) if c[''cell_type'']==''code'']; imports=[line.strip\\(\\) for cell in cells for line in cell.get\\(''source'', []\\) if line.strip\\(\\).startswith\\(\\(''import '', ''from ''\\)\\)][:5]; print\\(f''\\\\n{}:''\\); [print\\(f''  {i}''\\) for i in imports]\")",
+      "Bash(git check-ignore:*)",
+      "Bash(docker compose build:*)",
+      "Bash(xargs -I {} sh -c 'echo \"\"=== {} ===\"\" && cat {} | jq \"\".cells[].outputs[].data | keys\"\" 2>/dev/null')",
+      "Bash(python scripts/execute_notebook.py:*)",
+      "Bash(git log:*)",
+      "Bash(sort:*)",
+      "Bash(bd ready)",
+      "Bash(grep:*)",
+      "Bash(done)",
+      "Bash(python -m ruff check:*)",
+      "Bash(ruff check:*)",
+      "Bash(pip install:*)",
+      "Bash(pipx run ruff check:*)",
+      "Bash(uvx ruff check:*)",
+      "Bash(uvx ruff format:*)",
+      "Bash(python:*)",
+      "Bash(WANDB_API_KEY= python scripts/wandb_report.py:*)",
+      "Bash(echo:*)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:docs.ray.io)"
     ]
   }
 }
