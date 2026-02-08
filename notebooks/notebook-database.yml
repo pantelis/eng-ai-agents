@@ -1,18 +1,19 @@
-# Stripped Notebooks Registry
-# This file tracks all notebooks that have been stripped of markdown cells
-# for public release in the eng-ai-agents repository.
-#
-# When converting aiml-common notebooks to MDX, always run the strip skill
-# and add the stripped notebook here.
+# Notebook Database
+# Unified registry tracking all notebooks, their execution environments,
+# and reconciliation state between eng-ai-agents and eaia repositories.
 #
 # Schema:
-#   source: Path in aiml-common repository
-#   stripped: Destination path in this repository
-#   code_cells: Number of code cells
+#   source: Path in aiml-common repository (eaia)
+#   stripped: Destination path in this repository (relative to notebooks/)
+#   code_cells: Number of code cells in eng-ai-agents
 #   environment: Execution environment (torch.dev.gpu, ros.dev.gpu, or colab)
 #   description: Brief description of notebook content
 #   last_executed: Date of last successful execution (auto-updated, YYYY-MM-DD)
 #   duration_seconds: Execution time in seconds (auto-updated)
+#   eaia_code_cells: Number of code cells in eaia after reconciliation
+#   eng_code_cells: Number of code cells in eng-ai-agents
+#   reconciled_at: ISO 8601 timestamp of last reconciliation
+#   reconciliation_status: up_to_date or pending
 #
 # Environments:
 #   torch.dev.gpu - PyTorch with CUDA (local Docker)
@@ -30,6 +31,10 @@ notebooks:
     description: SGD with polynomial regression and Optuna hyperparameter tuning
     last_executed: 2026-02-08
     duration_seconds: 30.5
+    eaia_code_cells: 10
+    eng_code_cells: 10
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Maximum Likelihood Estimation
   - source: aiml-common/lectures/optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
@@ -39,6 +44,10 @@ notebooks:
     description: Maximum likelihood estimation for marginal distributions
     last_executed: 2026-02-08
     duration_seconds: 4.0
+    eaia_code_cells: 7
+    eng_code_cells: 7
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Whitening & Preprocessing
   - source: aiml-common/lectures/optimization/whitening/corr-cov-matrix.ipynb
@@ -48,6 +57,10 @@ notebooks:
     description: Covariance matrix and image whitening (ZCA)
     last_executed: 2026-02-08
     duration_seconds: 20.8
+    eaia_code_cells: 40
+    eng_code_cells: 40
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Batch Normalization
   - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
@@ -57,6 +70,10 @@ notebooks:
     description: Batch normalization implementation and effects
     last_executed: 2026-02-08
     duration_seconds: 172.2
+    eaia_code_cells: 3
+    eng_code_cells: 3
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Regularization
   - source: aiml-common/lectures/optimization/regularization/index.ipynb
@@ -66,6 +83,10 @@ notebooks:
     description: L2 regularization, dropout, and early stopping examples
     last_executed: 2026-02-08
     duration_seconds: 584.1
+    eaia_code_cells: 4
+    eng_code_cells: 4
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Transfer Learning
   - source: aiml-common/lectures/transfer-learning/transfer_learning_tutorial.ipynb
@@ -75,6 +96,10 @@ notebooks:
     description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
     last_executed: 2026-02-08
     duration_seconds: 301.5
+    eaia_code_cells: 13
+    eng_code_cells: 13
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Reinforcement Learning - Prediction
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
@@ -84,6 +109,10 @@ notebooks:
     description: Monte Carlo vs TD(0) comparison on Random Walk MRP (Sutton & Barto Example 6.2)
     last_executed: 2026-02-08
     duration_seconds: 1.7
+    eaia_code_cells: 2
+    eng_code_cells: 2
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Reinforcement Learning - Control
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/control/sarsa/gridworld/sarsa_gridworld.ipynb
@@ -93,6 +122,10 @@ notebooks:
     description: SARSA algorithm on gridworld with Q-value heatmap visualization
     last_executed: 2026-02-08
     duration_seconds: 124.0
+    eaia_code_cells: 3
+    eng_code_cells: 3
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # CNN - Small Datasets
   - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
@@ -100,11 +133,19 @@ notebooks:
     code_cells: 24
     environment: colab
     description: Training ConvNets on small datasets with data augmentation (F. Chollet) — requires Kaggle dogs-vs-cats dataset
+    eaia_code_cells: 24
+    eng_code_cells: 24
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - source: aiml-common/lectures/cnn/cnn-example-architectures/visualizing-what-convnets-learn.ipynb
     stripped: cnn/visualizing-what-convnets-learn.ipynb
     code_cells: 26
     environment: colab
     description: Visualizing CNN activations, filters, and class activation maps (Grad-CAM) — depends on convnets notebook model
+    eaia_code_cells: 26
+    eng_code_cells: 26
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Semantic Segmentation - Mask R-CNN
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference.ipynb
@@ -114,11 +155,19 @@ notebooks:
     description: Mask R-CNN instance segmentation inference with TorchVision
     last_executed: 2026-02-08
     duration_seconds: 8.5
+    eaia_code_cells: 7
+    eng_code_cells: 7
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/detectron_tutorial.ipynb
     stripped: scene-understanding/maskrcnn/detectron_tutorial.ipynb
     code_cells: 22
     environment: colab
     description: Detectron2 tutorial - inference and training on custom datasets (requires Colab)
+    eaia_code_cells: 22
+    eng_code_cells: 22
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Dimensionality Reduction - PCA
   - source: aiml-common/lectures/dim-reduction/pca/principal_component_analysis.ipynb
@@ -128,6 +177,10 @@ notebooks:
     description: PCA workshop - dimensionality reduction, noise filtering, and eigenfaces (VanderPlas)
     last_executed: 2026-02-08
     duration_seconds: 21.9
+    eaia_code_cells: 25
+    eng_code_cells: 25
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - source: aiml-common/lectures/dim-reduction/pca/3d_pca.ipynb
     stripped: dim-reduction/pca/3d_pca.ipynb
     code_cells: 33
@@ -135,6 +188,10 @@ notebooks:
     description: 3D PCA visualization with projections and interactive Plotly plots
     last_executed: 2026-02-08
     duration_seconds: 9.7
+    eaia_code_cells: 33
+    eng_code_cells: 33
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"
   # Probability - Gaussians
   - source: aiml-common/lectures/ml-math/probability/gaussians.ipynb
@@ -144,4 +201,19 @@ notebooks:
     description: Correlated Gaussian random variable generation
     last_executed: 2026-02-08
     duration_seconds: 2.2
+    eaia_code_cells: 1
+    eng_code_cells: 1
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
+  - "---"
+  # Projects - Sports Analytics
+  - source: aiml-common/projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
+    stripped: projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
+    code_cells: 55
+    environment: colab
+    description: Basketball player detection, tracking and identification using YOLO and ByteTrack
+    eaia_code_cells: 58
+    eng_code_cells: 56
+    reconciled_at: '2026-02-08T13:31:48Z'
+    reconciliation_status: up_to_date
   - "---"

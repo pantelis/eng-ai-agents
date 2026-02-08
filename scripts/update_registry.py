@@ -8,7 +8,7 @@ def update_registry_entry(
     notebook_rel: str,
     last_executed: str,
     duration_seconds: float,
-    registry_path: str = "notebooks/stripped-notebooks.yml",
+    registry_path: str = "notebooks/notebook-database.yml",
 ) -> bool:
     """Update a registry entry with execution date and duration.
 

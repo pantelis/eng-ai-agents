@@ -3,7 +3,7 @@
 
 import yaml
 
-with open("notebooks/stripped-notebooks.yml") as f:
+with open("notebooks/notebook-database.yml") as f:
     registry = yaml.safe_load(f)
 
 for entry in registry["notebooks"]:
