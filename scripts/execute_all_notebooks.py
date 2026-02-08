@@ -55,10 +55,11 @@ def main() -> int:
         print(f"Executing: {nb_rel}")
         print(f"{'=' * 60}")
 
-        # Start W&B run for this notebook execution
-        run = init_wandb_run(nb_rel, environment=env)
-
+        run = None
         try:
+            # Init W&B immediately before execution so W&B's built-in
+            # runtime matches the actual notebook execution duration.
+            run = init_wandb_run(nb_rel, environment=env)
             start = time.monotonic()
             pm.execute_notebook(
                 str(nb_file),
