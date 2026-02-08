@@ -26,7 +26,7 @@ notebooks:
     environment: torch.dev.gpu
     description: SGD with polynomial regression and Optuna hyperparameter tuning
     last_executed: 2026-02-08
-    duration_seconds: 30.5
+    duration_seconds: 25.3
   - "---"
   # Maximum Likelihood Estimation
   - source: aiml-common/lectures/optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
