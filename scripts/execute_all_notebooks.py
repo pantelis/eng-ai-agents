@@ -15,7 +15,7 @@ from wandb_utils import finish_wandb_run, init_wandb_run, log_notebook_result
 
 
 def main() -> int:
-    registry_path = Path("notebooks/stripped-notebooks.yml")
+    registry_path = Path("notebooks/notebook-database.yml")
     if not registry_path.exists():
         print(f"Error: Registry not found: {registry_path}", file=sys.stderr)
         return 1

@@ -8,7 +8,7 @@ This directory contains stripped notebooks from the private `aiml-common` reposi
 
 ### Registry
 
-The `stripped-notebooks.yml` file tracks all notebooks and their execution environments:
+The `notebook-database.yml` file tracks all notebooks and their execution environments:
 
 ```yaml
 notebooks:
@@ -169,7 +169,7 @@ plt.show()
 
 When adding a new notebook to the registry:
 
-1. Add the entry to `stripped-notebooks.yml`:
+1. Add the entry to `notebook-database.yml`:
    ```yaml
    - source: aiml-common/path/to/notebook.ipynb
      stripped: destination/path/notebook.ipynb
@@ -210,4 +210,4 @@ make execute-notebook NOTEBOOK=<any-notebook>
 ### See Also
 
 - [EXECUTION_PLAN.md](EXECUTION_PLAN.md) - Detailed implementation plan
-- [stripped-notebooks.yml](stripped-notebooks.yml) - Notebook registry
+- [notebook-database.yml](notebook-database.yml) - Notebook registry

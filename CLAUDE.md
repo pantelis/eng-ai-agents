@@ -113,7 +113,7 @@ Useful aliases in ROS container: `cbuild` (colcon build), `ssetup` (source setup
 
 ## Notebook Execution
 
-**CRITICAL**: Notebooks MUST always be executed inside their corresponding Docker container, never on the host. Each notebook's execution environment is specified in `notebooks/stripped-notebooks.yml`.
+**CRITICAL**: Notebooks MUST always be executed inside their corresponding Docker container, never on the host. Each notebook's execution environment is specified in `notebooks/notebook-database.yml`.
 
 ### Execution Environments
 - **`torch.dev.gpu`** — PyTorch notebooks with CUDA (most notebooks)
@@ -135,7 +135,7 @@ make execute-all-notebooks ENV=torch.dev.cpu
 ```
 
 These make targets:
-1. Look up the notebook's environment in `notebooks/stripped-notebooks.yml`
+1. Look up the notebook's environment in `notebooks/notebook-database.yml`
 2. Launch the appropriate Docker container via `docker compose run`
 3. Install notebook dependencies (`make install-notebooks`) inside the container
 4. Execute with papermill and extract output artifacts (images, Plotly HTML, tables)
