@@ -68,6 +68,7 @@ def init_wandb_run(
             "notebook": str(nb),
             "environment": environment,
         },
+        settings=wandb.Settings(init_timeout=120),
     )
     return run
 
