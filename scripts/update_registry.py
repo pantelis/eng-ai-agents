@@ -15,7 +15,7 @@ def update_registry_entry(
     Preserves comments and formatting by operating on raw lines.
 
     Args:
-        notebook_rel: Notebook path relative to notebooks/ (the 'stripped' value).
+        notebook_rel: Notebook path relative to notebooks/ (the 'notebook' value).
         last_executed: ISO date string (e.g. "2026-02-07").
         duration_seconds: Total execution time in seconds.
         registry_path: Path to the registry YAML file.
@@ -30,7 +30,7 @@ def update_registry_entry(
     target_idx = None
     for i, line in enumerate(lines):
         stripped_line = line.strip()
-        if stripped_line == f"stripped: {notebook_rel}":
+        if stripped_line == f"notebook: {notebook_rel}":
             target_idx = i
             break
 
@@ -57,7 +57,7 @@ def update_registry_entry(
     # Recalculate target_idx and block_end after removals
     target_idx = None
     for i, line in enumerate(kept):
-        if line.strip() == f"stripped: {notebook_rel}":
+        if line.strip() == f"notebook: {notebook_rel}":
             target_idx = i
             break
 
