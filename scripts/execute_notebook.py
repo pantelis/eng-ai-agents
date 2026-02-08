@@ -45,11 +45,12 @@ def execute_notebook(notebook_path: str, output_base: str = "notebooks") -> None
     print(f"Output notebook: {output_nb}")
     print(f"Artifact directory: {output_dir}")
 
-    # Start W&B run for this notebook execution
-    run = init_wandb_run(notebook_path)
-
     # Execute with papermill
+    run = None
     try:
+        # Init W&B immediately before execution so W&B's built-in
+        # runtime matches the actual notebook execution duration.
+        run = init_wandb_run(notebook_path)
         start = time.monotonic()
         pm.execute_notebook(
             str(nb_file),
