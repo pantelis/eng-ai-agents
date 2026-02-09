@@ -25,8 +25,8 @@ notebooks:
     code_cells: 10
     environment: torch.dev.gpu
     description: SGD with polynomial regression and Optuna hyperparameter tuning
-    last_executed: 2026-02-08
-    duration_seconds: 25.3
+    last_executed: 2026-02-09
+    duration_seconds: 25.1
   - "---"
   # Maximum Likelihood Estimation
   - source: aiml-common/lectures/optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
@@ -34,8 +34,8 @@ notebooks:
     code_cells: 7
     environment: torch.dev.gpu
     description: Maximum likelihood estimation for marginal distributions
-    last_executed: 2026-02-08
-    duration_seconds: 4.4
+    last_executed: 2026-02-09
+    duration_seconds: 4.1
   - "---"
   # Whitening & Preprocessing
   - source: aiml-common/lectures/optimization/whitening/corr-cov-matrix.ipynb
@@ -43,8 +43,8 @@ notebooks:
     code_cells: 40
     environment: torch.dev.gpu
     description: Covariance matrix and image whitening (ZCA)
-    last_executed: 2026-02-08
-    duration_seconds: 25.0
+    last_executed: 2026-02-09
+    duration_seconds: 34.7
   - "---"
   # Batch Normalization
   - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
@@ -52,8 +52,8 @@ notebooks:
     code_cells: 3
     environment: torch.dev.gpu
     description: Batch normalization implementation and effects
-    last_executed: 2026-02-08
-    duration_seconds: 181.0
+    last_executed: 2026-02-09
+    duration_seconds: 180.4
   - "---"
   # Regularization
   - source: aiml-common/lectures/optimization/regularization/index.ipynb
@@ -61,8 +61,8 @@ notebooks:
     code_cells: 4
     environment: torch.dev.gpu
     description: L2 regularization, dropout, and early stopping examples
-    last_executed: 2026-02-08
-    duration_seconds: 634.6
+    last_executed: 2026-02-09
+    duration_seconds: 696.4
   - "---"
   # Transfer Learning
   - source: aiml-common/lectures/transfer-learning/transfer_learning_tutorial.ipynb
@@ -70,17 +70,17 @@ notebooks:
     code_cells: 13
     environment: torch.dev.gpu
     description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
-    last_executed: 2026-02-08
-    duration_seconds: 304.4
+    last_executed: 2026-02-09
+    duration_seconds: 308.5
   - "---"
   # Reinforcement Learning - Prediction
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
     notebook: reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
-    code_cells: 1
+    code_cells: 2
     environment: torch.dev.gpu
     description: Monte Carlo vs TD(0) comparison on Random Walk MRP (Sutton & Barto Example 6.2)
-    last_executed: 2026-02-08
-    duration_seconds: 1.7
+    last_executed: 2026-02-09
+    duration_seconds: 1.9
   - "---"
   # Reinforcement Learning - Control
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/control/sarsa/gridworld/sarsa_gridworld.ipynb
@@ -88,8 +88,8 @@ notebooks:
     code_cells: 3
     environment: torch.dev.gpu
     description: SARSA algorithm on gridworld with Q-value heatmap visualization
-    last_executed: 2026-02-08
-    duration_seconds: 124.0
+    last_executed: 2026-02-09
+    duration_seconds: 123.9
   - "---"
   # CNN - Small Datasets
   - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
@@ -109,8 +109,8 @@ notebooks:
     code_cells: 7
     environment: torch.dev.gpu
     description: Mask R-CNN instance segmentation inference with TorchVision
-    last_executed: 2026-02-08
-    duration_seconds: 8.5
+    last_executed: 2026-02-09
+    duration_seconds: 9.6
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/detectron_tutorial.ipynb
     notebook: scene-understanding/maskrcnn/detectron_tutorial.ipynb
     code_cells: 22
@@ -123,15 +123,15 @@ notebooks:
     code_cells: 25
     environment: torch.dev.gpu
     description: PCA workshop - dimensionality reduction, noise filtering, and eigenfaces (VanderPlas)
-    last_executed: 2026-02-08
-    duration_seconds: 21.9
+    last_executed: 2026-02-09
+    duration_seconds: 30.7
   - source: aiml-common/lectures/dim-reduction/pca/3d_pca.ipynb
     notebook: dim-reduction/pca/3d_pca.ipynb
     code_cells: 33
     environment: torch.dev.gpu
     description: 3D PCA visualization with projections and interactive Plotly plots
-    last_executed: 2026-02-08
-    duration_seconds: 9.7
+    last_executed: 2026-02-09
+    duration_seconds: 14.8
   - "---"
   # Probability - Gaussians
   - source: aiml-common/lectures/ml-math/probability/gaussians.ipynb
@@ -139,13 +139,13 @@ notebooks:
     code_cells: 1
     environment: torch.dev.gpu
     description: Correlated Gaussian random variable generation
-    last_executed: 2026-02-08
-    duration_seconds: 2.2
+    last_executed: 2026-02-09
+    duration_seconds: 2.4
   - "---"
   # Projects - Sports Analytics
   - source: aiml-common/projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
     notebook: projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
-    code_cells: 55
+    code_cells: 58
     environment: colab
     description: Basketball player detection, tracking and identification using YOLO and ByteTrack
   - "---"
