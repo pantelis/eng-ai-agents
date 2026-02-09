@@ -91,6 +91,11 @@ def log_notebook_result(
     run.summary["plotly_count"] = counts.get("plotly", 0)
     run.summary["html_table_count"] = counts.get("html_table", 0)
 
+    # Override W&B's internal runtime so the overview page Duration
+    # reflects actual execution time, not wall time since the run was
+    # first created (which grows on resumed runs with deterministic IDs).
+    run.summary["_runtime"] = duration
+
     # Upload PNG images
     images_dir = output_dir / "images"
     if images_dir.exists():
