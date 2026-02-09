@@ -7,6 +7,7 @@ is not installed or WANDB_API_KEY is not set.
 from __future__ import annotations
 
 import os
+import time
 from pathlib import Path
 from typing import Any
 
@@ -24,25 +25,33 @@ def _wandb_available() -> bool:
     return wandb is not None and bool(os.environ.get("WANDB_API_KEY"))
 
 
-def _make_run_id(prefix: str, notebook_path: str) -> str:
-    """Generate a deterministic W&B run ID from a prefix and notebook path.
+def _make_run_id(notebook_path: str) -> str:
+    """Generate a unique W&B run ID from notebook path + timestamp.
 
-    Examples:
-        _make_run_id("exec", "optimization/regularization/index.ipynb")
-        → "exec-optimization-regularization-index"
+    Returns an ID like "exec-ml-math-probability-gaussians-1738900000".
     """
     stem = Path(notebook_path).with_suffix("").as_posix().replace("/", "-")
-    return f"{prefix}-{stem}"
+    return f"exec-{stem}-{int(time.time())}"
+
+
+def _delete_run(run_id: str) -> None:
+    """Delete a W&B run by ID. Silently ignores errors."""
+    try:
+        api = wandb.Api()
+        api.run(f"{WANDB_ENTITY}/{WANDB_PROJECT}/{run_id}").delete()
+    except Exception:
+        pass
 
 
 def init_wandb_run(
     notebook_path: str,
     environment: str = "torch.dev.gpu",
 ) -> Any:
-    """Create a W&B run for a notebook execution.
+    """Create a fresh W&B run for a notebook execution.
 
-    Uses a deterministic run ID so re-executions overwrite previous runs
-    instead of creating duplicates.
+    Each execution gets a unique run ID so W&B's Runtime reflects
+    the actual execution time. The old run (if any) is deleted
+    after the new run finishes (see finish_wandb_run).
 
     Returns the run object, or None if wandb is unavailable.
     """
@@ -50,16 +59,13 @@ def init_wandb_run(
         return None
 
     nb = Path(notebook_path)
-    # Extract category from path (e.g. "transfer-learning" from
-    # "transfer-learning/transfer_learning_tutorial.ipynb")
     parts = nb.parts
     category = parts[0] if len(parts) > 1 else "uncategorized"
 
     run = wandb.init(
         project=WANDB_PROJECT,
         entity=WANDB_ENTITY,
-        id=_make_run_id("exec", notebook_path),
-        resume="allow",
+        id=_make_run_id(notebook_path),
         name=nb.stem,
         group=category,
         tags=[category, environment],
@@ -91,11 +97,6 @@ def log_notebook_result(
     run.summary["plotly_count"] = counts.get("plotly", 0)
     run.summary["html_table_count"] = counts.get("html_table", 0)
 
-    # Override W&B's internal runtime so the overview page Duration
-    # reflects actual execution time, not wall time since the run was
-    # first created (which grows on resumed runs with deterministic IDs).
-    run.summary["_runtime"] = duration
-
     # Upload PNG images
     images_dir = output_dir / "images"
     if images_dir.exists():
@@ -115,10 +116,34 @@ def log_notebook_result(
 
 
 def finish_wandb_run(run: Any) -> None:
-    """Safely finish a W&B run."""
+    """Finish the run, then delete any prior runs for the same notebook.
+
+    This keeps one row per notebook in the table with correct Runtime.
+    """
     if run is None:
         return
+
+    current_id = run.id
+    notebook = run.config.get("notebook", "")
+
     try:
         run.finish()
     except Exception:
         pass
+
+    # Delete stale runs for this notebook (different ID = older execution).
+    if notebook:
+        try:
+            api = wandb.Api()
+            old_runs = api.runs(
+                f"{WANDB_ENTITY}/{WANDB_PROJECT}",
+                filters={"config.notebook": notebook},
+            )
+            for old_run in old_runs:
+                if old_run.id != current_id:
+                    try:
+                        old_run.delete()
+                    except Exception:
+                        pass
+        except Exception:
+            pass
