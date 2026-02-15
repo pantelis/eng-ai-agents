@@ -8,6 +8,7 @@
 #   code_cells: Number of code cells
 #   environment: Execution environment (torch.dev.gpu, ros.dev.gpu, or colab)
 #   description: Brief description of notebook content
+#   colab_deps: Override pip packages for Colab setup cell (optional, space-separated)
 #   last_executed: Date of last successful execution (auto-updated, YYYY-MM-DD)
 #   duration_seconds: Execution time in seconds (auto-updated)
 #
@@ -22,16 +23,17 @@ notebooks:
   # Regression & Optimization
   - source: aiml-common/lectures/regression/linear-regression/sgd_sinusoidal_dataset.ipynb
     notebook: regression/linear-regression/sgd_sinusoidal_dataset.ipynb
-    code_cells: 10
+    code_cells: 11
     environment: torch.dev.gpu
     description: SGD with polynomial regression and Optuna hyperparameter tuning
+    colab_deps: matplotlib seaborn scikit-learn scipy tqdm optuna
     last_executed: 2026-02-12
     duration_seconds: 37.1
   - "---"
   # Maximum Likelihood Estimation
   - source: aiml-common/lectures/optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
     notebook: optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
-    code_cells: 7
+    code_cells: 8
     environment: torch.dev.gpu
     description: Maximum likelihood estimation for marginal distributions
     last_executed: 2026-02-12
@@ -40,7 +42,7 @@ notebooks:
   # Whitening & Preprocessing
   - source: aiml-common/lectures/optimization/whitening/corr-cov-matrix.ipynb
     notebook: optimization/whitening/corr-cov-matrix.ipynb
-    code_cells: 40
+    code_cells: 41
     environment: torch.dev.gpu
     description: Covariance matrix and image whitening (ZCA)
     last_executed: 2026-02-12
@@ -49,7 +51,7 @@ notebooks:
   # Batch Normalization
   - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
     notebook: optimization/batch-normalization/index.ipynb
-    code_cells: 3
+    code_cells: 4
     environment: torch.dev.gpu
     description: Batch normalization implementation and effects
     last_executed: 2026-02-12
@@ -58,7 +60,7 @@ notebooks:
   # Regularization
   - source: aiml-common/lectures/optimization/regularization/index.ipynb
     notebook: optimization/regularization/index.ipynb
-    code_cells: 4
+    code_cells: 5
     environment: torch.dev.gpu
     description: L2 regularization, dropout, and early stopping examples
     last_executed: 2026-02-12
@@ -67,7 +69,7 @@ notebooks:
   # Transfer Learning
   - source: aiml-common/lectures/transfer-learning/transfer_learning_tutorial.ipynb
     notebook: transfer-learning/transfer_learning_tutorial.ipynb
-    code_cells: 13
+    code_cells: 14
     environment: torch.dev.gpu
     description: Transfer learning tutorial with PyTorch (finetuning and feature extraction)
     last_executed: 2026-02-12
@@ -76,7 +78,7 @@ notebooks:
   # Reinforcement Learning - Prediction
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
     notebook: reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
-    code_cells: 2
+    code_cells: 3
     environment: torch.dev.gpu
     description: Monte Carlo vs TD(0) comparison on Random Walk MRP (Sutton & Barto Example 6.2)
     last_executed: 2026-02-12
@@ -85,7 +87,7 @@ notebooks:
   # Reinforcement Learning - Control
   - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/control/sarsa/gridworld/sarsa_gridworld.ipynb
     notebook: reinforcement-learning/control/sarsa/sarsa_gridworld.ipynb
-    code_cells: 3
+    code_cells: 4
     environment: torch.dev.gpu
     description: SARSA algorithm on gridworld with Q-value heatmap visualization
     last_executed: 2026-02-12
@@ -106,7 +108,7 @@ notebooks:
   # Semantic Segmentation - Mask R-CNN
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference.ipynb
     notebook: scene-understanding/maskrcnn/maskrcnn_torchvision_inference.ipynb
-    code_cells: 7
+    code_cells: 8
     environment: torch.dev.gpu
     description: Mask R-CNN instance segmentation inference with TorchVision
     last_executed: 2026-02-12
@@ -120,23 +122,24 @@ notebooks:
   # Dimensionality Reduction - PCA
   - source: aiml-common/lectures/dim-reduction/pca/principal_component_analysis.ipynb
     notebook: dim-reduction/pca/principal_component_analysis.ipynb
-    code_cells: 25
+    code_cells: 26
     environment: torch.dev.gpu
     description: PCA workshop - dimensionality reduction, noise filtering, and eigenfaces (VanderPlas)
     last_executed: 2026-02-12
     duration_seconds: 24.6
   - source: aiml-common/lectures/dim-reduction/pca/3d_pca.ipynb
     notebook: dim-reduction/pca/3d_pca.ipynb
-    code_cells: 33
+    code_cells: 34
     environment: torch.dev.gpu
     description: 3D PCA visualization with projections and interactive Plotly plots
+    colab_deps: matplotlib seaborn scikit-learn scipy plotly
     last_executed: 2026-02-12
     duration_seconds: 27.5
   - "---"
   # Probability - Gaussians
   - source: aiml-common/lectures/ml-math/probability/gaussians.ipynb
     notebook: ml-math/probability/gaussians.ipynb
-    code_cells: 1
+    code_cells: 2
     environment: torch.dev.gpu
     description: Correlated Gaussian random variable generation
     last_executed: 2026-02-12
@@ -151,15 +154,16 @@ notebooks:
   - "---"
   - source: aiml-common/lectures/scene-understanding/object-detection/yolo/pytorch/01_coco_dataloader/01_coco_dataloader.ipynb
     notebook: scene-understanding/object-detection/yolo/pytorch/01_coco_dataloader.ipynb
-    code_cells: 13
+    code_cells: 14
     environment: torch.dev.gpu
     description: COCO data loading, letterbox resizing, mosaic augmentation, and multi-scale target encoding for anchor-free detection
+    colab_deps: matplotlib seaborn scikit-learn scipy tqdm datasets
     last_executed: 2026-02-15
     duration_seconds: 18.9
   - "---"
   - source: aiml-common/lectures/scene-understanding/object-detection/yolo/pytorch/02_backbone/02_backbone.ipynb
     notebook: scene-understanding/object-detection/yolo/pytorch/02_backbone.ipynb
-    code_cells: 9
+    code_cells: 10
     environment: torch.dev.gpu
     description: Conv-BN-SiLU blocks, Bottleneck, C3k2 (CSP), SPPF, and the full backbone producing P3/P4/P5 features
     last_executed: 2026-02-14
@@ -167,7 +171,7 @@ notebooks:
   - "---"
   - source: aiml-common/lectures/scene-understanding/object-detection/yolo/pytorch/03_neck_and_head/03_neck_and_head.ipynb
     notebook: scene-understanding/object-detection/yolo/pytorch/03_neck_and_head.ipynb
-    code_cells: 10
+    code_cells: 11
     environment: torch.dev.gpu
     description: FPN top-down and PAN bottom-up feature aggregation, C2PSA attention, decoupled anchor-free head with DFL
     last_executed: 2026-02-14
@@ -175,26 +179,29 @@ notebooks:
   - "---"
   - source: aiml-common/lectures/scene-understanding/object-detection/yolo/pytorch/04_loss_and_training/04_loss_and_training.ipynb
     notebook: scene-understanding/object-detection/yolo/pytorch/04_loss_and_training.ipynb
-    code_cells: 10
+    code_cells: 11
     environment: torch.dev.gpu
     description: IoU variants (GIoU/DIoU/CIoU), Task-Aligned Learning, BCE + CIoU + DFL composite loss, training loop
+    colab_deps: matplotlib seaborn scikit-learn scipy tqdm datasets
     last_executed: 2026-02-15
     duration_seconds: 32.9
   - "---"
   - source: aiml-common/lectures/scene-understanding/object-detection/yolo/pytorch/05_inference_and_evaluation/05_inference_and_evaluation.ipynb
     notebook: scene-understanding/object-detection/yolo/pytorch/05_inference_and_evaluation.ipynb
-    code_cells: 12
+    code_cells: 13
     environment: torch.dev.gpu
     description: Prediction decoding, NMS from scratch, COCO mAP evaluation, Grad-CAM visualization
+    colab_deps: matplotlib seaborn scikit-learn scipy tqdm datasets opencv-python
     last_executed: 2026-02-15
     duration_seconds: 65.9
   - "---"
   # Blog tutorials
   - source: blog/tutorials/hf-coco-streaming/hf-coco-streaming.ipynb
     notebook: blog/tutorials/hf-coco-streaming.ipynb
-    code_cells: 9
+    code_cells: 10
     environment: torch.dev.gpu
     description: Stream COCO from HF for object detection training with Faster R-CNN
+    colab_deps: matplotlib datasets torch torchvision
     last_executed: 2026-02-15
     duration_seconds: 150.2
   - "---"
