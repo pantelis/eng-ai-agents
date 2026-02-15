@@ -151,11 +151,11 @@ notebooks:
   - "---"
   - source: aiml-common/lectures/scene-understanding/object-detection/yolo/pytorch/01_coco_dataloader/01_coco_dataloader.ipynb
     notebook: scene-understanding/object-detection/yolo/pytorch/01_coco_dataloader.ipynb
-    code_cells: 12
+    code_cells: 13
     environment: torch.dev.gpu
     description: COCO data loading, letterbox resizing, mosaic augmentation, and multi-scale target encoding for anchor-free detection
-    last_executed: 2026-02-14
-    duration_seconds: 5.8
+    last_executed: 2026-02-15
+    duration_seconds: 18.9
   - "---"
   - source: aiml-common/lectures/scene-understanding/object-detection/yolo/pytorch/02_backbone/02_backbone.ipynb
     notebook: scene-understanding/object-detection/yolo/pytorch/02_backbone.ipynb
@@ -178,14 +178,23 @@ notebooks:
     code_cells: 10
     environment: torch.dev.gpu
     description: IoU variants (GIoU/DIoU/CIoU), Task-Aligned Learning, BCE + CIoU + DFL composite loss, training loop
-    last_executed: 2026-02-14
-    duration_seconds: 20.5
+    last_executed: 2026-02-15
+    duration_seconds: 32.9
   - "---"
   - source: aiml-common/lectures/scene-understanding/object-detection/yolo/pytorch/05_inference_and_evaluation/05_inference_and_evaluation.ipynb
     notebook: scene-understanding/object-detection/yolo/pytorch/05_inference_and_evaluation.ipynb
     code_cells: 12
     environment: torch.dev.gpu
     description: Prediction decoding, NMS from scratch, COCO mAP evaluation, Grad-CAM visualization
-    last_executed: 2026-02-14
-    duration_seconds: 17.3
+    last_executed: 2026-02-15
+    duration_seconds: 65.9
+  - "---"
+  # Blog tutorials
+  - source: blog/tutorials/hf-coco-streaming/hf-coco-streaming.ipynb
+    notebook: blog/tutorials/hf-coco-streaming.ipynb
+    code_cells: 9
+    environment: torch.dev.gpu
+    description: Stream COCO from HF for object detection training with Faster R-CNN
+    last_executed: 2026-02-15
+    duration_seconds: 150.2
   - "---"
