@@ -205,3 +205,51 @@ notebooks:
     last_executed: 2026-02-15
     duration_seconds: 150.2
   - "---"
+  - source: aiml-common/lectures/scene-understanding/object-detection/faster-rcnn/pytorch/01_coco_dataloader/01_coco_dataloader.ipynb
+    notebook: scene-understanding/object-detection/faster-rcnn/pytorch/01_coco_dataloader/01_coco_dataloader.ipynb
+    code_cells: 9
+    environment: torch.dev.gpu
+    description: COCO data loading via HuggingFace streaming, ImageNet normalization, anchor target assignment, and dataset inspection for Faster RCNN
+    last_executed: 2026-02-22
+    duration_seconds: 24.1
+  - "---"
+  - source: aiml-common/lectures/scene-understanding/object-detection/faster-rcnn/pytorch/02_backbone/02_backbone.ipynb
+    notebook: scene-understanding/object-detection/faster-rcnn/pytorch/02_backbone/02_backbone.ipynb
+    code_cells: 9
+    environment: torch.dev.gpu
+    description: ResNet50 bottleneck blocks and Feature Pyramid Network from scratch in PyTorch for multi-scale Faster RCNN feature extraction
+    last_executed: 2026-02-22
+    duration_seconds: 5.0
+  - "---"
+  - source: aiml-common/lectures/scene-understanding/object-detection/faster-rcnn/pytorch/03_rpn/03_rpn.ipynb
+    notebook: scene-understanding/object-detection/faster-rcnn/pytorch/03_rpn/03_rpn.ipynb
+    code_cells: 7
+    environment: torch.dev.gpu
+    description: Anchor generation, RPN head, box decoding, and greedy NMS for object proposal filtering in Faster RCNN
+    last_executed: 2026-02-22
+    duration_seconds: 3.8
+  - "---"
+  - source: aiml-common/lectures/scene-understanding/object-detection/faster-rcnn/pytorch/04_roi_head/04_roi_head.ipynb
+    notebook: scene-understanding/object-detection/faster-rcnn/pytorch/04_roi_head/04_roi_head.ipynb
+    code_cells: 6
+    environment: torch.dev.gpu
+    description: ROI Align (bilinear, FPN level selection), TwoMLPHead, FastRCNNPredictor, and 14x14 Mask RCNN extension point
+    last_executed: 2026-02-22
+    duration_seconds: 3.0
+  - "---"
+  - source: aiml-common/lectures/scene-understanding/object-detection/faster-rcnn/pytorch/05_training/05_training.ipynb
+    notebook: scene-understanding/object-detection/faster-rcnn/pytorch/05_training/05_training.ipynb
+    code_cells: 9
+    environment: torch.dev.gpu
+    description: Self-contained Faster RCNN end-to-end training at 400x400 with AMP and gradient checkpointing, 5-step demo on COCO streaming, loss curves, checkpoint save
+    last_executed: 2026-02-22
+    duration_seconds: 22.1
+  - "---"
+  - source: aiml-common/lectures/scene-understanding/object-detection/faster-rcnn/pytorch/06_inference/06_inference.ipynb
+    notebook: scene-understanding/object-detection/faster-rcnn/pytorch/06_inference/06_inference.ipynb
+    code_cells: 6
+    environment: torch.dev.gpu
+    description: "Inference pipeline: load checkpoint from notebook 05, run on COCO validation, visualise RPN proposals and final detections, measure latency"
+    last_executed: 2026-02-22
+    duration_seconds: 20.4
+  - "---"
