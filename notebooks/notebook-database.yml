@@ -252,4 +252,10 @@ notebooks:
     description: "Inference pipeline: load checkpoint from notebook 05, run on COCO validation, visualise RPN proposals and final detections, measure latency"
     last_executed: 2026-02-22
     duration_seconds: 20.4
-  - "---"
+  - source: aiml-common/lectures/scene-understanding/semantic-segmentation/unet/pytorch/01_unet_from_scratch/01_unet_from_scratch.ipynb
+    notebook: scene-understanding/semantic-segmentation/unet/pytorch/01_unet_from_scratch/01_unet_from_scratch.ipynb
+    code_cells: 7
+    environment: torch.dev.gpu
+    description: UNet from scratch with FoodSeg103 streaming dataset
+    last_executed: 2026-02-23
+    duration_seconds: 14.3
