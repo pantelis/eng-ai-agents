@@ -262,3 +262,10 @@ notebooks:
     description: UNet from scratch with FoodSeg103 streaming dataset
     last_executed: 2026-02-23
     duration_seconds: 14.3
+  - source: aiml-common/lectures/scene-understanding/feature-extraction-resnet/batch-norm-in-resnets/index.ipynb
+    notebook: scene-understanding/feature-extraction-resnet/batch-norm-in-resnets/index.ipynb
+    code_cells: 6
+    environment: torch.dev.gpu
+    description: Batch normalization in ResNets — CIFAR-10 comparison with and without BN
+    last_executed: 2026-02-24
+    duration_seconds: 1134.8
