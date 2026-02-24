@@ -102,7 +102,7 @@ notebooks:
     colab_deps: datasets scikit-learn seaborn matplotlib torch torchvision
     last_executed: 2026-02-24
     duration_seconds: 239.0
-  - source: aiml-common/lectures/cnn/cnn-example-architectures/visualizing-what-convnets-learn/visualizing-what-convnets-learn.ipynb
+  - source: aiml-common/lectures/cnn/visualizing-what-convnets-learn/visualizing-what-convnets-learn.ipynb
     notebook: cnn/visualizing-what-convnets-learn/visualizing-what-convnets-learn.ipynb
     code_cells: 26
     environment: colab
