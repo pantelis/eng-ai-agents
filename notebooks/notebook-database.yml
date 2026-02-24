@@ -99,9 +99,9 @@ notebooks:
     code_cells: 7
     environment: torch.dev.gpu
     description: PyTorch rewrite of Chollet small-dataset convnet — HF streaming from pantelism/cats-vs-dogs, baseline overfitting demo, data augmentation + dropout
-    colab_deps: huggingface_hub scikit-learn seaborn matplotlib torch torchvision
+    colab_deps: datasets scikit-learn seaborn matplotlib torch torchvision
     last_executed: 2026-02-24
-    duration_seconds: 217.4
+    duration_seconds: 239.0
   - source: aiml-common/lectures/cnn/cnn-example-architectures/visualizing-what-convnets-learn.ipynb
     notebook: cnn/visualizing-what-convnets-learn.ipynb
     code_cells: 26
