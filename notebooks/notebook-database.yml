@@ -96,9 +96,12 @@ notebooks:
   # CNN - Small Datasets
   - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
     notebook: cnn/using_convnets_with_small_datasets.ipynb
-    code_cells: 24
-    environment: colab
-    description: Training ConvNets on small datasets with data augmentation (F. Chollet) — requires Kaggle dogs-vs-cats dataset
+    code_cells: 7
+    environment: torch.dev.gpu
+    description: PyTorch rewrite of Chollet small-dataset convnet — HF streaming from pantelism/cats-vs-dogs, baseline overfitting demo, data augmentation + dropout
+    colab_deps: huggingface_hub scikit-learn seaborn matplotlib torch torchvision
+    last_executed: 2026-02-24
+    duration_seconds: 217.4
   - source: aiml-common/lectures/cnn/cnn-example-architectures/visualizing-what-convnets-learn.ipynb
     notebook: cnn/visualizing-what-convnets-learn.ipynb
     code_cells: 26
