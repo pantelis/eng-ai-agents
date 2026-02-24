@@ -104,9 +104,11 @@ notebooks:
     duration_seconds: 239.0
   - source: aiml-common/lectures/cnn/visualizing-what-convnets-learn/visualizing-what-convnets-learn.ipynb
     notebook: cnn/visualizing-what-convnets-learn/visualizing-what-convnets-learn.ipynb
-    code_cells: 26
-    environment: colab
-    description: Visualizing CNN activations, filters, and class activation maps (Grad-CAM) — depends on convnets notebook model
+    code_cells: 6
+    environment: torch.dev.gpu
+    description: Four CNN interpretability techniques in PyTorch - activations, filter viz, Grad-CAM, occlusion sensitivity
+    last_executed: 2026-02-24
+    duration_seconds: 20.5
   - "---"
   # Semantic Segmentation - Mask R-CNN
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference.ipynb
