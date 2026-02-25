@@ -106,9 +106,9 @@ notebooks:
     notebook: cnn/visualizing-what-convnets-learn/index.ipynb
     code_cells: 6
     environment: torch.dev.gpu
-    description: Four CNN interpretability techniques in PyTorch - activations, filter viz, Grad-CAM, occlusion sensitivity
-    last_executed: 2026-02-24
-    duration_seconds: 20.5
+    description: Four CNN interpretability techniques in PyTorch - activations, filter viz, Grad-CAM, occlusion sensitivity with ResNet-50
+    last_executed: 2026-02-25
+    duration_seconds: 19.7
   - "---"
   # Semantic Segmentation - Mask R-CNN
   - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference.ipynb
