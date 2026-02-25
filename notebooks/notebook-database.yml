@@ -271,3 +271,10 @@ notebooks:
     description: Batch normalization in ResNets — CIFAR-10 comparison with and without BN
     last_executed: 2026-02-24
     duration_seconds: 1134.8
+  - source: aiml-common/lectures/cnn/resnet-skip-dimensioning-fpn/index.ipynb
+    notebook: cnn/resnet-skip-dimensioning-fpn/index.ipynb
+    code_cells: 9
+    environment: torch.dev.gpu
+    description: ResNet skip-connection dimensioning and FPN featurizer architecture
+    last_executed: 2026-02-25
+    duration_seconds: 4.5
