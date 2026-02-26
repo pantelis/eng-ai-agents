@@ -29,9 +29,16 @@ def _make_run_id(notebook_path: str) -> str:
     """Generate a unique W&B run ID from notebook path + timestamp.
 
     Returns an ID like "exec-ml-math-probability-gaussians-1738900000".
+    W&B enforces a 128-character limit on run IDs, so long paths are truncated.
     """
     stem = Path(notebook_path).with_suffix("").as_posix().replace("/", "-")
-    return f"exec-{stem}-{int(time.time())}"
+    ts = str(int(time.time()))
+    prefix = "exec-"
+    # Reserve space for prefix + "-" + timestamp (max 10 digits)
+    max_stem = 128 - len(prefix) - 1 - len(ts)
+    if len(stem) > max_stem:
+        stem = stem[-max_stem:]  # keep the tail (most specific part of path)
+    return f"{prefix}{stem}-{ts}"
 
 
 def _delete_run(run_id: str) -> None:
