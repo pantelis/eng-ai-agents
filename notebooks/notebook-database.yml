@@ -273,8 +273,20 @@ notebooks:
     duration_seconds: 1134.8
   - source: aiml-common/lectures/cnn/resnet-skip-dimensioning-fpn/index.ipynb
     notebook: cnn/resnet-skip-dimensioning-fpn/index.ipynb
-    code_cells: 9
+    code_cells: 5
     environment: torch.dev.gpu
     description: ResNet skip-connection dimensioning and FPN featurizer architecture
-    last_executed: 2026-02-25
-    duration_seconds: 4.5
+    last_executed: 2026-02-26
+    duration_seconds: 3.0
+  - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference/maskrcnn_torchvision_inference.ipynb
+    notebook: scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference/maskrcnn_torchvision_inference.ipynb
+    code_cells: 7
+    environment: torch.dev.gpu
+    description: 
+    last_executed: 2026-02-26
+    duration_seconds: 9.8
+  - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_detectron/maskrcnn_detectron.ipynb
+    notebook: scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_detectron/maskrcnn_detectron.ipynb
+    code_cells: 13
+    environment: colab
+    description: Mask R-CNN instance segmentation with Detectron2
