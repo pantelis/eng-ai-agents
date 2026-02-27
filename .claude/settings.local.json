@@ -56,7 +56,14 @@
       "Bash(echo:*)",
       "WebFetch(domain:github.com)",
       "WebFetch(domain:docs.ray.io)",
-      "Bash(docker rm:*)"
+      "Bash(docker rm:*)",
+      "Bash(xargs:*)",
+      "WebFetch(domain:wandb.ai)",
+      "WebFetch(domain:community.wandb.ai)",
+      "Bash(echo bd not found in PATH:*)",
+      "Bash(bd:*)",
+      "Bash(mysql:*)",
+      "Bash(sqlite3:*)"
     ]
   }
 }
