@@ -65,3 +65,7 @@ sync-branch: "beads-sync"
 # - linear.api-key
 # - github.org
 # - github.repo
+
+dolt.port: 3310
+
+dolt.database: "eng_ai_agents"

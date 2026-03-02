@@ -1,4 +1,7 @@
 {
   "database": "dolt",
-  "jsonl_export": "issues.jsonl"
+  "backend": "dolt",
+  "dolt_mode": "server",
+  "dolt_server_port": 3310,
+  "dolt_database": "eng_ai_agents"
 }
