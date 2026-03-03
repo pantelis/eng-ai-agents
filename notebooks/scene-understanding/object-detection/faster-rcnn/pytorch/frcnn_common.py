@@ -1,11 +1,60 @@
 """Shared Faster R-CNN components for the 6-notebook tutorial series.
 
-This module extracts the 13 classes and functions that were duplicated
-across notebooks 01-06.  Each notebook now imports what it needs rather
-than re-defining everything from scratch.
+This module centralises every reusable building block of the Faster R-CNN
+detector so that the six pedagogical notebooks can focus on *explaining*
+components rather than re-implementing them.  The canonical source of truth
+for each implementation is **notebook 05 (training)**, which was the most
+recent self-contained version at the time of extraction.
 
-Source of truth: notebook 05 (training), which has the most recent
-implementations with Copilot-generated docstrings.
+Layout
+------
+The module is organised into five logical sections that mirror the data flow
+through the detector:
+
+1. **Constants** — image size, class count, device, ImageNet stats, COCO names.
+2. **Utilities** — IoU computation and the encode/decode box-delta transforms
+   that are shared between the RPN and the ROI head.
+3. **Data pipeline** — ``COCOStreamDataset`` (HuggingFace streaming) and
+   ``frcnn_collate_fn``.
+4. **Backbone** — ``Bottleneck``, ``ResNet50``, ``FPN`` producing multi-scale
+   feature maps P2–P6.
+5. **Detection head** — ``AnchorGenerator``, ``RPNHead``,
+   ``RegionProposalNetwork``, ``ROIAlign``, ``TwoMLPHead``,
+   ``FastRCNNPredictor``, and the end-to-end ``FasterRCNN`` wrapper.
+
+Design decisions
+----------------
+* **400 × 400 input** — chosen so a full training loop (AMP, frozen backbone
+  through layer 3, gradient checkpointing on layers 3–4) fits in 16 GB VRAM.
+* **Pure-PyTorch NMS** — avoids a dependency on ``torchvision.ops`` so
+  students can read every line.  Not speed-critical for 400 px inputs.
+* **Gradient checkpointing** on ResNet layers 3 and 4 saves ~1.5 GB of
+  activation memory at a modest compute cost.
+* **FPN P6** is produced via max-pooling of P5 (rather than an extra backbone
+  stage).  This matches the Detectron2 default for anchors > 256 px.
+
+Notebook import mapping
+-----------------------
+======  ====================================================================
+ NB     Imports from this module
+======  ====================================================================
+ 01     ``COCOStreamDataset``, ``frcnn_collate_fn``, ``IMG_SIZE``,
+        ``IMAGENET_MEAN``, ``IMAGENET_STD``, ``COCO_NAMES``, ``DEVICE``,
+        ``NUM_CLASSES``, ``box_iou``, ``encode_boxes``
+ 02     ``Bottleneck``, ``ResNet50``, ``FPN``
+ 03     ``AnchorGenerator``, ``RPNHead``, ``RegionProposalNetwork``,
+        ``decode_boxes``, ``Bottleneck``, ``ResNet50``, ``FPN``
+ 04     ``ROIAlign``, ``TwoMLPHead``, ``FastRCNNPredictor``,
+        ``Bottleneck``, ``ResNet50``, ``FPN``, ``AnchorGenerator``,
+        ``RPNHead``, ``RegionProposalNetwork``
+ 05     ``FasterRCNN``, ``COCOStreamDataset``, ``frcnn_collate_fn``,
+        ``IMG_SIZE``, ``DEVICE``, ``IMAGENET_MEAN``, ``IMAGENET_STD``
+ 06     ``FasterRCNN``, ``COCO_NAMES``, ``IMAGENET_MEAN``, ``IMAGENET_STD``,
+        ``IMG_SIZE``, ``DEVICE``
+======  ====================================================================
+
+``AnchorTargetGenerator`` is intentionally **not** included here — it is
+defined only in notebook 01 and used nowhere else.
 """
 
 import math
@@ -23,12 +72,25 @@ from torch.utils.data import IterableDataset
 
 # ─── Constants ─────────────────────────────────────────────────────────────────
 
-IMG_SIZE = 400  # 400x400 — fits in 16 GB VRAM with AMP + frozen backbone
-NUM_CLASSES = 81  # 80 COCO + background
+IMG_SIZE = 400
+"""int: Spatial resolution (height = width) to which every COCO image is
+resized before entering the network.  400 px keeps the full pipeline within
+16 GB GPU memory when AMP and gradient checkpointing are enabled."""
+
+NUM_CLASSES = 81
+"""int: Total number of classes including the implicit background class at
+index 0.  The 80 COCO categories occupy indices 1–80."""
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+"""torch.device: Auto-detected compute device (CUDA when available)."""
 
 IMAGENET_MEAN = torch.tensor([0.485, 0.456, 0.406]).view(3, 1, 1)
+"""Tensor [3,1,1]: Per-channel mean of ImageNet, used to normalise inputs so
+that the frozen ResNet backbone receives data in the same distribution it was
+pre-trained on."""
+
 IMAGENET_STD = torch.tensor([0.229, 0.224, 0.225]).view(3, 1, 1)
+"""Tensor [3,1,1]: Per-channel standard deviation of ImageNet."""
 
 # COCO 80-class names (1-indexed; 0 = background)
 COCO_NAMES = [
@@ -48,13 +110,36 @@ COCO_NAMES = [
     "refrigerator", "book", "clock", "vase", "scissors", "teddy bear",
     "hair drier", "toothbrush",
 ]
+"""list[str]: Human-readable COCO category names indexed 0–80, where index 0
+is the synthetic ``__background__`` class used by Faster R-CNN."""
 
 
 # ─── Utilities ─────────────────────────────────────────────────────────────────
 
 
 def box_iou(boxes_a, boxes_b):
-    """Compute pairwise IoU: (N,4) x (M,4) -> (N,M)."""
+    """Compute the pairwise Intersection-over-Union between two box sets.
+
+    Both inputs are expected in ``(x1, y1, x2, y2)`` corner format.
+
+    Parameters
+    ----------
+    boxes_a : Tensor, shape ``(N, 4)``
+        First set of bounding boxes.
+    boxes_b : Tensor, shape ``(M, 4)``
+        Second set of bounding boxes.
+
+    Returns
+    -------
+    Tensor, shape ``(N, M)``
+        IoU matrix where element ``[i, j]`` is the IoU of ``boxes_a[i]`` with
+        ``boxes_b[j]``.  A small epsilon (1e-6) is added to the denominator
+        to avoid division by zero when both boxes have zero area.
+
+    See Also
+    --------
+    encode_boxes : Convert matched box pairs into regression deltas.
+    """
     area_a = (boxes_a[:, 2] - boxes_a[:, 0]) * (boxes_a[:, 3] - boxes_a[:, 1])
     area_b = (boxes_b[:, 2] - boxes_b[:, 0]) * (boxes_b[:, 3] - boxes_b[:, 1])
     ix1 = torch.max(boxes_a[:, None, 0], boxes_b[None, :, 0])
@@ -66,7 +151,36 @@ def box_iou(boxes_a, boxes_b):
 
 
 def encode_boxes(proposals, gt_boxes):
-    """Parameterize GT boxes as (tx, ty, tw, th) deltas w.r.t. proposals."""
+    """Parameterise ground-truth boxes as regression deltas relative to proposals.
+
+    Implements the standard R-CNN box parametrisation from
+    `Girshick (2015) <https://arxiv.org/abs/1504.08083>`_::
+
+        tx = (gx - px) / pw
+        ty = (gy - py) / ph
+        tw = log(gw / pw)
+        th = log(gh / ph)
+
+    where ``(px, py, pw, ph)`` are the centre and size of a proposal and
+    ``(gx, gy, gw, gh)`` are the centre and size of the matched GT box.
+
+    Parameters
+    ----------
+    proposals : Tensor, shape ``(N, 4)``
+        Reference boxes in ``(x1, y1, x2, y2)`` format.
+    gt_boxes : Tensor, shape ``(N, 4)``
+        Matched ground-truth boxes in the same format.
+
+    Returns
+    -------
+    Tensor, shape ``(N, 4)``
+        Deltas ``(tx, ty, tw, th)`` that, when applied to *proposals* via
+        :func:`decode_boxes`, recover *gt_boxes*.
+
+    See Also
+    --------
+    decode_boxes : Inverse operation (deltas → absolute boxes).
+    """
     pw = proposals[:, 2] - proposals[:, 0]
     ph = proposals[:, 3] - proposals[:, 1]
     px = proposals[:, 0] + 0.5 * pw
@@ -82,7 +196,28 @@ def encode_boxes(proposals, gt_boxes):
 
 
 def decode_boxes(anchors, deltas):
-    """Inverse of encode_boxes with additional clamping for numerical stability."""
+    """Apply predicted regression deltas to reference boxes (inverse of :func:`encode_boxes`).
+
+    Width/height deltas are clamped to ``±4.0`` before exponentiation to
+    prevent numerical overflow when the network outputs large values during
+    early training.
+
+    Parameters
+    ----------
+    anchors : Tensor, shape ``(N, 4)``
+        Reference boxes (anchors or proposals) in ``(x1, y1, x2, y2)`` format.
+    deltas : Tensor, shape ``(N, 4)``
+        Predicted deltas ``(tx, ty, tw, th)`` from the RPN or Fast R-CNN head.
+
+    Returns
+    -------
+    Tensor, shape ``(N, 4)``
+        Decoded boxes in ``(x1, y1, x2, y2)`` format.
+
+    See Also
+    --------
+    encode_boxes : Forward operation (absolute boxes → deltas).
+    """
     aw = anchors[:, 2] - anchors[:, 0]
     ah = anchors[:, 3] - anchors[:, 1]
     ax = anchors[:, 0] + 0.5 * aw
@@ -104,10 +239,31 @@ def decode_boxes(anchors, deltas):
 
 
 class COCOStreamDataset(IterableDataset):
-    """Stream COCO from HuggingFace and resize to IMG_SIZE x IMG_SIZE."""
+    """Stream COCO from HuggingFace and resize to ``IMG_SIZE × IMG_SIZE``.
+
+    This dataset wraps ``detection-datasets/coco`` in streaming mode so that
+    the full 118k-image training set need never be downloaded to disk.  Each
+    yielded sample is a ``(image_tensor, target_dict)`` pair where:
+
+    * ``image_tensor`` is an ImageNet-normalised float32 tensor of shape
+      ``(3, IMG_SIZE, IMG_SIZE)``.
+    * ``target_dict`` has keys ``"boxes"`` (``float32 [K, 4]``,
+      ``x1 y1 x2 y2``) and ``"labels"`` (``long [K]``, 1-indexed COCO
+      categories).
+
+    Images with no valid bounding boxes (e.g. crowd-only annotations with
+    zero-area boxes after rescaling) are silently skipped.
+
+    Parameters
+    ----------
+    split : str, default ``"train"``
+        HuggingFace dataset split name (``"train"`` or ``"validation"``).
+    max_samples : int or None, default ``None``
+        If set, stop iteration after yielding this many samples.  Useful for
+        quick smoke tests (e.g. ``max_samples=32``).
+    """
 
     def __init__(self, split: str = "train", max_samples: Optional[int] = None):
-        """Initialize the streaming COCO dataset reader and optional sample cap for quick experiments."""
         super().__init__()
         self.ds = load_dataset(
             "detection-datasets/coco", split=split, streaming=True
@@ -115,7 +271,7 @@ class COCOStreamDataset(IterableDataset):
         self.max_samples = max_samples
 
     def __iter__(self):
-        """Yield normalized images and valid detection targets, skipping samples without boxes."""
+        """Yield ``(image_tensor, target_dict)`` pairs, skipping empty annotations."""
         count = 0
         for sample in self.ds:
             if self.max_samples and count >= self.max_samples:
@@ -149,7 +305,25 @@ class COCOStreamDataset(IterableDataset):
 
 
 def frcnn_collate_fn(batch):
-    """Stack images but keep target dicts in a Python list for variable lengths."""
+    """Collate function for ``DataLoader`` that stacks images but keeps targets as a list.
+
+    Standard ``default_collate`` would fail because target dicts contain
+    variable-length tensors (different images have different numbers of
+    ground-truth boxes).
+
+    Parameters
+    ----------
+    batch : list[tuple[Tensor, dict]]
+        List of ``(image, target)`` pairs from ``COCOStreamDataset``.
+
+    Returns
+    -------
+    images : Tensor, shape ``(B, 3, IMG_SIZE, IMG_SIZE)``
+        Batched and stacked image tensors.
+    targets : list[dict]
+        Length-B list of target dictionaries, each containing ``"boxes"`` and
+        ``"labels"`` tensors.
+    """
     return torch.stack([b[0] for b in batch]), [b[1] for b in batch]
 
 
@@ -157,12 +331,39 @@ def frcnn_collate_fn(batch):
 
 
 class Bottleneck(nn.Module):
-    """ResNet bottleneck residual block used to build deep feature stages."""
+    """ResNet bottleneck residual block (1 × 1 → 3 × 3 → 1 × 1 convolutions).
+
+    This is the standard "bottleneck" building block used in ResNet-50 and
+    deeper variants.  The block narrows to ``out_ch`` channels via the first
+    1 × 1 conv, applies a spatial 3 × 3 conv, and expands back to
+    ``out_ch * 4`` via the final 1 × 1 conv.  A skip connection adds the
+    input directly to the output (with an optional linear projection when
+    spatial resolution or channel count changes).
+
+    Parameters
+    ----------
+    in_ch : int
+        Number of input channels.
+    out_ch : int
+        Bottleneck width (the narrow channel count).  The output channel
+        count is ``out_ch * expansion`` (= ``out_ch * 4``).
+    stride : int, default 1
+        Spatial stride applied in the 3 × 3 convolution.  Set to 2 for the
+        first block in stages 2–4 to halve the feature map resolution.
+    downsample : nn.Module or None, default ``None``
+        Optional 1 × 1 conv + BN projection applied to the shortcut path
+        when the input and output shapes differ.
+
+    Attributes
+    ----------
+    expansion : int
+        Class-level constant = 4, giving the ratio of output to bottleneck
+        channels.
+    """
 
     expansion = 4
 
     def __init__(self, in_ch, out_ch, stride=1, downsample=None):
-        """Build the bottleneck block layers and optional projection for residual matching."""
         super().__init__()
         self.conv1 = nn.Conv2d(in_ch, out_ch, 1, bias=False)
         self.bn1 = nn.BatchNorm2d(out_ch)
@@ -173,7 +374,17 @@ class Bottleneck(nn.Module):
         self.downsample = downsample
 
     def forward(self, x):
-        """Run the residual branch and shortcut branch, then fuse them with a ReLU."""
+        """Run the bottleneck convolutions and fuse with the residual shortcut.
+
+        Parameters
+        ----------
+        x : Tensor, shape ``(B, in_ch, H, W)``
+
+        Returns
+        -------
+        Tensor, shape ``(B, out_ch * 4, H', W')``
+            Where ``H' = H // stride`` and ``W' = W // stride``.
+        """
         identity = x
         out = F.relu(self.bn1(self.conv1(x)))
         out = F.relu(self.bn2(self.conv2(out)))
@@ -184,10 +395,27 @@ class Bottleneck(nn.Module):
 
 
 class ResNet50(nn.Module):
-    """Minimal ResNet-50 backbone that returns multi-scale feature maps for FPN."""
+    """Minimal ResNet-50 backbone returning multi-scale features C2–C5.
+
+    The architecture follows `He et al. (2016) <https://arxiv.org/abs/1512.03385>`_
+    with four residual stages (layer1–layer4) preceded by a 7 × 7-conv stem
+    and max-pool.  Gradient checkpointing is applied to layers 3 and 4 via
+    ``torch.utils.checkpoint`` to reduce activation memory at the cost of one
+    extra forward pass per checkpointed segment.
+
+    Output feature maps and their spatial strides relative to the input:
+
+    ======  ========  ===========
+    Output  Channels  Stride
+    ======  ========  ===========
+    C2      256       4×
+    C3      512       8×
+    C4      1024      16×
+    C5      2048      32×
+    ======  ========  ===========
+    """
 
     def __init__(self):
-        """Construct the ResNet stem and four backbone stages used for detection features."""
         super().__init__()
         self.stem = nn.Sequential(
             nn.Conv2d(3, 64, 7, stride=2, padding=3, bias=False),
@@ -201,7 +429,24 @@ class ResNet50(nn.Module):
         self.layer4 = self._make_layer(1024, 512, 3, stride=2)
 
     def _make_layer(self, in_ch, out_ch, blocks, stride):
-        """Create one ResNet stage with downsampling in the first block when needed."""
+        """Create one ResNet stage with the given number of bottleneck blocks.
+
+        Parameters
+        ----------
+        in_ch : int
+            Input channel count (from the previous stage's output).
+        out_ch : int
+            Bottleneck width for this stage.
+        blocks : int
+            Number of bottleneck blocks in the stage.
+        stride : int
+            Spatial stride of the first block (1 for layer1, 2 otherwise).
+
+        Returns
+        -------
+        nn.Sequential
+            The composed stage.
+        """
         ds = None
         if stride != 1 or in_ch != out_ch * 4:
             ds = nn.Sequential(
@@ -214,7 +459,18 @@ class ResNet50(nn.Module):
         return nn.Sequential(*layers)
 
     def forward(self, x):
-        """Compute C2-C5 feature maps; checkpoint deeper stages to reduce memory usage."""
+        """Extract C2–C5 feature maps; layers 3–4 use gradient checkpointing.
+
+        Parameters
+        ----------
+        x : Tensor, shape ``(B, 3, H, W)``
+            ImageNet-normalised input image batch.
+
+        Returns
+        -------
+        tuple[Tensor, Tensor, Tensor, Tensor]
+            ``(C2, C3, C4, C5)`` feature maps at strides 4, 8, 16, 32.
+        """
         x = self.stem(x)
         c2 = self.layer1(x)
         c3 = self.layer2(c2)
@@ -224,10 +480,28 @@ class ResNet50(nn.Module):
 
 
 class FPN(nn.Module):
-    """Feature Pyramid Network that fuses backbone stages into semantically rich pyramid levels."""
+    """Feature Pyramid Network producing semantically rich multi-scale features.
+
+    Implements the FPN from `Lin et al. (2017) <https://arxiv.org/abs/1612.03144>`_
+    with a top-down pathway and lateral connections.  The backbone feature maps
+    C2–C5 are fused into pyramid levels P2–P5, and a P6 level is added via
+    max-pooling of P5 for large-anchor detection.
+
+    Parameters
+    ----------
+    in_channels : tuple[int, ...], default ``(256, 512, 1024, 2048)``
+        Channel counts of the backbone outputs C2–C5.
+    out_channels : int, default 256
+        Uniform channel count for all pyramid levels.
+
+    Notes
+    -----
+    ``forward()`` expects a **tuple** of four feature maps, not four
+    positional arguments.  Call as ``fpn((c2, c3, c4, c5))``, not
+    ``fpn(c2, c3, c4, c5)``.
+    """
 
     def __init__(self, in_channels=(256, 512, 1024, 2048), out_channels=256):
-        """Create lateral and output convolutions plus a pooled P6 pyramid level."""
         super().__init__()
         self.lateral = nn.ModuleList(
             [nn.Conv2d(c, out_channels, 1) for c in in_channels]
@@ -238,7 +512,19 @@ class FPN(nn.Module):
         self.p6 = nn.MaxPool2d(1, stride=2)
 
     def forward(self, features):
-        """Fuse features in a top-down pathway and return pyramid levels P2-P6."""
+        """Fuse backbone features via top-down pathway and return P2–P6.
+
+        Parameters
+        ----------
+        features : tuple[Tensor, Tensor, Tensor, Tensor]
+            ``(C2, C3, C4, C5)`` from the backbone.
+
+        Returns
+        -------
+        list[Tensor]
+            ``[P2, P3, P4, P5, P6]`` — five pyramid levels at strides
+            4, 8, 16, 32, 64 respectively.
+        """
         c2, c3, c4, c5 = features
         p5 = self.lateral[3](c5)
         p4 = self.lateral[2](c4) + F.interpolate(p5, size=c4.shape[-2:], mode="nearest")
@@ -253,7 +539,22 @@ class FPN(nn.Module):
 
 
 class AnchorGenerator(nn.Module):
-    """Generate multi-scale, multi-aspect anchors over each FPN level."""
+    """Generate multi-scale, multi-aspect-ratio anchors tiled over FPN grids.
+
+    For each FPN level, a set of base anchors is created at every grid cell
+    centre.  The base anchors are defined by one ``anchor_size`` and three
+    ``aspect_ratios``, giving ``k = len(aspect_ratios)`` anchors per cell.
+
+    Parameters
+    ----------
+    anchor_sizes : tuple[int, ...], default ``(32, 64, 128, 256, 512)``
+        Anchor side lengths (in pixels at the *input image* scale), one per
+        FPN level P2–P6.
+    aspect_ratios : tuple[float, ...], default ``(0.5, 1.0, 2.0)``
+        Width / height ratios applied to every anchor size.
+    strides : tuple[int, ...], default ``(4, 8, 16, 32, 64)``
+        Feature-map stride (in input-image pixels) for each FPN level.
+    """
 
     def __init__(
         self,
@@ -261,14 +562,24 @@ class AnchorGenerator(nn.Module):
         aspect_ratios=(0.5, 1.0, 2.0),
         strides=(4, 8, 16, 32, 64),
     ):
-        """Store anchor scales, aspect ratios, and per-level strides for anchor tiling."""
         super().__init__()
         self.anchor_sizes = anchor_sizes
         self.aspect_ratios = aspect_ratios
         self.strides = strides
 
     def _base(self, size):
-        """Create canonical anchors centered at the origin for one scale and all ratios."""
+        """Create ``k`` canonical anchors centred at the origin for one scale.
+
+        Parameters
+        ----------
+        size : int
+            Anchor side length in pixels.
+
+        Returns
+        -------
+        Tensor, shape ``(k, 4)``
+            Base anchors in ``(x1, y1, x2, y2)`` format, centred at (0, 0).
+        """
         return torch.tensor(
             [
                 [
@@ -283,7 +594,21 @@ class AnchorGenerator(nn.Module):
         )
 
     def forward(self, feature_maps, image_size):
-        """Tile base anchors across every pyramid grid location and concatenate them."""
+        """Tile base anchors across every FPN grid cell and concatenate.
+
+        Parameters
+        ----------
+        feature_maps : list[Tensor]
+            FPN outputs ``[P2, P3, P4, P5, P6]``.
+        image_size : tuple[int, int]
+            ``(H, W)`` of the input image (used only for device placement).
+
+        Returns
+        -------
+        Tensor, shape ``(A, 4)``
+            Concatenated anchors across all levels, where
+            ``A = sum(H_l * W_l * k)`` for each level ``l``.
+        """
         all_anchors = []
         for fm, sz, st in zip(feature_maps, self.anchor_sizes, self.strides):
             _, _, fh, fw = fm.shape
@@ -299,10 +624,22 @@ class AnchorGenerator(nn.Module):
 
 
 class RPNHead(nn.Module):
-    """Shared convolutional RPN head that predicts objectness logits and box deltas."""
+    """Shared convolutional head that predicts objectness and box deltas per anchor.
+
+    A single 3 × 3 conv (shared across FPN levels) followed by two sibling
+    1 × 1 convs: one for binary objectness logits and one for 4-d box
+    regression deltas.  Weights are initialised with ``std=0.01`` (normal)
+    and zero biases, following the Faster R-CNN paper convention.
+
+    Parameters
+    ----------
+    in_ch : int, default 256
+        Number of input channels (= FPN output channels).
+    k : int, default 3
+        Number of anchors per spatial location (= number of aspect ratios).
+    """
 
     def __init__(self, in_ch=256, k=3):
-        """Initialize shared RPN conv and prediction heads for objectness and box regression."""
         super().__init__()
         self.conv = nn.Conv2d(in_ch, in_ch, 3, padding=1)
         self.cls = nn.Conv2d(in_ch, k, 1)
@@ -312,7 +649,20 @@ class RPNHead(nn.Module):
             nn.init.zeros_(layer.bias)
 
     def forward(self, features):
-        """Apply the shared head independently to each FPN level."""
+        """Apply the RPN head independently to each FPN level.
+
+        Parameters
+        ----------
+        features : list[Tensor]
+            FPN outputs, each of shape ``(B, 256, H_l, W_l)``.
+
+        Returns
+        -------
+        cls_outs : list[Tensor]
+            Per-level objectness logits, each ``(B, k, H_l, W_l)``.
+        box_outs : list[Tensor]
+            Per-level box deltas, each ``(B, k*4, H_l, W_l)``.
+        """
         cls_outs, box_outs = [], []
         for f in features:
             t = F.relu(self.conv(f))
@@ -322,7 +672,45 @@ class RPNHead(nn.Module):
 
 
 class RegionProposalNetwork(nn.Module):
-    """Train/eval RPN module that scores anchors and emits final proposals."""
+    """Complete RPN: anchor generation, scoring, filtering, NMS, and training losses.
+
+    During **training**, the RPN:
+
+    1. Generates anchors over the FPN grid.
+    2. Predicts objectness scores and box deltas via :class:`RPNHead`.
+    3. Decodes proposals and filters them (clip, size threshold, top-k, NMS).
+    4. Assigns anchors to GT boxes (IoU ≥ 0.7 → positive, < 0.3 → negative)
+       and subsamples a balanced mini-batch of 256 anchors (50 % positive).
+    5. Returns proposals **and** RPN losses (``rpn_cls``, ``rpn_box``).
+
+    During **inference**, only steps 1–3 are executed and losses are empty.
+
+    Parameters
+    ----------
+    head : RPNHead
+        Convolutional prediction head.
+    anchor_gen : AnchorGenerator
+        Anchor-tiling module.
+    pre_nms : int, default 2000
+        Keep only the top-``pre_nms`` proposals (by objectness score) before NMS.
+    post_nms : int, default 1000
+        Keep at most ``post_nms`` proposals after NMS.
+    nms_thr : float, default 0.7
+        IoU threshold for non-maximum suppression of proposals.
+    min_sz : int, default 16
+        Minimum side length (in pixels) for a proposal to be kept.
+
+    Attributes
+    ----------
+    RPN_BATCH : int
+        Mini-batch size for RPN anchor sampling (256).
+    POS_FRAC : float
+        Target fraction of positive anchors in the mini-batch (0.5).
+    POS_THR : float
+        IoU threshold above which an anchor is labelled positive (0.7).
+    NEG_THR : float
+        IoU threshold below which an anchor is labelled negative (0.3).
+    """
 
     RPN_BATCH = 256
     POS_FRAC = 0.5
@@ -332,7 +720,6 @@ class RegionProposalNetwork(nn.Module):
     def __init__(
         self, head, anchor_gen, pre_nms=2000, post_nms=1000, nms_thr=0.7, min_sz=16
     ):
-        """Configure proposal filtering thresholds and connect the RPN head and anchor generator."""
         super().__init__()
         self.head = head
         self.anchor_gen = anchor_gen
@@ -342,7 +729,24 @@ class RegionProposalNetwork(nn.Module):
         self.min_sz = min_sz
 
     def _filter(self, props, scores, img_size):
-        """Clip, size-filter, top-k rank, and NMS proposals to keep high-quality candidates."""
+        """Clip proposals to the image, discard tiny boxes, rank by score, and apply NMS.
+
+        Parameters
+        ----------
+        props : Tensor, shape ``(N, 4)``
+            Decoded proposal boxes.
+        scores : Tensor, shape ``(N,)``
+            Objectness scores (after sigmoid).
+        img_size : tuple[int, int]
+            ``(H, W)`` of the input image for clipping.
+
+        Returns
+        -------
+        props : Tensor, shape ``(K, 4)``
+            Filtered proposals (K ≤ ``post_nms``).
+        scores : Tensor, shape ``(K,)``
+            Corresponding scores.
+        """
         H, W = img_size
         props[:, [0, 2]] = props[:, [0, 2]].clamp(0, W)
         props[:, [1, 3]] = props[:, [1, 3]].clamp(0, H)
@@ -357,7 +761,25 @@ class RegionProposalNetwork(nn.Module):
 
     @staticmethod
     def _nms(boxes, scores, thr):
-        """Perform non-maximum suppression in pure PyTorch and return kept indices."""
+        """Pure-PyTorch greedy non-maximum suppression.
+
+        Iteratively selects the highest-scoring box, suppresses all boxes
+        with IoU > ``thr`` against it, and repeats.
+
+        Parameters
+        ----------
+        boxes : Tensor, shape ``(N, 4)``
+            Bounding boxes in ``(x1, y1, x2, y2)`` format.
+        scores : Tensor, shape ``(N,)``
+            Confidence scores corresponding to each box.
+        thr : float
+            IoU suppression threshold.
+
+        Returns
+        -------
+        Tensor, shape ``(K,)``
+            Indices of kept boxes, in descending score order.
+        """
         x1, y1, x2, y2 = boxes.unbind(1)
         areas = (x2 - x1) * (y2 - y1)
         order = scores.argsort(descending=True)
@@ -377,7 +799,35 @@ class RegionProposalNetwork(nn.Module):
         return torch.tensor(keep, dtype=torch.long)
 
     def _assign(self, anchors, gt_boxes):
-        """Match anchors to GT boxes and subsample labels for balanced RPN training."""
+        """Match anchors to GT boxes and subsample a balanced mini-batch.
+
+        Assignment rules (following the original Faster R-CNN paper):
+
+        * IoU ≥ 0.7 with *any* GT → positive (label = 1).
+        * IoU < 0.3 with *all* GTs → negative (label = 0).
+        * 0.3 ≤ IoU < 0.7 → ignored (label = −1, excluded from loss).
+        * The anchor with highest IoU to each GT is forced positive
+          (ensures every GT has at least one matching anchor).
+
+        The mini-batch is then subsampled to at most ``RPN_BATCH`` anchors
+        with at most ``POS_FRAC`` positives; excess positives or negatives
+        are set to label −1 (ignored).
+
+        Parameters
+        ----------
+        anchors : Tensor, shape ``(A, 4)``
+            All anchors across all FPN levels.
+        gt_boxes : Tensor, shape ``(G, 4)``
+            Ground-truth boxes for one image.
+
+        Returns
+        -------
+        labels : Tensor, shape ``(A,)``
+            1 = positive, 0 = negative, −1 = ignored.
+        matched_gt : Tensor, shape ``(A, 4)``
+            The GT box matched to each anchor (only meaningful where
+            ``labels == 1``).
+        """
         if gt_boxes.numel() == 0:
             return (
                 torch.full(
@@ -401,7 +851,27 @@ class RegionProposalNetwork(nn.Module):
         return labels, gt_boxes[gi]
 
     def forward(self, features, image_size, targets=None):
-        """Produce proposals and, during training, compute RPN classification/regression losses."""
+        """Run the RPN: predict, decode, filter, and (optionally) compute losses.
+
+        Parameters
+        ----------
+        features : list[Tensor]
+            FPN feature maps ``[P2, P3, P4, P5, P6]``.
+        image_size : tuple[int, int]
+            ``(H, W)`` of the input images.
+        targets : list[dict] or None
+            Ground-truth targets (only needed during training).  Each dict
+            must contain ``"boxes"`` (Tensor ``[G, 4]``).
+
+        Returns
+        -------
+        proposals : list[Tensor]
+            Length-B list of proposal tensors, each ``(K_i, 4)``.
+        losses : dict[str, Tensor]
+            Empty during inference.  During training, contains:
+            ``"rpn_cls"`` (binary cross-entropy on sampled anchors) and
+            ``"rpn_box"`` (smooth-L1 on positive anchors).
+        """
         cls_outs, box_outs = self.head(features)
         anchors = self.anchor_gen(features, image_size)
         all_scores = torch.cat(
@@ -442,10 +912,34 @@ class RegionProposalNetwork(nn.Module):
 
 
 class ROIAlign(nn.Module):
-    """Assign proposals to the right FPN level and bilinearly sample fixed grids."""
+    """ROI Align via bilinear ``grid_sample``, with FPN level assignment.
+
+    Each proposal is assigned to an FPN level using the formula from
+    `Lin et al. (2017) <https://arxiv.org/abs/1612.03144>`_::
+
+        k = floor(k0 + log2(sqrt(area) / 224))
+
+    clamped to ``[k_min, k_max]``.  The proposal's bounding box is then
+    mapped to a normalised grid on the assigned feature map, and
+    ``F.grid_sample`` performs bilinear interpolation to produce a fixed-size
+    ``(out_size × out_size)`` feature crop.
+
+    Parameters
+    ----------
+    out_size : int, default 7
+        Spatial resolution of the output feature map (7 × 7 for standard
+        Fast R-CNN).
+    k0 : int, default 4
+        Canonical FPN level for a 224 × 224 ROI.
+    k_min : int, default 2
+        Minimum FPN level index (P2).
+    k_max : int, default 5
+        Maximum FPN level index (P5).  Proposals larger than the P5 receptive
+        field are still pooled from P5 (which is the lowest-resolution
+        feature map used for ROI pooling — P6 is only used by the RPN).
+    """
 
     def __init__(self, out_size=7, k0=4, k_min=2, k_max=5):
-        """Set ROI output resolution and FPN level-selection parameters."""
         super().__init__()
         self.out_size = out_size
         self.k0 = k0
@@ -453,7 +947,18 @@ class ROIAlign(nn.Module):
         self.k_max = k_max
 
     def _level(self, boxes):
-        """Map each ROI to an FPN level based on its scale."""
+        """Map each proposal to its target FPN level index (0-based, relative to k_min).
+
+        Parameters
+        ----------
+        boxes : Tensor, shape ``(N, 4)``
+            Proposal boxes in ``(x1, y1, x2, y2)`` format.
+
+        Returns
+        -------
+        Tensor, shape ``(N,)``
+            Integer level indices in ``[0, k_max - k_min]``.
+        """
         areas = (
             ((boxes[:, 2] - boxes[:, 0]) * (boxes[:, 3] - boxes[:, 1]))
             .clamp(1e-6)
@@ -467,7 +972,24 @@ class ROIAlign(nn.Module):
         )
 
     def forward(self, fmaps, proposals, image_size):
-        """Pool each proposal from its assigned pyramid level into fixed-size feature maps."""
+        """Pool each proposal from its assigned FPN level into a fixed-size feature map.
+
+        Parameters
+        ----------
+        fmaps : list[Tensor]
+            FPN feature maps ``[P2, P3, P4, P5]`` (P6 is not used for ROI
+            pooling).
+        proposals : list[Tensor]
+            Length-B list of proposal tensors, each ``(K_i, 4)``.
+        image_size : tuple[int, int]
+            ``(H, W)`` of the input image, used to normalise box coordinates
+            to the ``[-1, 1]`` range expected by ``grid_sample``.
+
+        Returns
+        -------
+        Tensor, shape ``(sum(K_i), C, out_size, out_size)``
+            Pooled features for all proposals across the batch.
+        """
         H, W = image_size
         all_feats = []
         for bi, props in enumerate(proposals):
@@ -518,24 +1040,63 @@ class ROIAlign(nn.Module):
 
 
 class TwoMLPHead(nn.Module):
-    """Two-layer MLP head used by Fast R-CNN for ROI feature encoding."""
+    """Two-layer MLP that projects flattened ROI features to a shared representation.
+
+    This is the "box head" from Fast R-CNN: the pooled 7 × 7 feature maps are
+    flattened to ``256 * 7 * 7 = 12544`` dimensions and passed through two
+    fully connected layers with ReLU activations.
+
+    Parameters
+    ----------
+    in_channels : int, default ``256 * 7 * 7``
+        Flattened input dimensionality (= FPN channels × pool height × pool
+        width).
+    fc_dim : int, default 1024
+        Hidden and output dimensionality of the two FC layers.
+    """
 
     def __init__(self, in_channels=256 * 7 * 7, fc_dim=1024):
-        """Create the two fully connected layers of the Fast R-CNN box head."""
         super().__init__()
         self.fc1 = nn.Linear(in_channels, fc_dim)
         self.fc2 = nn.Linear(fc_dim, fc_dim)
 
     def forward(self, x):
-        """Flatten pooled ROI features and project them to a shared embedding."""
+        """Flatten and project ROI features.
+
+        Parameters
+        ----------
+        x : Tensor, shape ``(N, C, pool_h, pool_w)``
+            Pooled ROI features from :class:`ROIAlign`.
+
+        Returns
+        -------
+        Tensor, shape ``(N, fc_dim)``
+            Shared representation for classification and regression.
+        """
         return F.relu(self.fc2(F.relu(self.fc1(x.flatten(1)))))
 
 
 class FastRCNNPredictor(nn.Module):
-    """Final Fast R-CNN predictor that outputs class logits and class-specific box deltas."""
+    """Final prediction layer: class logits and class-specific box deltas.
+
+    Two parallel linear layers map the shared ``TwoMLPHead`` representation to:
+
+    * **Class logits** — ``(N, num_classes)`` used with cross-entropy loss.
+    * **Box deltas** — ``(N, num_classes * 4)`` giving class-specific
+      ``(tx, ty, tw, th)`` refinements for each proposal.
+
+    Weights are initialised with small normal noise (``std=0.01`` for cls,
+    ``std=0.001`` for box) and zero biases, following Detectron2 conventions.
+
+    Parameters
+    ----------
+    in_channels : int, default 1024
+        Input dimensionality (= ``fc_dim`` of :class:`TwoMLPHead`).
+    num_classes : int, default 81
+        Number of output classes including background.
+    """
 
     def __init__(self, in_channels=1024, num_classes=81):
-        """Initialize classification and box-regression linear prediction layers."""
         super().__init__()
         self.cls = nn.Linear(in_channels, num_classes)
         self.box = nn.Linear(in_channels, num_classes * 4)
@@ -545,7 +1106,20 @@ class FastRCNNPredictor(nn.Module):
         nn.init.zeros_(self.box.bias)
 
     def forward(self, x):
-        """Return class logits and class-specific box deltas for each ROI embedding."""
+        """Predict class logits and box deltas for each ROI.
+
+        Parameters
+        ----------
+        x : Tensor, shape ``(N, in_channels)``
+            Shared feature representation from :class:`TwoMLPHead`.
+
+        Returns
+        -------
+        cls_logits : Tensor, shape ``(N, num_classes)``
+            Raw (pre-softmax) class scores.
+        bbox_preds : Tensor, shape ``(N, num_classes * 4)``
+            Class-specific box regression deltas.
+        """
         return self.cls(x), self.box(x)
 
 
@@ -553,7 +1127,54 @@ class FastRCNNPredictor(nn.Module):
 
 
 class FasterRCNN(nn.Module):
-    """End-to-end Faster R-CNN model combining backbone, RPN, ROI heads, and postprocessing."""
+    """End-to-end Faster R-CNN detector combining all sub-modules.
+
+    Assembles the full detection pipeline:
+
+    1. **Backbone** (``ResNet50``) → C2–C5 multi-scale features.
+    2. **FPN** → P2–P6 pyramid levels.
+    3. **RPN** → object proposals + RPN losses (training only).
+    4. **ROI Align** → fixed-size features per proposal.
+    5. **Box head** (``TwoMLPHead`` + ``FastRCNNPredictor``) → class logits
+       and box deltas + Fast R-CNN losses (training only).
+    6. **Post-processing** → per-class NMS, score thresholding, top-100
+       detections (inference only).
+
+    Frozen layers
+    ~~~~~~~~~~~~~
+    The ResNet stem and layers 1–3 are frozen (``requires_grad_(False)``).
+    Only layer 4, the FPN, RPN, and ROI heads are trained.  This saves ~60 %
+    of the activation memory compared to training the full backbone.
+
+    Training vs. inference
+    ~~~~~~~~~~~~~~~~~~~~~~
+    * **Training** (``model.train()``): ``forward()`` returns a loss dict
+      with keys ``"rpn_cls"``, ``"rpn_box"``, ``"roi_cls"``, ``"roi_box"``.
+    * **Inference** (``model.eval()``): ``forward()`` returns a tuple
+      ``(results, proposals)`` where ``results`` is a list of detection dicts
+      (one per image) and ``proposals`` is the raw RPN output (useful for
+      visualising proposal quality in notebook 06).
+
+    Parameters
+    ----------
+    num_classes : int, default 81
+        Number of detection classes including background.
+
+    Attributes
+    ----------
+    ROI_BATCH : int
+        Number of ROIs sampled per image for the Fast R-CNN head (512).
+    ROI_POS_FRAC : float
+        Target positive fraction in the ROI mini-batch (0.25).
+    ROI_POS_THR : float
+        IoU threshold for a proposal to be labelled positive (0.5).
+    SCORE_THR : float
+        Minimum score for a detection to survive post-processing (0.05).
+    NMS_THR : float
+        IoU threshold for per-class NMS in post-processing (0.5).
+    MAX_DETS : int
+        Maximum number of detections kept per image (100).
+    """
 
     ROI_BATCH = 512
     ROI_POS_FRAC = 0.25
@@ -563,7 +1184,6 @@ class FasterRCNN(nn.Module):
     MAX_DETS = 100
 
     def __init__(self, num_classes=81):
-        """Assemble backbone, FPN, RPN, ROI modules, and freeze early backbone stages."""
         super().__init__()
         self.num_classes = num_classes
         self.backbone = ResNet50()
@@ -583,7 +1203,28 @@ class FasterRCNN(nn.Module):
             p.requires_grad_(False)
 
     def _sample_rois(self, proposals, targets):
-        """Build a minibatch of 512 ROIs per image with 25% positives."""
+        """Sample a balanced mini-batch of ROIs for the Fast R-CNN head.
+
+        For each image, proposals are concatenated with GT boxes (to guarantee
+        some positive examples), matched to GT via IoU, and subsampled to
+        ``ROI_BATCH`` ROIs with at most ``ROI_POS_FRAC`` positives.
+
+        Parameters
+        ----------
+        proposals : list[Tensor]
+            RPN proposals, one tensor ``(K_i, 4)`` per image.
+        targets : list[dict]
+            Ground-truth targets with ``"boxes"`` and ``"labels"``.
+
+        Returns
+        -------
+        s_props : list[Tensor]
+            Sampled proposals per image.
+        s_labels : list[Tensor]
+            Class labels for sampled proposals (0 = background).
+        s_gt : list[Tensor]
+            Matched GT boxes for sampled proposals.
+        """
         s_props, s_labels, s_gt = [], [], []
         for props, tgt in zip(proposals, targets):
             gt_boxes = tgt["boxes"]
@@ -616,7 +1257,33 @@ class FasterRCNN(nn.Module):
         return s_props, s_labels, s_gt
 
     def _roi_loss(self, cls_logits, bbox_preds, labels_list, gt_list, props_list):
-        """Compute Fast R-CNN classification and box regression losses for sampled ROIs."""
+        """Compute Fast R-CNN classification and box-regression losses.
+
+        * **Classification**: cross-entropy over all sampled ROIs (positive
+          and negative).
+        * **Box regression**: smooth-L1 (with ``beta = 1/9``) on positive
+          ROIs only, using class-specific deltas.
+
+        Parameters
+        ----------
+        cls_logits : Tensor, shape ``(R, num_classes)``
+            Predicted class logits for all sampled ROIs.
+        bbox_preds : Tensor, shape ``(R, num_classes * 4)``
+            Predicted class-specific box deltas.
+        labels_list : list[Tensor]
+            True class labels per image.
+        gt_list : list[Tensor]
+            Matched GT boxes per image.
+        props_list : list[Tensor]
+            Sampled proposals per image.
+
+        Returns
+        -------
+        cls_loss : Tensor
+            Scalar cross-entropy loss.
+        box_loss : Tensor
+            Scalar smooth-L1 regression loss (zero if no positives).
+        """
         all_labels = torch.cat(labels_list)
         all_gt = torch.cat(gt_list)
         all_props = torch.cat(props_list)
@@ -634,7 +1301,33 @@ class FasterRCNN(nn.Module):
         return cls_loss, box_loss
 
     def _postprocess(self, cls_logits, bbox_preds, proposals_list, image_size):
-        """Decode predictions, run per-class score thresholding/NMS, and build final detections."""
+        """Decode predictions and apply per-class NMS to produce final detections.
+
+        For each class (excluding background), box deltas are decoded relative
+        to the proposals, clipped to the image boundary, score-thresholded,
+        and NMS-filtered.  The top ``MAX_DETS`` detections (by score) are
+        returned.
+
+        Parameters
+        ----------
+        cls_logits : Tensor, shape ``(R, num_classes)``
+            Class logits for all proposals.
+        bbox_preds : Tensor, shape ``(R, num_classes * 4)``
+            Class-specific box deltas.
+        proposals_list : list[Tensor]
+            Proposals per image (from the RPN).
+        image_size : tuple[int, int]
+            ``(H, W)`` for box clipping.
+
+        Returns
+        -------
+        list[dict]
+            Length-B list of detection dictionaries, each containing:
+
+            * ``"boxes"`` — Tensor ``(D, 4)`` in ``(x1, y1, x2, y2)`` format.
+            * ``"scores"`` — Tensor ``(D,)`` confidence scores.
+            * ``"labels"`` — Tensor ``(D,)`` predicted class indices (1-indexed).
+        """
         H, W = image_size
         C = self.num_classes
         results = []
@@ -688,7 +1381,27 @@ class FasterRCNN(nn.Module):
         return results
 
     def forward(self, images, targets=None):
-        """Run the full detector; return losses in training mode or detections in eval mode."""
+        """Run the full Faster R-CNN pipeline.
+
+        Parameters
+        ----------
+        images : Tensor, shape ``(B, 3, H, W)``
+            Batch of ImageNet-normalised images.
+        targets : list[dict] or None
+            Ground-truth annotations (required during training).  Each dict
+            must have ``"boxes"`` (Tensor ``[G, 4]``) and ``"labels"``
+            (Tensor ``[G]``).
+
+        Returns
+        -------
+        dict[str, Tensor]  *(training mode)*
+            Loss dictionary with keys ``"rpn_cls"``, ``"rpn_box"``,
+            ``"roi_cls"``, ``"roi_box"``.
+        tuple[list[dict], list[Tensor]]  *(eval mode)*
+            ``(results, proposals)`` where ``results`` is a length-B list of
+            detection dicts and ``proposals`` is the raw RPN output (for
+            visualisation in notebook 06).
+        """
         img_sz = (images.shape[2], images.shape[3])
         feats = self.backbone(images)
         fpn_fs = self.fpn(feats)
