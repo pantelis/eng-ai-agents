@@ -290,3 +290,17 @@ notebooks:
     code_cells: 13
     environment: colab
     description: Mask R-CNN instance segmentation with Detectron2
+  - source: aiml-common/lectures/scene-understanding/object-detection/faster-rcnn/pytorch/frcnn_common/frcnn_common.ipynb
+    notebook: scene-understanding/object-detection/faster-rcnn/pytorch/frcnn_common/frcnn_common.ipynb
+    code_cells: 17
+    environment: torch.dev.gpu
+    description: Shared module source code for Faster RCNN notebook series
+    last_executed: 2026-03-03
+    duration_seconds: 4.0
+  - source: aiml-common/lectures/scene-understanding/object-detection/rcnn/nms_example/nms_example.ipynb
+    notebook: scene-understanding/object-detection/rcnn/nms_example/nms_example.ipynb
+    code_cells: 2
+    environment: torch.dev.gpu
+    description: Pure-NumPy NMS implementation example
+    last_executed: 2026-03-03
+    duration_seconds: 1.0
