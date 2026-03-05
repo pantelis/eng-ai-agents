@@ -51,6 +51,7 @@ notebooks = [
     "tensorflow>=2.15.0",
     "wandb>=0.18.0",
     "pycocotools>=2.0.7",
+    "scikit-image>=0.22.0",
 ]
 dev = [
     "pytest>=8.0.0",
