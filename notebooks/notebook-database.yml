@@ -304,3 +304,8 @@ notebooks:
     description: Pure-NumPy NMS implementation example
     last_executed: 2026-03-03
     duration_seconds: 1.0
+  - source: aiml-common/assignments/topics/hpo/torchvision-frcnn/torchvision-frcnn-hpo.ipynb
+    notebook: assignments/topics/hpo/torchvision-frcnn/torchvision-frcnn-hpo.ipynb
+    code_cells: 21
+    environment: torch.dev.gpu
+    description: Faster R-CNN HPO with Optuna, W&B tracking, COCO MiniTrain
