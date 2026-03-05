@@ -2,6 +2,7 @@
   "database": "dolt",
   "backend": "dolt",
   "dolt_mode": "server",
-  "dolt_server_port": 3310,
-  "dolt_database": "eng_ai_agents"
+  "dolt_server_port": 3313,
+  "dolt_database": "eng_ai_agents",
+  "dolt_data_dir": "/home/pantelis.monogioudis/local/web/sites/courses/course-containers/eng-ai-agents/.beads/dolt"
 }
