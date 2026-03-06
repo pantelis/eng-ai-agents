@@ -1,0 +1,12 @@
+name: eng-ai-agents
+notebooks_dir: notebooks
+registry: notebook-database.yml
+docker_service: torch.dev.gpu
+valid_environments:
+  - torch.dev.gpu
+  - ros.dev.gpu
+  - colab
+source_prefix_strip:
+  - "aiml-common/lectures/"
+  - "aiml-common/"
+colab_base_url: https://colab.research.google.com/github/pantelis/eng-ai-agents/blob/main/notebooks
