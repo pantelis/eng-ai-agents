@@ -309,3 +309,8 @@ notebooks:
     code_cells: 21
     environment: torch.dev.gpu
     description: Faster R-CNN HPO with Optuna, W&B tracking, COCO MiniTrain
+  - source: aiml-common/lectures/nlp/transformers/attention-scaling-explained/attention_scaling_explained.ipynb
+    notebook: nlp/transformers/attention-scaling-explained/attention_scaling_explained.ipynb
+    code_cells: 3
+    environment: torch.dev.gpu
+    description: Scaled dot-product attention variance analysis and the sqrt-d scaling factor
