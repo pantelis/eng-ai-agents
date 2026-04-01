@@ -314,3 +314,5 @@ notebooks:
     code_cells: 3
     environment: torch.dev.gpu
     description: Scaled dot-product attention variance analysis and the sqrt-d scaling factor
+    last_executed: 2026-04-01
+    duration_seconds: 2.3
