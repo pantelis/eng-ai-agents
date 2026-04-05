@@ -319,5 +319,5 @@ notebooks:
   - source: aiml-common/lectures/imitation-learning/behavioral-cloning/behavioral-cloning.ipynb
     notebook: imitation-learning/behavioral-cloning/behavioral-cloning.ipynb
     code_cells: 11
-    environment: gpu
-    description: Behavioral cloning with CarRacing-v2 using PyTorch
+    environment: torch.dev.gpu
+    description: Behavioral cloning with CarRacing-v3 using PyTorch
