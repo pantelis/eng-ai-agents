@@ -316,3 +316,8 @@ notebooks:
     description: Scaled dot-product attention variance analysis and the sqrt-d scaling factor
     last_executed: 2026-04-01
     duration_seconds: 2.3
+  - source: aiml-common/lectures/imitation-learning/behavioral-cloning/behavioral-cloning.ipynb
+    notebook: imitation-learning/behavioral-cloning/behavioral-cloning.ipynb
+    code_cells: 12
+    environment: gpu
+    description: Behavioral cloning with CarRacing-v2 and imitation library
