@@ -321,3 +321,8 @@ notebooks:
     code_cells: 12
     environment: torch.dev.gpu
     description: BC with CarRacing-v3 — PPO training metrics callback and plots
+  - source: aiml-common/lectures/VLM/clip/zero-shot/clip_zero_shot.ipynb
+    notebook: VLM/clip/zero-shot/clip_zero_shot.ipynb
+    code_cells: 8
+    environment: torch.dev.gpu
+    description: CLIP zero-shot classification with PCA visualization
