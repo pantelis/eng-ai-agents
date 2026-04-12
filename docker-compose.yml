@@ -100,6 +100,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile.gsplat.dev.gpu
     container_name: eng-ai-agents-gsplat
+    shm_size: 8g
     volumes:
       - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
     working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
