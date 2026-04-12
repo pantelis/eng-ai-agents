@@ -351,8 +351,18 @@ notebooks:
   code_cells: 0
   environment: colab
   description: 3D Gaussian Splatting for robot navigation — markdown-only project guide
-- source: aiml-common/projects/robotics/gaussian-splatting/gsplat-ros/gsplat-ros.ipynb
-  notebook: projects/robotics/gaussian-splatting/gsplat-ros/gsplat-ros.ipynb
+- source: aiml-common/projects/robotics/gaussian-splatting/gs-splatting-demo/gs-splatting-demo.ipynb
+  notebook: projects/robotics/gaussian-splatting/gs-splatting-demo/gs-splatting-demo.ipynb
   code_cells: 7
   environment: gsplat.dev.gpu
-  description: gsplat 3DGS demo and assignment Part 0 - trains garden scene
+  description: gsplat 3DGS demo - trains Mip-NeRF 360 garden scene
+- source: aiml-common/projects/robotics/gaussian-splatting/gsplat-ros/gsplat-ros.ipynb
+  notebook: projects/robotics/gaussian-splatting/gsplat-ros/gsplat-ros.ipynb
+  code_cells: 0
+  environment: gsplat.dev.gpu
+  description: 3DGS Robot Navigation Parts 1-2 - capture, train, ROS pipeline
+- source: aiml-common/projects/robotics/gaussian-splatting/semantic-gsplat-ros/semantic-gsplat-ros.ipynb
+  notebook: projects/robotics/gaussian-splatting/semantic-gsplat-ros/semantic-gsplat-ros.ipynb
+  code_cells: 0
+  environment: gsplat.dev.gpu
+  description: 3DGS Nav Part 3 - semantic navigation with language-embedded splats
