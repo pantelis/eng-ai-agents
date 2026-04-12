@@ -30,13 +30,19 @@ RUN mkdir -p /etc/pip \
 RUN pip install --no-cache-dir gsplat==1.5.3
 
 # gsplat example dependencies (simple_trainer.py)
+# Step 1: PyPI packages
 RUN pip install --no-cache-dir \
     "numpy<2.0.0" scipy scikit-learn opencv-python Pillow piexif \
-    imageio[ffmpeg] tensorboard torchmetrics[image] tensorly \
-    tyro "tyro>=0.8.8" pyyaml tqdm matplotlib splines \
-    viser nerfview \
-    fused-ssim fused-bilagrid \
+    "imageio[ffmpeg]" tensorboard "torchmetrics[image]" tensorly \
+    "tyro>=0.8.8" pyyaml tqdm matplotlib splines \
+    viser \
     git+https://github.com/rmbrualla/pycolmap@cc7ea4b7301720ac29287dbe450952511b32125e \
+    git+https://github.com/nerfstudio-project/nerfview@4538024fe0d15fd1a0e4d760f3695fc44ca72787
+
+# Step 2: CUDA extensions that import torch at build time (need --no-build-isolation)
+RUN pip install --no-cache-dir --no-build-isolation \
+    git+https://github.com/rahul-goel/fused-ssim@328dc9836f513d00c4b5bc38fe30478b4435cbb5 \
+    git+https://github.com/harry7557558/fused-bilagrid@49f0ef06c9f81810fb9b5dd9027cf1844950cc16 \
     git+https://github.com/nv-tlabs/ppisp@v1.0.0
 
 # Execution infrastructure (papermill + W&B + HF Hub)
