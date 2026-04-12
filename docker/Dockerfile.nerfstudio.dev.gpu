@@ -1,5 +1,10 @@
 FROM dromni/nerfstudio:1.1.4
 
+# Upgrade nerfstudio to Blackwell-compatible fork (PR #3653)
+# Adds torch-2.8.0+cu128 / sm_120 support for RTX 50XX / Blackwell GPUs
+RUN pip install --no-cache-dir \
+    git+https://github.com/nicogorlo/nerfstudio.git@main
+
 # Execution infrastructure (papermill + W&B + HF Hub)
 RUN pip install --no-cache-dir \
     papermill nbformat nbclient wandb huggingface_hub ipykernel pyyaml tqdm
