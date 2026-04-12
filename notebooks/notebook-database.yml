@@ -326,6 +326,32 @@ notebooks:
     code_cells: 8
     environment: torch.dev.gpu
     description: CLIP zero-shot classification with PCA visualization
+  - source: aiml-common/lectures/mdp/policy-evaluation/index.ipynb
+    notebook: mdp/policy-evaluation/index.ipynb
+    code_cells: 4
+    environment: torch.dev.gpu
+    description: 
+    last_executed: 2026-04-09
+    duration_seconds: 26.5
+  - source: aiml-common/lectures/mdp/dynamic-programming-algorithms/value-iteration/index.ipynb
+    notebook: mdp/dynamic-programming-algorithms/value-iteration/index.ipynb
+    code_cells: 0
+    environment: torch.dev.gpu
+    description: 
+  - source: aiml-common/lectures/mdp/dynamic-programming-algorithms/value-iteration/gridworld-demo/index.ipynb
+    notebook: mdp/dynamic-programming-algorithms/value-iteration/gridworld-demo/index.ipynb
+    code_cells: 4
+    environment: torch.dev.gpu
+    description: 
+    last_executed: 2026-04-09
+    duration_seconds: 1.4
+  - source: aiml-common/lectures/mdp/dynamic-programming-algorithms/policy-iteration/gridworld-demo/index.ipynb
+    notebook: mdp/dynamic-programming-algorithms/policy-iteration/gridworld-demo/index.ipynb
+    code_cells: 4
+    environment: torch.dev.gpu
+    description: 
+    last_executed: 2026-04-09
+    duration_seconds: 1.7
   - source: aiml-common/lectures/nlp/transformers/gpt-from-scratch/gpt-from-scratch.ipynb
     notebook: nlp/transformers/gpt-from-scratch/gpt-from-scratch.ipynb
     code_cells: 34
@@ -333,3 +359,8 @@ notebooks:
     description: Implementing a GPT-style model from scratch (LayerNorm, GELU, TransformerBlock, GPTModel) following Raschka Build a LLM From Scratch chapter 4
     last_executed: 2026-04-11
     duration_seconds: 20.5
+  - source: aiml-common/projects/robotics/gaussian-splatting/index.ipynb
+    notebook: projects/robotics/gaussian-splatting/index.ipynb
+    code_cells: 0
+    environment: colab
+    description: 3D Gaussian Splatting for robot navigation — markdown-only project guide
