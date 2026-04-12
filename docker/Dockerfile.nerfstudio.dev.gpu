@@ -4,19 +4,9 @@ FROM dromni/nerfstudio:1.1.4
 RUN pip install --no-cache-dir \
     papermill nbformat nbclient wandb huggingface_hub ipykernel pyyaml tqdm
 
-# Create vscode user to match the compose/devcontainer setup
-ARG USERNAME=vscode
-ARG USER_UID=1001
-ARG USER_GID=$USER_UID
-
-RUN (groupadd --gid $USER_GID $USERNAME 2>/dev/null || true) \
-    && (useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME 2>/dev/null || true) \
-    && mkdir -p /etc/sudoers.d \
-    && echo "$USERNAME ALL=(root) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
-    && chmod 0440 /etc/sudoers.d/$USERNAME
-
 # Register ipykernel
 RUN python3 -m ipykernel install --name python3 --display-name "Python 3 (nerfstudio)"
 
-USER vscode
+# Image already has user "user" (UID 1000) with sudo — use that
+USER user
 RUN git config --global commit.gpgsign false
