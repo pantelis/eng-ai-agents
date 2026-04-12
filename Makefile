@@ -8,9 +8,9 @@ check_dirs := examples tests src utils
 VENV_DIR := .venv
 VENV_PY := $(VENV_DIR)/bin/python
 UV := $(shell which uv)
-# Find Python 3.11+ (prefer /usr/local/bin/python for PyTorch container compatibility)
+# Find Python 3.11+ (prefer conda, then /usr/local, then system)
 PYTHON := $(shell \
-	for cmd in /usr/local/bin/python /usr/bin/python3; do \
+	for cmd in /opt/conda/bin/python3 /usr/local/bin/python /usr/bin/python3; do \
 		if [ -x "$$cmd" ] && $$cmd --version 2>/dev/null | grep -qE "3\.(1[1-9]|[2-9][0-9])"; then \
 			echo $$cmd; \
 			exit 0; \
