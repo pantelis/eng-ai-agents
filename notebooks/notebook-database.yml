@@ -354,5 +354,5 @@ notebooks:
 - source: aiml-common/projects/robotics/gaussian-splatting/gsplat-ros/gsplat-ros.ipynb
   notebook: projects/robotics/gaussian-splatting/gsplat-ros/gsplat-ros.ipynb
   code_cells: 7
-  environment: torch.dev.gpu
+  environment: gsplat.dev.gpu
   description: gsplat 3DGS demo and assignment Part 0 - trains garden scene
