@@ -364,3 +364,8 @@ notebooks:
     code_cells: 0
     environment: colab
     description: 3D Gaussian Splatting for robot navigation — markdown-only project guide
+  - source: aiml-common/projects/robotics/gaussian-splatting/demo.ipynb
+    notebook: projects/robotics/gaussian-splatting/demo.ipynb
+    code_cells: 5
+    environment: torch.dev.gpu
+    description: Nerfstudio 3D Gaussian Splatting demo with poster scene training and video rendering
