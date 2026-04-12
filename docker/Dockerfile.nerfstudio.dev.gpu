@@ -4,9 +4,9 @@ FROM dromni/nerfstudio:1.1.4
 RUN pip install --no-cache-dir \
     papermill nbformat nbclient wandb huggingface_hub ipykernel pyyaml tqdm
 
-# Register ipykernel
-RUN python3 -m ipykernel install --name python3 --display-name "Python 3 (nerfstudio)"
-
 # Image already has user "user" (UID 1000) with sudo — use that
 USER user
+
+# Register ipykernel (as user, not root — avoids permission issues)
+RUN python3 -m ipykernel install --user --name python3 --display-name "Python 3 (nerfstudio)"
 RUN git config --global commit.gpgsign false
