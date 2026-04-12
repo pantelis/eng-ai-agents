@@ -4,6 +4,7 @@ registry: notebook-database.yml
 docker_service: torch.dev.gpu
 valid_environments:
   - torch.dev.gpu
+  - nerfstudio.dev.gpu
   - ros.dev.gpu
   - colab
 source_prefix_strip:

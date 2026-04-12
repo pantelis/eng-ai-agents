@@ -354,5 +354,5 @@ notebooks:
 - source: aiml-common/projects/robotics/gaussian-splatting/demo.ipynb
   notebook: projects/robotics/gaussian-splatting/demo.ipynb
   code_cells: 5
-  environment: torch.dev.gpu
+  environment: nerfstudio.dev.gpu
   description: Nerfstudio 3D Gaussian Splatting demo — auto-detects Colab vs Docker GPU

@@ -70,6 +70,31 @@ services:
     tty: true
     networks:
       - ai-agents-network
+  nerfstudio.dev.gpu:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.nerfstudio.dev.gpu
+    container_name: eng-ai-agents-nerfstudio
+    volumes:
+      - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    environment:
+      - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
+    env_file:
+      - path: .env
+        required: false
+    command: bash -c "tail -f /dev/null"
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    networks:
+      - ai-agents-network
   ros.dev.gpu:
     build:
       context: .

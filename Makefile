@@ -182,6 +182,11 @@ endif
 		echo "  3. Download any generated artifacts manually"; \
 		echo ""; \
 		echo "═══════════════════════════════════════════════════════════════"; \
+	elif echo "$(ENV)" | grep -q "nerfstudio"; then \
+		echo "Executing notebook in pre-built Docker environment: $(ENV)"; \
+		docker compose run --rm $(ENV) bash -c \
+			"python3 scripts/execute_notebook.py $(NOTEBOOK)"; \
+		echo "Done: Notebook execution complete"; \
 	else \
 		echo "Executing notebook in Docker environment: $(ENV)"; \
 		docker compose run --rm $(ENV) bash -c \
