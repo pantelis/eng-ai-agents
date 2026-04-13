@@ -401,8 +401,13 @@ notebooks:
   description: EM algorithm on mixture of Gaussians example
   last_executed: 2026-04-13
   duration_seconds: 2.8
-- source: aiml-common/lectures/nlp/finetuning/ticket-routing-llm/06-hf-model-trainer-skill.ipynb
-  notebook: nlp/finetuning/ticket-routing-llm/06-hf-model-trainer-skill.ipynb
+- source: aiml-common/lectures/nlp/finetuning/ticket-routing-llm/ticket-routing-llm.ipynb
+  notebook: nlp/finetuning/ticket-routing-llm/ticket-routing-llm.ipynb
   code_cells: 20
   environment: torch.dev.gpu
   description: SFT fine-tuning Qwen3-0.6B for ticket routing
+- source: aiml-common/lectures/nlp/finetuning/food-vlm/food-vlm.ipynb
+  notebook: nlp/finetuning/food-vlm/food-vlm.ipynb
+  code_cells: 37
+  environment: torch.dev.gpu
+  description: VLM SFT - fine-tune SmolVLM2 for food extraction
