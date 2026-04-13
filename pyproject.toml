@@ -60,6 +60,7 @@ notebooks = [
     "peft>=0.7.0",
     "trackio",
     "torchvision>=0.20.0",
+    "num2words>=0.5.13",
 ]
 dev = [
     "pytest>=8.0.0",
