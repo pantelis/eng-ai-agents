@@ -366,3 +366,43 @@ notebooks:
   code_cells: 0
   environment: gsplat.dev.gpu
   description: 3DGS Nav Part 3 - semantic navigation with language-embedded splats
+- source: aiml-common/lectures/vae/elbo-optimization/elbo-optimization-torch/elbo_optimization_torch.ipynb
+  notebook: vae/elbo-optimization/elbo-optimization-torch/elbo_optimization_torch.ipynb
+  code_cells: 13
+  environment: torch.dev.gpu
+  description: ELBO optimization for VAE using PyTorch
+  last_executed: 2026-04-13
+  duration_seconds: 255.3
+- source: aiml-common/lectures/vae/introduction/mnist-manifold/mnist-manifold.ipynb
+  notebook: vae/introduction/mnist-manifold/mnist-manifold.ipynb
+  code_cells: 2
+  environment: torch.dev.gpu
+  description: MNIST latent manifold visualization
+  last_executed: 2026-04-13
+  duration_seconds: 41.2
+- source: aiml-common/lectures/vae/introduction/monte-carlo-sampling/monte-carlo-sampling.ipynb
+  notebook: vae/introduction/monte-carlo-sampling/monte-carlo-sampling.ipynb
+  code_cells: 1
+  environment: torch.dev.gpu
+  description: Monte Carlo sampling for variational inference
+  last_executed: 2026-04-13
+  duration_seconds: 21.5
+- source: aiml-common/lectures/vae/introduction/x-given-z-generator/x_given_z_generator_example.ipynb
+  notebook: vae/introduction/x-given-z-generator/x_given_z_generator_example.ipynb
+  code_cells: 1
+  environment: torch.dev.gpu
+  description: Conditional generator p(x|z) example
+  last_executed: 2026-04-13
+  duration_seconds: 1.5
+- source: aiml-common/lectures/generative-modeling/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
+  notebook: generative-modeling/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
+  code_cells: 3
+  environment: torch.dev.gpu
+  description: EM algorithm on mixture of Gaussians example
+  last_executed: 2026-04-13
+  duration_seconds: 2.8
+- source: aiml-common/lectures/nlp/finetuning/ticket-routing-llm/06-hf-model-trainer-skill.ipynb
+  notebook: nlp/finetuning/ticket-routing-llm/06-hf-model-trainer-skill.ipynb
+  code_cells: 20
+  environment: torch.dev.gpu
+  description: SFT fine-tuning Qwen3-0.6B for ticket routing
