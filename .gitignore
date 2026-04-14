@@ -187,6 +187,8 @@ runs/
 
 *.tar.xz
 datasets/*
+checkpoints/
+coco-minitrain/
 
 # Weights & Biases
 wandb/
@@ -203,3 +205,6 @@ log/
 
 # Beads issue tracker (local-only, contains proprietary work items)
 .beads/
+
+# Beads archive (migrated to Jira 2026-04-13)
+.beads-archive.zip
