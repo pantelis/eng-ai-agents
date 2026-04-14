@@ -411,13 +411,13 @@ notebooks:
   code_cells: 37
   environment: torch.dev.gpu
   description: VLM SFT - fine-tune SmolVLM2 for food extraction
-- source: aiml-common/lectures/vlm/finetuning/quen25-vl-3b-instruct/vlm_grpo_trl_smoke.ipynb
-  notebook: vlm/finetuning/quen25-vl-3b-instruct/vlm_grpo_trl_smoke.ipynb
+- source: aiml-common/lectures/vlm/finetuning/qwen3-vl-2b-instruct/vlm_grpo_trl_smoke.ipynb
+  notebook: vlm/finetuning/qwen3-vl-2b-instruct/vlm_grpo_trl_smoke.ipynb
   code_cells: 23
   environment: torch.dev.gpu
-  description: GRPO smoke test - Qwen2.5-VL-3B visual reasoning (20 samples, 5 steps)
-- source: aiml-common/lectures/vlm/finetuning/quen25-vl-3b-instruct/vlm_grpo_trl.ipynb
-  notebook: vlm/finetuning/quen25-vl-3b-instruct/vlm_grpo_trl.ipynb
+  description: GRPO smoke test - Qwen3-VL-2B visual reasoning (20 samples, 5 steps)
+- source: aiml-common/lectures/vlm/finetuning/qwen3-vl-2b-instruct/vlm_grpo_trl.ipynb
+  notebook: vlm/finetuning/qwen3-vl-2b-instruct/vlm_grpo_trl.ipynb
   code_cells: 23
   environment: torch.dev.gpu
   description: GRPO full training - Qwen3-VL-2B visual reasoning (5% of lmms-lab/multimodal-open-r1-8k)
