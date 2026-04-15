@@ -427,11 +427,11 @@ notebooks:
   environment: torch.dev.gpu
   description: Deterministic MDP example - cleaning robot workshop
   last_executed: 2026-04-15
-  duration_seconds: 1.1
+  duration_seconds: 2.2
 - source: aiml-common/lectures/mdp/mdp-workshop/cleaning-robot/stochastic-mdp/stochastic-mdp.ipynb
   notebook: mdp/mdp-workshop/cleaning-robot/stochastic-mdp/stochastic-mdp.ipynb
   code_cells: 3
   environment: torch.dev.gpu
   description: Stochastic MDP example - cleaning robot workshop
   last_executed: 2026-04-15
-  duration_seconds: 1.1
+  duration_seconds: 2.5
