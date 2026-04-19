@@ -442,3 +442,10 @@ notebooks:
   description: MDP lookahead tree expansion and Bellman backup — port of the JSX lecture widget
   last_executed: 2026-04-19
   duration_seconds: 3.8
+- source: aiml-common/lectures/reinforcement-learning/policy-based-algorithms/reinforce/reinforce-cartpole/reinforce-cartpole.ipynb
+  notebook: reinforcement-learning/policy-based-algorithms/reinforce/reinforce-cartpole/reinforce-cartpole.ipynb
+  code_cells: 4
+  environment: torch.dev.gpu
+  description: REINFORCE policy gradient on CartPole-v1 with learning-curve SVG
+    last_executed: 2026-04-19
+    duration_seconds: 22.2
