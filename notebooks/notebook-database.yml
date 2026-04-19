@@ -59,11 +59,11 @@ notebooks:
 - '---'
 - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/control/sarsa/gridworld/sarsa_gridworld.ipynb
   notebook: reinforcement-learning/control/sarsa/sarsa_gridworld.ipynb
-  code_cells: 4
+  code_cells: 3
   environment: torch.dev.gpu
   description: SARSA algorithm on gridworld with Q-value heatmap visualization
-  last_executed: 2026-02-12
-  duration_seconds: 123.6
+  last_executed: 2026-04-19
+  duration_seconds: 123.9
 - '---'
 - source: aiml-common/lectures/cnn/cnn-example-architectures/using_convnets_with_small_datasets.ipynb
   notebook: cnn/using_convnets_with_small_datasets.ipynb
@@ -435,3 +435,17 @@ notebooks:
   description: Stochastic MDP example - cleaning robot workshop
   last_executed: 2026-04-15
   duration_seconds: 2.5
+- source: aiml-common/lectures/mdp/bellman-optimality-backup/mdp-tree-expansion/mdp-tree-expansion.ipynb
+  notebook: mdp/bellman-optimality-backup/mdp-tree-expansion/mdp-tree-expansion.ipynb
+  code_cells: 8
+  environment: torch.dev.gpu
+  description: MDP lookahead tree expansion and Bellman backup — port of the JSX lecture widget
+  last_executed: 2026-04-19
+  duration_seconds: 3.8
+- source: aiml-common/lectures/reinforcement-learning/policy-based-algorithms/reinforce/reinforce-cartpole/reinforce-cartpole.ipynb
+  notebook: reinforcement-learning/policy-based-algorithms/reinforce/reinforce-cartpole/reinforce-cartpole.ipynb
+  code_cells: 4
+  environment: torch.dev.gpu
+  description: REINFORCE policy gradient on CartPole-v1 with learning-curve SVG
+  last_executed: 2026-04-19
+  duration_seconds: 22.2
