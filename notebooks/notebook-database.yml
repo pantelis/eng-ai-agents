@@ -447,5 +447,5 @@ notebooks:
   code_cells: 4
   environment: torch.dev.gpu
   description: REINFORCE policy gradient on CartPole-v1 with learning-curve SVG
-  last_executed: 2026-04-19
-  duration_seconds: 22.2
+    last_executed: 2026-04-20
+    duration_seconds: 21.9
