@@ -447,5 +447,15 @@ notebooks:
   code_cells: 4
   environment: torch.dev.gpu
   description: REINFORCE policy gradient on CartPole-v1 with learning-curve SVG
-    last_executed: 2026-04-20
-    duration_seconds: 21.9
+  last_executed: 2026-04-20
+  duration_seconds: 21.9
+- source: aiml-common/lectures/reasoning/grpo-math-reasoning/grpo-math-reasoning.ipynb
+  notebook: reasoning/grpo-math-reasoning/grpo-math-reasoning.ipynb
+  code_cells: 7
+  environment: torch.dev.gpu
+  description: GRPO fine-tuning of Qwen2.5-1.5B-Instruct for math reasoning with granular format rewards
+- source: aiml-common/lectures/reinforcement-learning/policy-based-algorithms/reinforce/policy-gradient-simple-example/policy-gradient-simple-example.ipynb
+  notebook: reinforcement-learning/policy-based-algorithms/reinforce/policy-gradient-simple-example/policy-gradient-simple-example.ipynb
+  code_cells: 3
+  environment: torch.dev.gpu
+  description: REINFORCE policy gradient — simple one- and two-parameter Bernoulli illustration
