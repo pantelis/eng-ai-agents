@@ -29,6 +29,28 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      apt-get clean
 # && apt-get -y install --no-install-recommends libsm6 libxext6 graphviz libgraphviz-dev xdg-utils swig gringo gobject-introspection libcairo2-dev libgirepository1.0-dev pkg-config python3-dev python3-gi
 
+# manimgl rendering — headless OpenGL via Xvfb + Mesa, Cairo/Pango for shape and
+# text rendering, plus build tools for manimpango (compiled from source against
+# the Pango/Cairo dev headers when no manylinux wheel matches).
+# No texlive: scenes using Tex / MathTex mobjects need texlive-* on top.
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+     && apt-get -y install --no-install-recommends \
+          xvfb \
+          libgl1 \
+          libglib2.0-0 \
+          libsm6 \
+          libxext6 \
+          libxrender1 \
+          libcairo2 \
+          libpango-1.0-0 \
+          libpangocairo-1.0-0 \
+          fonts-dejavu \
+          build-essential \
+          pkg-config \
+          libpango1.0-dev \
+          libcairo2-dev \
+     && rm -rf /var/cache/apt && apt-get clean
+
 # Install uv for modern Python package management
 COPY --from=ghcr.io/astral-sh/uv:latest --chown=vscode: /uv /uvx /bin/
 

@@ -63,6 +63,7 @@ notebooks = [
     "num2words>=0.5.13",
     "math-verify>=0.5.0",
     "qwen-vl-utils[decord]>=0.0.8",
+    "manimgl>=1.6.1",
 ]
 dev = [
     "pytest>=8.0.0",
