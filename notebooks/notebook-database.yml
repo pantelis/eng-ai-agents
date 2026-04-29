@@ -459,3 +459,28 @@ notebooks:
   code_cells: 3
   environment: torch.dev.gpu
   description: REINFORCE policy gradient — simple one- and two-parameter Bernoulli illustration
+- source: aiml-common/lectures/diffusion/ddpm/ddpm_mog_tutorial.ipynb
+  notebook: diffusion/ddpm/ddpm_mog_tutorial.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: 
+- source: aiml-common/lectures/diffusion/ddim/ddim_mog_tutorial.ipynb
+  notebook: diffusion/ddim/ddim_mog_tutorial.ipynb
+  code_cells: 12
+  environment: torch.dev.gpu
+  description: 
+- source: aiml-common/lectures/diffusion/brownian-motion/brownian_motion.ipynb
+  notebook: diffusion/brownian-motion/brownian_motion.ipynb
+  code_cells: 4
+  environment: torch.dev.gpu
+  description: 
+- source: aiml-common/lectures/diffusion/score-based/song-tutorial-notebook/Tutorial_on_Score_Based_Generative_Modeling.ipynb
+  notebook: diffusion/score-based/song-tutorial-notebook/Tutorial_on_Score_Based_Generative_Modeling.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: 
+- source: aiml-common/lectures/diffusion/score-based/score-mog-example/score_mog_example.ipynb
+  notebook: diffusion/score-based/score-mog-example/score_mog_example.ipynb
+  code_cells: 11
+  environment: torch.dev.gpu
+  description: 
