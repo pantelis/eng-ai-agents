@@ -48,18 +48,17 @@ notebooks:
   last_executed: 2026-02-12
   duration_seconds: 299.7
 - '---'
-- source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp.ipynb
-  notebook: reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
+- source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp/td-vs-mc-mrp.ipynb
+  notebook: reinforcement-learning/prediction/td-vs-mc-mrp/td-vs-mc-mrp.ipynb
   code_cells: 3
   environment: torch.dev.gpu
-  description: Monte Carlo vs TD(0) comparison on Random Walk MRP (Sutton & Barto
-    Example 6.2)
+  description: Monte Carlo vs TD(0) comparison on Random Walk MRP (Sutton & Barto Example 6.2)
   last_executed: 2026-02-12
   duration_seconds: 2.0
 - '---'
 - source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/control/sarsa/gridworld/sarsa_gridworld.ipynb
   notebook: reinforcement-learning/control/sarsa/sarsa_gridworld.ipynb
-  code_cells: 3
+  code_cells: 4
   environment: torch.dev.gpu
   description: SARSA algorithm on gridworld with Q-value heatmap visualization
   last_executed: 2026-04-19
@@ -456,9 +455,9 @@ notebooks:
   description: GRPO fine-tuning of Qwen2.5-1.5B-Instruct for math reasoning with granular format rewards
 - source: aiml-common/lectures/reinforcement-learning/policy-based-algorithms/reinforce/policy-gradient-simple-example/policy-gradient-simple-example.ipynb
   notebook: reinforcement-learning/policy-based-algorithms/reinforce/policy-gradient-simple-example/policy-gradient-simple-example.ipynb
-  code_cells: 3
+  code_cells: 4
   environment: torch.dev.gpu
-  description: REINFORCE policy gradient — simple one- and two-parameter Bernoulli illustration
+  description: REINFORCE policy gradient, simple one- and two-parameter Bernoulli illustration
 - source: aiml-common/lectures/diffusion/ddpm/ddpm_mog_tutorial.ipynb
   notebook: diffusion/ddpm/ddpm_mog_tutorial.ipynb
   code_cells: 10
@@ -484,3 +483,8 @@ notebooks:
   code_cells: 11
   environment: torch.dev.gpu
   description: 
+- source: aiml-common/lectures/reinforcement-learning/value-based-algorithms/control/q-learning/sarsa-vs-q-learning/sarsa_vs_q_learning.ipynb
+  notebook: reinforcement-learning/value-based-algorithms/control/q-learning/sarsa-vs-q-learning/sarsa_vs_q_learning.ipynb
+  code_cells: 5
+  environment: torch.dev.gpu
+  description: SARSA vs Q-learning on CliffWalking-v1 (Sutton and Barto Example 6.6)
