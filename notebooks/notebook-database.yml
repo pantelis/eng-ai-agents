@@ -114,14 +114,6 @@ notebooks:
   last_executed: 2026-02-12
   duration_seconds: 27.5
 - '---'
-- source: aiml-common/lectures/ml-math/probability/gaussians.ipynb
-  notebook: ml-math/probability/gaussians.ipynb
-  code_cells: 2
-  environment: torch.dev.gpu
-  description: Correlated Gaussian random variable generation
-  last_executed: 2026-02-12
-  duration_seconds: 2.6
-- '---'
 - source: aiml-common/projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
   notebook: projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
   code_cells: 58
@@ -488,3 +480,15 @@ notebooks:
   code_cells: 5
   environment: torch.dev.gpu
   description: SARSA vs Q-learning on CliffWalking-v1 (Sutton and Barto Example 6.6)
+- source: aiml-common/lectures/ml-math/probability/gaussians/gaussians.ipynb
+  notebook: ml-math/probability/gaussians/gaussians.ipynb
+  code_cells: 3
+  environment: torch.dev.gpu
+  description: Multivariate Gaussian PDF and conditional distribution from Bishop
+  last_executed: 2026-05-06
+  duration_seconds: 2.7
+- source: CV/2026/spring/final/reinforce_charlm_assignment.ipynb
+  notebook: CV/2026/spring/final/reinforce_charlm_assignment.ipynb
+  code_cells: 7
+  environment: torch.dev.gpu
+  description: REINFORCE Small Language Model Credit Assignment — student notebook (no solutions)
