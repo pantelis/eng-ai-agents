@@ -454,7 +454,9 @@ notebooks:
   notebook: diffusion/ddpm/ddpm_mog_tutorial.ipynb
   code_cells: 10
   environment: torch.dev.gpu
-  description: 
+  description: {'last_executed': datetime.date(2026, 5, 6), 'duration_seconds': 14.3}
+    last_executed: 2026-05-06
+    duration_seconds: 9.7
 - source: aiml-common/lectures/diffusion/ddim/ddim_mog_tutorial.ipynb
   notebook: diffusion/ddim/ddim_mog_tutorial.ipynb
   code_cells: 12
