@@ -385,7 +385,7 @@ notebooks:
   description: Conditional generator p(x|z) example
   last_executed: 2026-04-13
   duration_seconds: 1.5
-- source: aiml-common/lectures/generative-modeling/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
+- source: aiml-common/lectures/mixture-of-gaussians/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
   notebook: generative-modeling/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
   code_cells: 3
   environment: torch.dev.gpu
@@ -454,7 +454,9 @@ notebooks:
   notebook: diffusion/ddpm/ddpm_mog_tutorial.ipynb
   code_cells: 10
   environment: torch.dev.gpu
-  description: 
+  description: {'last_executed': datetime.date(2026, 5, 6), 'duration_seconds': 14.3}
+    last_executed: 2026-05-06
+    duration_seconds: 9.7
 - source: aiml-common/lectures/diffusion/ddim/ddim_mog_tutorial.ipynb
   notebook: diffusion/ddim/ddim_mog_tutorial.ipynb
   code_cells: 12
