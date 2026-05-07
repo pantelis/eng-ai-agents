@@ -385,7 +385,7 @@ notebooks:
   description: Conditional generator p(x|z) example
   last_executed: 2026-04-13
   duration_seconds: 1.5
-- source: aiml-common/lectures/generative-modeling/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
+- source: aiml-common/lectures/mixture-of-gaussians/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
   notebook: generative-modeling/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
   code_cells: 3
   environment: torch.dev.gpu
