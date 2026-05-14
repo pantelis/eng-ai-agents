@@ -454,9 +454,9 @@ notebooks:
   notebook: diffusion/ddpm/ddpm_mog_tutorial.ipynb
   code_cells: 10
   environment: torch.dev.gpu
-  description: {'last_executed': datetime.date(2026, 5, 6), 'duration_seconds': 14.3}
-    last_executed: 2026-05-06
-    duration_seconds: 9.7
+  description:
+  last_executed: 2026-05-06
+  duration_seconds: 9.7
 - source: aiml-common/lectures/diffusion/ddim/ddim_mog_tutorial.ipynb
   notebook: diffusion/ddim/ddim_mog_tutorial.ipynb
   code_cells: 12
@@ -494,3 +494,17 @@ notebooks:
   code_cells: 7
   environment: torch.dev.gpu
   description: REINFORCE Small Language Model Credit Assignment — student notebook (no solutions)
+- source: aiml-common/lectures/velocity-fields/index.ipynb
+  notebook: velocity-fields/index.ipynb
+  code_cells: 4
+  environment: torch.dev.gpu
+  description: Velocity fields from storm intuition to flow matching
+  last_executed: 2026-05-14
+  duration_seconds: 2.2
+- source: aiml-common/lectures/ml-math/calculus/odes-and-euler/index.ipynb
+  notebook: ml-math/calculus/odes-and-euler/index.ipynb
+  code_cells: 6
+  environment: torch.dev.gpu
+  description: ODEs and the Euler method, prerequisite tutorial with worked examples that bridge into flow matching
+  last_executed: 2026-05-14
+  duration_seconds: 2.0
