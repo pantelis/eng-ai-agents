@@ -508,3 +508,8 @@ notebooks:
   description: ODEs and the Euler method, prerequisite tutorial with worked examples that bridge into flow matching
   last_executed: 2026-05-14
   duration_seconds: 2.0
+- source: aiml-common/assignments/topics/box-regression/rcnn_regression_head_assignment.ipynb
+  notebook: assignments/topics/box-regression/rcnn_regression_head_assignment.ipynb
+  code_cells: 8
+  environment: torch.dev.gpu
+  description: RCNN regression head assignment for bounding box smooth L1 loss
