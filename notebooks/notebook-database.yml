@@ -513,3 +513,13 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: RCNN regression head assignment for bounding box smooth L1 loss
+- source: aiml-common/assignments/topics/linear-regression/house-prices/house_prices_assignment.ipynb
+  notebook: assignments/topics/linear-regression/house-prices/house_prices_assignment.ipynb
+  code_cells: 9
+  environment: torch.dev.gpu
+  description: House price prediction across two neighborhoods comparing single per-subgroup and interaction-augmented linear regression
+- source: aiml-common/lectures/empirical-risk/index.ipynb
+  notebook: empirical-risk/index.ipynb
+  code_cells: 0
+  environment: torch.dev.gpu
+  description: Empirical and expected risk with bias-variance decomposition
