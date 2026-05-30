@@ -1,13 +1,4 @@
 notebooks:
-- source: aiml-common/lectures/regression/linear-regression/sgd_sinusoidal_dataset.ipynb
-  notebook: regression/linear-regression/sgd_sinusoidal_dataset.ipynb
-  code_cells: 11
-  environment: torch.dev.gpu
-  description: SGD with polynomial regression and Optuna hyperparameter tuning
-  colab_deps: matplotlib seaborn scikit-learn scipy tqdm optuna
-  last_executed: 2026-02-12
-  duration_seconds: 37.1
-- '---'
 - source: aiml-common/lectures/optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
   notebook: optimization/maximum-likelihood/marginal_maximum_likelihood.ipynb
   code_cells: 8
@@ -535,3 +526,10 @@ notebooks:
   description: Decomposing predictive uncertainty into reducible epistemic and irreducible aleatoric components
   last_executed: 2026-05-30
   duration_seconds: 2.2
+- source: aiml-common/lectures/regression/linear-regression/sgd/sgd_sinusoidal_dataset.ipynb
+  notebook: regression/linear-regression/sgd/sgd_sinusoidal_dataset.ipynb
+  code_cells: 9
+  environment: torch.dev.gpu
+  description: SGD on the regularized ridge loss for degree-9 polynomial regression, lambda anchored to the closed-form optimum
+  last_executed: 2026-05-30
+  duration_seconds: 17.7
