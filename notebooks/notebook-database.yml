@@ -523,3 +523,15 @@ notebooks:
   code_cells: 0
   environment: torch.dev.gpu
   description: Empirical and expected risk with bias-variance decomposition
+- source: aiml-common/lectures/regression/linear-regression/index.ipynb
+  notebook: regression/linear-regression/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: 
+- source: aiml-common/lectures/aleatoric-epistemic/index.ipynb
+  notebook: aleatoric-epistemic/index.ipynb
+  code_cells: 6
+  environment: torch.dev.gpu
+  description: Decomposing predictive uncertainty into reducible epistemic and irreducible aleatoric components
+  last_executed: 2026-05-30
+  duration_seconds: 2.2

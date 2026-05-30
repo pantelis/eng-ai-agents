@@ -68,8 +68,12 @@ def update_registry_entry(
             block_end = i
             break
 
-    # Insert new metadata lines just before block_end
-    indent = "    "
+    # Insert new metadata lines just before block_end. Registry entries are a
+    # block sequence under `notebooks:`, so continuation fields sit at 2-space
+    # indent (aligning with the text after `- ` on the source line). Using 4
+    # spaces nests them under the previous field (e.g. `description`) and
+    # produces a YAML ScannerError on the next read.
+    indent = "  "
     new_lines = [
         f"{indent}last_executed: {last_executed}\n",
         f"{indent}duration_seconds: {duration_seconds:.1f}\n",
