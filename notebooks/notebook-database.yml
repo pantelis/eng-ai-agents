@@ -533,3 +533,17 @@ notebooks:
   description: SGD on the regularized ridge loss for degree-9 polynomial regression, lambda anchored to the closed-form optimum
   last_executed: 2026-05-30
   duration_seconds: 17.7
+- source: aiml-common/lectures/optimization/sgd/index.ipynb
+  notebook: optimization/sgd/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: Gradient descent, SGD and mini-batch from scratch in NumPy with a PyTorch coda
+  last_executed: 2026-05-30
+  duration_seconds: 5.4
+- source: aiml-common/lectures/optimization/optimizers/index.ipynb
+  notebook: optimization/optimizers/index.ipynb
+  code_cells: 8
+  environment: torch.dev.gpu
+  description: Momentum, Nesterov, RMSProp and Adam from scratch on ravine and saddle landscapes, with a PyTorch coda
+  last_executed: 2026-05-31
+  duration_seconds: 4.8
