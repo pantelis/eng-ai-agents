@@ -554,3 +554,10 @@ notebooks:
   code_cells: 12
   environment: torch.dev.gpu
   description: CTR prediction with logistic regression, the hashing trick and SGD
+- source: mit-book/chapter-42-single-view-metrology/index.ipynb
+  notebook: CV/mit-foundations/chapter-42-single-view-metrology/index.ipynb
+  code_cells: 9
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV Ch 42 — Single view metrology (scaffold; synthetic office, vanishing-point recovery, calibration via SVD+Cholesky)
+  last_executed: 2026-06-10
+  duration_seconds: 9.1
