@@ -554,3 +554,10 @@ notebooks:
   code_cells: 12
   environment: torch.dev.gpu
   description: CTR prediction with logistic regression, the hashing trick and SGD
+- source: mit-book/chapter-47-3d-motion-projection/index.ipynb
+  notebook: CV/mit-foundations/chapter-47-3d-motion-projection/index.ipynb
+  code_cells: 13
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV Ch 47 — 3D motion and its 2D projection (motion-field derivation; reproduces all 10 figures)
+  last_executed: 2026-06-10
+  duration_seconds: 17.6
