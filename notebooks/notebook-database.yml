@@ -554,3 +554,10 @@ notebooks:
   code_cells: 12
   environment: torch.dev.gpu
   description: CTR prediction with logistic regression, the hashing trick and SGD
+- source: mit-book/chapter-38-images-and-geometry/index.ipynb
+  notebook: CV/mit-foundations/chapter-38-images-and-geometry/index.ipynb
+  code_cells: 16
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV Ch 38 — Representing images and geometry (homogeneous coordinates, 2D transforms, forward vs backward warp, SIREN)
+  last_executed: 2026-06-10
+  duration_seconds: 43.4
