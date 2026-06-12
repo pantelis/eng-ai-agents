@@ -554,3 +554,8 @@ notebooks:
   code_cells: 12
   environment: torch.dev.gpu
   description: CTR prediction with logistic regression, the hashing trick and SGD
+- source: aiml-common/assignments/topics/cnn-explainers/index.ipynb
+  notebook: assignments/topics/cnn-explainers/index.ipynb
+  code_cells: 0
+  environment: torch.dev.gpu
+  description: "Explaining CNNs assignment: integrated gradients and Grad-CAM on cats vs dogs"
