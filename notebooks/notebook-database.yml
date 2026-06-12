@@ -558,4 +558,4 @@ notebooks:
   notebook: assignments/topics/cnn-explainers/index.ipynb
   code_cells: 0
   environment: torch.dev.gpu
-  description: "Explaining CNNs assignment: integrated gradients and Grad-CAM on cats vs dogs"
+  description: Explaining CNNs assignment using integrated gradients and Grad-CAM on cats vs dogs
