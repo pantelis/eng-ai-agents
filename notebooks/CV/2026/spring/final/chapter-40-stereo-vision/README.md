@@ -1,77 +1,34 @@
 # Chapter 40: Stereo Vision
 
-This chapter folder contains an educational stereo-vision notebook that recreates the core ideas from MIT *Foundations of Computer Vision* Chapter 40 using original code-generated figures and a deterministic synthetic stereo scene.
+This chapter folder contains a compact executable notebook for MIT *Foundations of Computer Vision*, Chapter 40. It follows one focused story: disparity as a depth cue, a synthetic rectified stereo pair, local SSD block matching, quantitative evaluation, parameter tradeoffs, and failure cases.
 
-## What the notebook demonstrates
+## MIT Book references used
 
-- Why a second view reveals depth through disparity.
-- How binocular geometry leads to the rectified stereo depth formula `Z = fB / d`.
-- Why epipolar geometry constrains correspondence search.
-- How simple local block matching estimates a disparity map.
-- How to validate stereo output with ground-truth disparity and failure-case analysis.
+The notebook now uses local offline copies of four official MIT Chapter 40 figures:
 
-## Relation to the MIT Vision Book
+- `assets/mit-book/figure-40-01-titanic.png`
+- `assets/mit-book/figure-40-03-random-dot-stereogram.png`
+- `assets/mit-book/figure-40-05-triangularization-stereo.png`
+- `assets/mit-book/figure-40-07-intensity-matching-failure.png`
 
-The notebook is grounded in [Chapter 40: Stereo Vision](https://visionbook.mit.edu/3d_scene_understanding_stereo.html). It recreates the chapter's main figure themes without copying textbook images:
-
-- Stereo camera setup and triangulation intuition
-- Epipolar geometry and rectification
-- Disparity-depth relationship
-- Pixel-level stereo correspondence on a rectified pair
-- Quantitative validation and known stereo failure modes
-
-## Main concepts covered
-
-- Stereo vision intuition
-- Binocular geometry
-- Disparity
-- Depth from disparity
-- Epipolar geometry
-- Rectified stereo correspondence
-- Simple SSD block matching
-- Disparity-to-depth reconstruction
-- Parameter tradeoffs
-- Validation metrics
-- Failure cases and limitations
+Git history for this chapter did not contain local MIT reference images, so these assets were restored from the official MIT chapter page to remove remote notebook-image dependencies. Figures 40.5 and 40.7 are the better fit for the notebook's rectified-stereo geometry and local matching story than the earlier 40.12 and 40.13 choices.
 
 ## Generated figures
 
-- `images/01-stereo-setup.png`
-- `images/02-epipolar-and-rectification.png`
-- `images/03-disparity-depth-relationship.png`
-- `images/04-synthetic-stereo-pair.png`
-- `images/05-block-matching-results.png`
-- `images/06-parameter-and-failure-cases.png`
+- `images/01-disparity-depth-intuition.png`
+- `images/02-synthetic-stereo-pair.png`
+- `images/03-patch-matching-diagnostic.png`
+- `images/04-dense-disparity-result.png`
+- `images/05-parameter-tradeoffs.png`
+- `images/06-failure-cases.png`
 
 ## How to run
 
-From the repository root:
-
 ```bash
 python notebooks/CV/2026/spring/final/chapter-40-stereo-vision/build_assets.py
-make execute-notebook NOTEBOOK=CV/2026/spring/final/chapter-40-stereo-vision/index.ipynb
+jupyter nbconvert --to notebook --execute notebooks/CV/2026/spring/final/chapter-40-stereo-vision/index.ipynb --output index.executed.ipynb --ExecutePreprocessor.timeout=600
 ```
 
-The first command regenerates the PNG assets and notebook structure. The second uses the repository's notebook execution flow inside the configured container environment.
+## Scope
 
-## Expected outputs
-
-- A synthetic left/right rectified stereo pair
-- Ground-truth disparity and depth maps
-- A block-matching disparity estimate
-- Quantitative metrics and a parameter sweep
-- Visualized failure cases for textureless, repeated, and occluded regions
-
-## Validation metrics
-
-- Mean absolute disparity error: `1.526` pixels
-- Bad-pixel ratio at 1 pixel: `0.421`
-- Reference runtime for the default setting: `2.405` seconds
-
-Best parameter-sweep MAE in the generated grid: `1.081` pixels
-
-## Limitations
-
-- The scene is synthetic and intentionally simple so that ground truth is known.
-- The correspondence algorithm is local SSD block matching, not a production stereo method.
-- The notebook does not implement subpixel refinement, global regularization, or learned stereo networks.
+The notebook assumes a rectified stereo setup and uses an educational integer-pixel SSD matcher. It does not implement calibration, full rectification, essential/fundamental matrix estimation, learned stereo, or global optimization.
