@@ -1,34 +1,36 @@
 # Chapter 40: Stereo Vision
 
-This chapter folder contains a compact executable notebook for MIT *Foundations of Computer Vision*, Chapter 40. It follows one focused story: disparity as a depth cue, a synthetic rectified stereo pair, local SSD block matching, quantitative evaluation, parameter tradeoffs, and failure cases.
+        This chapter folder contains a chapter-aligned executable notebook for MIT
+        *Foundations of Computer Vision*, Chapter 40.
 
-## MIT Book references used
+        The notebook now keeps all MIT Figures `40.1` to `40.14` visible in the markdown and adds
+        eighteen code-generated teaching figures covering stereo geometry, matching, failure modes,
+        epipolar geometry, and evaluation.
 
-The notebook now uses local offline copies of four official MIT Chapter 40 figures:
+        ## Generated figures
 
-- `assets/mit-book/figure-40-01-titanic.png`
-- `assets/mit-book/figure-40-03-random-dot-stereogram.png`
-- `assets/mit-book/figure-40-05-triangularization-stereo.png`
-- `assets/mit-book/figure-40-07-intensity-matching-failure.png`
+        - `images/01-stereo-cues.png`
+- `images/02-rectified-stereo-geometry.png`
+- `images/03-depth-vs-disparity.png`
+- `images/04-depth-error-sensitivity.png`
+- `images/05-baseline-sensitivity.png`
+- `images/06-pixel-vs-patch-matching.png`
+- `images/07-cost-volume-slices.png`
+- `images/08-winner-takes-all-disparity.png`
+- `images/09-patch-size-sweep.png`
+- `images/10-max-disparity-sweep.png`
+- `images/11-textureless-failure.png`
+- `images/12-repetitive-pattern-failure.png`
+- `images/13-occlusion-and-left-right-check.png`
+- `images/14-subpixel-refinement.png`
+- `images/15-epipolar-constraint.png`
+- `images/16-before-after-rectification.png`
+- `images/17-disparity-depth-error-maps.png`
+- `images/18-runtime-accuracy-tradeoff.png`
 
-Git history for this chapter did not contain local MIT reference images, so these assets were restored from the official MIT chapter page to remove remote notebook-image dependencies. Figures 40.5 and 40.7 are the better fit for the notebook's rectified-stereo geometry and local matching story than the earlier 40.12 and 40.13 choices.
+        ## How to run
 
-## Generated figures
-
-- `images/01-disparity-depth-intuition.png`
-- `images/02-synthetic-stereo-pair.png`
-- `images/03-patch-matching-diagnostic.png`
-- `images/04-dense-disparity-result.png`
-- `images/05-parameter-tradeoffs.png`
-- `images/06-failure-cases.png`
-
-## How to run
-
-```bash
-python notebooks/CV/2026/spring/final/chapter-40-stereo-vision/build_assets.py
-jupyter nbconvert --to notebook --execute notebooks/CV/2026/spring/final/chapter-40-stereo-vision/index.ipynb --output index.executed.ipynb --ExecutePreprocessor.timeout=600
-```
-
-## Scope
-
-The notebook assumes a rectified stereo setup and uses an educational integer-pixel SSD matcher. It does not implement calibration, full rectification, essential/fundamental matrix estimation, learned stereo, or global optimization.
+        ```bash
+        python3 notebooks/CV/2026/spring/final/chapter-40-stereo-vision/build_assets.py
+        jupyter nbconvert --to notebook --execute notebooks/CV/2026/spring/final/chapter-40-stereo-vision/index.ipynb --output index.executed.ipynb --ExecutePreprocessor.timeout=600
+        ```
