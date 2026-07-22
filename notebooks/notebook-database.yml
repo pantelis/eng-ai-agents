@@ -565,3 +565,10 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: Embedding Projector assignment word2vec PCA UMAP and neighborhood query
+- source: aiml-common/CV/mit-foundations/chapter-17-blur-filters/index.ipynb
+  notebook: CV/mit-foundations/chapter-17-blur-filters/index.ipynb
+  code_cells: 11
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV Ch 17 - Blur filters (box, Gaussian, binomial; separability, monotonic Fourier response, checkerboard cancellation; 9 figures)
+  last_executed: 2026-07-21
+  duration_seconds: 56.6
