@@ -485,6 +485,11 @@ notebooks:
   code_cells: 7
   environment: torch.dev.gpu
   description: REINFORCE Small Language Model Credit Assignment — student notebook (no solutions)
+- source: CV/2026/spring/final/chapter-46-motion-estimation/index.ipynb
+  notebook: CV/2026/spring/final/chapter-46-motion-estimation/index.ipynb
+  code_cells: 8
+  environment: torch.dev.gpu
+  description: Motion estimation with synthetic image pairs, SSD patch matching, sparse motion fields, metrics, and failure analysis
 - source: aiml-common/lectures/velocity-fields/index.ipynb
   notebook: velocity-fields/index.ipynb
   code_cells: 4
