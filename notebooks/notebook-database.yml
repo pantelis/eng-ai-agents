@@ -565,3 +565,10 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: Embedding Projector assignment word2vec PCA UMAP and neighborhood query
+- source: aiml-common/CV/mit-foundations/chapter-19-temporal-filters/index.ipynb
+  notebook: CV/mit-foundations/chapter-19-temporal-filters/index.ipynb
+  code_cells: 7
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV Ch 19 - Temporal filters (space-time volume, motion as orientation, spatiotemporal Gaussian and derivatives, velocity-tuned blur, velocity-nulling filter; real static-camera pedestrian clip vtest.avi)
+  last_executed: 2026-07-28
+  duration_seconds: 40.6
