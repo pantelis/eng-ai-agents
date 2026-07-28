@@ -565,3 +565,10 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: Embedding Projector assignment word2vec PCA UMAP and neighborhood query
+- source: aiml-common/CV/mit-foundations/chapter-27-statistical-image-models/index.ipynb
+  notebook: CV/mit-foundations/chapter-27-statistical-image-models/index.ipynb
+  code_cells: 17
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV Ch 27 - Statistical image models (1/f power law, sampling clouds, independent-pixel failure, correlation decay, heavy-tailed derivative statistics, generalized Laplacian, Wiener/coring/non-local-means denoising, eight visual worlds, dead-leaves model, Fourier phase, Gaussian texture, prior-driven reconstruction and wavelet coring)
+  last_executed: 2026-08-05
+  duration_seconds: 20.0
