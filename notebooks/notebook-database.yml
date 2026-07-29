@@ -565,3 +565,8 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: Embedding Projector assignment word2vec PCA UMAP and neighborhood query
+- source: CV/mit-foundations/chapter-15-linear-image-filtering/index.ipynb
+  notebook: CV/mit-foundations/chapter-15-linear-image-filtering/index.ipynb
+  code_cells: 28
+  environment: torch.dev.gpu
+  description: Chapter 15 (Linear Image Filtering) companion — signals, LTI systems, convolution, boundaries, cross-correlation, and template matching
