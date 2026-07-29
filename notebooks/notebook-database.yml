@@ -570,8 +570,3 @@ notebooks:
   code_cells: 11
   environment: torch.dev.cpu
   description: Stereo vision chapter notebook with synthetic rectified pairs, disparity-depth geometry, SSD block matching, validation, and failure-case analysis
-- source: mit-foundations-of-computer-vision/chapter-39-camera-modeling
-  notebook: CV/2026/spring/final/chapter-39-camera-modeling/index.ipynb
-  code_cells: 7
-  environment: torch.dev.cpu
-  description: Camera modeling and calibration chapter notebook with homogeneous projection, intrinsic and extrinsic geometry, and a synthetic DLT calibration demo
