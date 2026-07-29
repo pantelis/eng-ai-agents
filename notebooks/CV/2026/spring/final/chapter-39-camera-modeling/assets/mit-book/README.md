@@ -1,0 +1,26 @@
+# MIT Vision Book Reference Assets
+
+These files are local copies of the original MIT Vision Book Chapter 39 figures.
+They are included here for educational attribution-preserving notebook use.
+
+| Local filename | MIT figure | Section | Official source URL | Purpose | Attribution |
+| --- | --- | --- | --- | --- | --- |
+| `figure-39-01-world-and-camera-coordinates.png` | 39.1 | 39.1 | `https://visionbook.mit.edu/figures/imaging_geometry/world_and_camera_coordinates.png` | Camera-centric and world-centric coordinate systems for describing image formation. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-02-the-picture.png` | 39.2 | 39.1 | `https://visionbook.mit.edu/figures/imaging_geometry/the_picture.png` | The scene photograph associated with the introductory sketch. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-03-perspective-projection.png` | 39.3 | 39.2 | `https://visionbook.mit.edu/figures/imaging_geometry/camera_centric.png` | Perspective projection from similar triangles. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-04-pinhole-and-sensor.png` | 39.4 | 39.3.1 | `https://visionbook.mit.edu/figures/imaging_geometry/pinhole_and_sensor.png` | Projection onto the sensor and conversion from metric units to pixels. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-05-coordinate-conventions.png` | 39.5 | 39.3.1 | `https://visionbook.mit.edu/figures/imaging_geometry/conventions_coordinates.png` | Different image-plane coordinate conventions. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-06-light-ray.png` | 39.6 | 39.3.2 | `https://visionbook.mit.edu/figures/imaging_geometry/light_ray.png` | Backprojecting an image point into a 3D ray. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-07-simple-calibration-setup.jpg` | 39.7 | 39.3.3 | `https://visionbook.mit.edu/figures/imaging_geometry/simple_calibration_1.jpg` | A simple calibration setup and the resulting chessboard image. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-07-simple-calibration-photo.jpg` | 39.7 | 39.3.3 | `https://visionbook.mit.edu/figures/imaging_geometry/simple_calibration_2.jpg` | A simple calibration setup and the resulting chessboard image. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-08-world-and-camera-coordinates-2.png` | 39.8 | 39.4 | `https://visionbook.mit.edu/figures/imaging_geometry/world_and_camera_coordinates_2.png` | Transforming world coordinates into camera coordinates with rotation and translation. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-09-summary-camera-model.png` | 39.9 | 39.5 | `https://visionbook.mit.edu/figures/imaging_geometry/summary_camera_model.png` | Summary of the full camera model from world point to image point. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-10-camera-calibration-scenarios.png` | 39.10 | 39.6 | `https://visionbook.mit.edu/figures/imaging_geometry/camera_calibration_scenarios.png` | Four camera-pose examples of increasing geometric complexity. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-11-horizon-heads.jpg` | 39.11 | 39.6 | `https://visionbook.mit.edu/figures/imaging_geometry/horizon_heads.jpg` | People of similar height align near the horizon when the camera is level. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-12-eyes-location.png` | 39.12 | 39.6 | `https://visionbook.mit.edu/figures/imaging_geometry/eyes_location.png` | Equal-height people at different depths sharing a common image row. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-13-low-horizon.jpg` | 39.13 | 39.6 | `https://visionbook.mit.edu/figures/imaging_geometry/low_horizon_vp.jpg` | Two real photos with different horizon-line locations caused by tilt changes. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-13-high-horizon.jpg` | 39.13 | 39.6 | `https://visionbook.mit.edu/figures/imaging_geometry/high_horizon_vp.jpg` | Two real photos with different horizon-line locations caused by tilt changes. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-14-reprojection-error.png` | 39.14 | 39.7.4 | `https://visionbook.mit.edu/figures/imaging_geometry/reprojection_error.png` | Reprojection error as a distance between observed and predicted image points. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-15-office-measurements.jpg` | 39.15 | 39.7.5 | `https://visionbook.mit.edu/figures/imaging_geometry/office_with_measures_2.jpg` | Office photo with measured real-world distances. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-16-office-correspondences.png` | 39.16 | 39.7.5 | `https://visionbook.mit.edu/figures/imaging_geometry/correspondences_img.png` | Office image plus 3D world coordinates for sparse correspondences. | MIT Vision Book, *Foundations of Computer Vision* |
+| `figure-39-17-estimated-camera.png` | 39.17 | 39.7.5 | `https://visionbook.mit.edu/figures/imaging_geometry/result_toymodel_3dscene_and_estimated_camera_b.png` | Estimated camera pose for the office toy example. | MIT Vision Book, *Foundations of Computer Vision* |
