@@ -1,7 +1,5 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
 ## Project Overview
 
 Educational Docker-based development environment for AI/ML and robotics courses. Supports PyTorch with GPU acceleration and ROS 2 (Jazzy) for robotics development.
@@ -79,11 +77,27 @@ make clean                    # Remove build artifacts
 Switch services by editing the `"service"` field in `.devcontainer/devcontainer.json` and rebuilding the container.
 
 ### Directory Structure
+- `notebooks/` - executed course notebooks (32 topic subdirs), tracked in `notebooks/notebook-database.yml`. Written by the eaia publishing pipeline, see below
+- `scripts/` - helper scripts including notebook execution
 - `assignments/` - Jupyter notebooks for course assignments
 - `project/` - Student project source code
 - `docs/` - Quarto documentation (qmd + ipynb)
 - `ros_ws/` - ROS 2 workspace with colcon build system
 - `docker/` - Dockerfile variants (torch/ros, gpu/cpu, dev/prod)
+
+### Relationship to the eaia site repo
+
+This repo is `github.com/pantelis/eng-ai-agents` and is the target of `ENG_AI_AGENTS_PATH` in
+the eaia site repo. Notebooks under `notebooks/` are published here by eaia's
+`manage_notebooks.py`, executed, and copied back.
+
+- **Do not hand-edit published notebooks here.** Fix the source in eaia's `aiml-common`
+  submodule and republish, or your change is overwritten on the next copyback.
+- **Never commit or push a notebook whose source has not landed on the site.** The Colab badge
+  points at `eng-ai-agents/blob/main/...`, so the aiml-common and eaia changes must be merged
+  first.
+- **Never add `*_solutions.ipynb` files** or registry rows for them. Solutions notebooks are
+  instructor-only and stay in eaia.
 
 ### Package Management
 Uses **UV** package manager with constraints from base Docker image (`/etc/pip/constraint.txt`). Virtual environment at `.venv` with system-site-packages access.
@@ -116,15 +130,15 @@ Useful aliases in ROS container: `cbuild` (colcon build), `ssetup` (source setup
 **CRITICAL**: Notebooks MUST always be executed inside their corresponding Docker container, never on the host. Each notebook's execution environment is specified in `notebooks/notebook-database.yml`.
 
 ### Execution Environments
-- **`torch.dev.gpu`** — PyTorch notebooks with CUDA (most notebooks)
-- **`torch.dev.cpu`** — PyTorch notebooks, CPU-only fallback
-- **`ros.dev.gpu`** — ROS 2 robotics notebooks
-- **`colab`** — Google Colab only (cannot run locally, skipped automatically)
+- **`torch.dev.gpu`**: PyTorch notebooks with CUDA (most notebooks)
+- **`torch.dev.cpu`**: PyTorch notebooks, CPU-only fallback
+- **`ros.dev.gpu`**: ROS 2 robotics notebooks
+- **`colab`**: Google Colab only (cannot run locally, skipped automatically)
 
 ### Running Notebooks (from host)
 The `make execute-notebook` target automatically looks up the environment from the registry and runs via `docker compose run`:
 ```bash
-# Single notebook — auto-detects Docker service from registry
+# Single notebook: auto-detects Docker service from registry
 make execute-notebook NOTEBOOK=reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
 
 # All registered notebooks (uses torch.dev.gpu by default, colab notebooks are skipped)
@@ -142,9 +156,9 @@ These make targets:
 
 ### Artifact Extraction
 After execution, artifacts are automatically extracted from notebook cell outputs into `notebooks/<topic>/output/`:
-- `output/images/*.png` — Matplotlib plots (base64-decoded from cell outputs)
-- `output/images/*.html` — Plotly interactive charts (self-contained HTML)
-- `output/text/*.html` — HTML tables (DataFrames, styled tables)
+- `output/images/*.png`: Matplotlib plots (base64-decoded from cell outputs)
+- `output/images/*.html`: Plotly interactive charts (self-contained HTML)
+- `output/text/*.html`: HTML tables (DataFrames, styled tables)
 
 All output dirs are gitignored via `notebooks/**/output/`.
 
