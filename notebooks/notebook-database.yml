@@ -565,3 +565,10 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: Embedding Projector assignment word2vec PCA UMAP and neighborhood query
+- source: aiml-common/CV/mit-foundations/chapter-30-representation-learning/index.ipynb
+  notebook: CV/mit-foundations/chapter-30-representation-learning/index.ipynb
+  code_cells: 8
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV Ch 30 - Representation Learning (procedural colored-shapes dataset, the book's six-conv autoencoder whose per-layer 1-NN probe reproduces the shape-up/colour-down crossing, nearest-neighbour embedding view, K-means clustering, contrastive InfoNCE where the augmentation selects colour- vs shape-invariance)
+  last_executed: 2026-08-04
+  duration_seconds: 1500.0
