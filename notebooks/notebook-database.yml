@@ -565,3 +565,10 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: Embedding Projector assignment word2vec PCA UMAP and neighborhood query
+- source: mit-book/chapter-20-sampling-and-aliasing/index.ipynb
+  notebook: CV/mit-foundations/chapter-20-sampling-and-aliasing/index.ipynb
+  code_cells: 33
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV Ch 20 — Image sampling and aliasing (Nyquist sampling theorem, delta-train spectra, sinc reconstruction, rectangular vs hexagonal sampling, anti-aliasing via kornia Gaussian blur)
+  last_executed: 2026-06-26
+  duration_seconds: 62.0

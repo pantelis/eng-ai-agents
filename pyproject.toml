@@ -52,6 +52,7 @@ notebooks = [
     "wandb>=0.18.0",
     "pycocotools>=2.0.7",
     "scikit-image>=0.22.0",
+    "kornia>=0.7.0",
     "gymnasium>=0.29.0",
     "minigrid>=2.3.0",
     "ray>=2.10.0",
