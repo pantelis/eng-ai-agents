@@ -565,3 +565,8 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: Embedding Projector assignment word2vec PCA UMAP and neighborhood query
+- source: aiml-common/lectures/CV/mit-foundations/chapter-41-homographies/index.ipynb
+  notebook: CV/mit-foundations/chapter-41-homographies/index.ipynb
+  code_cells: 12
+  environment: torch.dev.gpu
+  description: Homographies in PyTorch with normalized DLT, RANSAC, synthetic correspondences, checkerboard rectification, and failure-case analysis
