@@ -485,6 +485,13 @@ notebooks:
   code_cells: 7
   environment: torch.dev.gpu
   description: REINFORCE Small Language Model Credit Assignment — student notebook (no solutions)
+- source: CV/mit-foundations/chapter-6-lenses/index.ipynb
+  notebook: CV/mit-foundations/chapter-6-lenses/index.ipynb
+  code_cells: 16
+  environment: torch.dev.gpu
+  description: Chapter 6 (Lenses) companion — lensmaker's formula, imaging, depth of field, concave lenses, and the telescope
+  last_executed: 2026-06-24
+  duration_seconds: 14.9
 - source: aiml-common/lectures/velocity-fields/index.ipynb
   notebook: velocity-fields/index.ipynb
   code_cells: 4
