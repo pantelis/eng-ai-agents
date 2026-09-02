@@ -536,6 +536,12 @@ notebooks:
   colab_deps: gridstatusio python-dotenv
   last_executed: 2026-07-01
   duration_seconds: 17.7
+- source: aiml-common/assignments/topics/linear-regression/grid-anomaly-detection/grid-anomaly-detection.ipynb
+  notebook: assignments/topics/linear-regression/grid-anomaly-detection/grid-anomaly-detection.ipynb
+  code_cells: 9
+  environment: torch.dev.gpu
+  description: Detecting the February 2021 Texas grid failure from the residuals of a frozen ridge regression on temperature and calendar features
+  colab_deps: gridstatusio python-dotenv
 - source: aiml-common/lectures/optimization/sgd/index.ipynb
   notebook: optimization/sgd/index.ipynb
   code_cells: 10
