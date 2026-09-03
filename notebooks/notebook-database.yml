@@ -529,7 +529,7 @@ notebooks:
   last_executed: 2026-05-30
   duration_seconds: 2.2
 - source: aiml-common/lectures/regression/linear-regression/sgd/index.ipynb
-  notebook: regression/linear-regression/sgd/sgd_sinusoidal_dataset.ipynb
+  notebook: regression/linear-regression/sgd/index.ipynb
   code_cells: 9
   environment: torch.dev.gpu
   description: Predicting electrical-grid load with SGD on a ridge-regularized degree-9 polynomial and an Optuna lambda search
