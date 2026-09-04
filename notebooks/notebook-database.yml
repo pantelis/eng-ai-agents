@@ -7,19 +7,11 @@ notebooks:
   last_executed: 2026-02-12
   duration_seconds: 6.8
 - '---'
-- source: aiml-common/lectures/optimization/whitening/corr-cov-matrix.ipynb
-  notebook: optimization/whitening/corr-cov-matrix.ipynb
-  code_cells: 41
-  environment: torch.dev.gpu
-  description: Covariance matrix and image whitening (ZCA)
-  last_executed: 2026-02-12
-  duration_seconds: 45.0
-- '---'
 - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
   notebook: optimization/batch-normalization/index.ipynb
-  code_cells: 4
+  code_cells: 13
   environment: torch.dev.gpu
-  description: Batch normalization implementation and effects
+  description: Gradient-first derivation and critique of batch normalization
   last_executed: 2026-02-12
   duration_seconds: 298.8
 - '---'
@@ -571,3 +563,8 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: Embedding Projector assignment word2vec PCA UMAP and neighborhood query
+- source: aiml-common/lectures/ml-math/probability/gaussians/corr-cov-matrix/index.ipynb
+  notebook: ml-math/probability/gaussians/corr-cov-matrix/index.ipynb
+  code_cells: 12
+  environment: torch.dev.gpu
+  description: Covariance correlation and whitening in PyTorch
