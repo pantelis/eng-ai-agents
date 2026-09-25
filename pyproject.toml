@@ -67,6 +67,8 @@ notebooks = [
     "qwen-vl-utils[decord]>=0.0.8",
     "manimgl>=1.6.1",
     "kornia>=0.7.0",
+    "duckdb>=1.1.0",
+    "torchmetrics>=1.4.0",
 ]
 dev = [
     "pytest>=8.0.0",

@@ -17,7 +17,7 @@ notebooks:
 - '---'
 - source: aiml-common/lectures/optimization/batch-normalization/index.ipynb
   notebook: optimization/batch-normalization/index.ipynb
-  code_cells: 4
+  code_cells: 7
   environment: torch.dev.gpu
   description: Batch normalization implementation and effects
   last_executed: 2026-02-12
@@ -577,3 +577,9 @@ notebooks:
   environment: torch.dev.gpu
   description: Shadow-invariant vision with OpenCV and Kornia from log-chromaticity to a one-dimensional invariant image
   colab_deps: kornia
+- source: aiml-common/assignments/topics/object-detection/detection-instrumentation/detection-instrumentation.ipynb
+  notebook: assignments/topics/object-detection/detection-instrumentation/detection-instrumentation.ipynb
+  code_cells: 24
+  environment: torch.dev.gpu
+  description: Instrument Faster R-CNN training with and without batch normalization and decide from the data
+  colab_deps: trackio torchmetrics pycocotools
