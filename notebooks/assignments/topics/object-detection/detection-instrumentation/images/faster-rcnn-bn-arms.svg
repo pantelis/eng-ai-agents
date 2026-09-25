@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 1000" font-family="'IBM Plex Mono', ui-monospace, monospace">
+<defs><marker id="ah" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto"><path d="M0,0 L9,3.5 L0,7 z" fill="#546e7a"/></marker></defs>
+<rect width="780" height="1000" fill="#0b0f17" rx="10"/>
+<rect x="200" y="92" width="380" height="86" rx="8" fill="#141820" stroke="#5ea9f7" stroke-dasharray="4,3"/>
+<text x="212" y="109" font-size="11" fill="#5ea9f7">ResNet-50 backbone</text>
+<rect x="200" y="206" width="380" height="238" rx="8" fill="#141820" stroke="#5ea9f7" stroke-dasharray="4,3"/>
+<text x="212" y="223" font-size="11" fill="#5ea9f7">Feature pyramid network</text>
+<rect x="410" y="700" width="350" height="210" rx="8" fill="#141820" stroke="#5ea9f7" stroke-dasharray="4,3"/>
+<text x="422" y="717" font-size="11" fill="#5ea9f7">RoI box head</text>
+<rect x="290" y="30" width="200" height="36" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="390" y="50" font-size="12" fill="#cdd6e4" text-anchor="middle">Input images</text>
+<rect x="220" y="118" width="340" height="51" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="390" y="138" font-size="12" fill="#cdd6e4" text-anchor="middle">Stem and residual stages C2 to C5</text>
+<text x="390" y="154" font-size="10" fill="#8b95a8" text-anchor="middle">FrozenBatchNorm2d in primary runs</text>
+<rect x="230" y="232" width="320" height="66" rx="6" fill="#1a1f2b" stroke="#6dd4a0" stroke-width="1.5"/>
+<text x="390" y="252" font-size="12" fill="#cdd6e4" text-anchor="middle">Four inner blocks</text>
+<text x="390" y="268" font-size="10" fill="#8b95a8" text-anchor="middle">1x1 conv, optional BN</text>
+<text x="390" y="284" font-size="10" fill="#8b95a8" text-anchor="middle">measure conv and block output</text>
+<rect x="230" y="310" width="320" height="51" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="390" y="330" font-size="12" fill="#cdd6e4" text-anchor="middle">Top-down pathway</text>
+<text x="390" y="346" font-size="10" fill="#8b95a8" text-anchor="middle">and lateral addition</text>
+<rect x="230" y="372" width="320" height="66" rx="6" fill="#1a1f2b" stroke="#6dd4a0" stroke-width="1.5"/>
+<text x="390" y="392" font-size="12" fill="#cdd6e4" text-anchor="middle">Four output blocks</text>
+<text x="390" y="408" font-size="10" fill="#8b95a8" text-anchor="middle">3x3 conv, optional BN</text>
+<text x="390" y="424" font-size="10" fill="#8b95a8" text-anchor="middle">measure conv and block output</text>
+<rect x="270" y="470" width="240" height="36" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="390" y="490" font-size="12" fill="#cdd6e4" text-anchor="middle">Pyramid features P2 to P5</text>
+<rect x="80" y="548" width="240" height="51" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="200" y="568" font-size="12" fill="#cdd6e4" text-anchor="middle">RPN head</text>
+<text x="200" y="584" font-size="10" fill="#8b95a8" text-anchor="middle">objectness and box regression</text>
+<rect x="15" y="636" width="210" height="51" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="120" y="656" font-size="12" fill="#cdd6e4" text-anchor="middle">RPN losses</text>
+<text x="120" y="672" font-size="10" fill="#8b95a8" text-anchor="middle">objectness, box regression</text>
+<rect x="255" y="636" width="150" height="36" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="330" y="656" font-size="12" fill="#cdd6e4" text-anchor="middle">Region proposals</text>
+<rect x="485" y="548" width="200" height="36" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="585" y="568" font-size="12" fill="#cdd6e4" text-anchor="middle">Multi-scale RoIAlign</text>
+<rect x="430" y="730" width="310" height="66" rx="6" fill="#1a1f2b" stroke="#6dd4a0" stroke-width="1.5"/>
+<text x="585" y="750" font-size="12" fill="#cdd6e4" text-anchor="middle">Four blocks</text>
+<text x="585" y="766" font-size="10" fill="#8b95a8" text-anchor="middle">3x3 conv, optional BN, ReLU</text>
+<text x="585" y="782" font-size="10" fill="#8b95a8" text-anchor="middle">measure conv and block output</text>
+<rect x="475" y="806" width="220" height="36" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="585" y="826" font-size="12" fill="#cdd6e4" text-anchor="middle">Fully connected layer</text>
+<rect x="475" y="858" width="220" height="36" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="585" y="878" font-size="12" fill="#cdd6e4" text-anchor="middle">Class and box predictors</text>
+<rect x="365" y="940" width="230" height="51" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="480" y="960" font-size="12" fill="#cdd6e4" text-anchor="middle">RoI losses</text>
+<text x="480" y="976" font-size="10" fill="#8b95a8" text-anchor="middle">classification, box regression</text>
+<rect x="615" y="940" width="150" height="51" rx="6" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1"/>
+<text x="690" y="960" font-size="12" fill="#cdd6e4" text-anchor="middle">Classes, scores,</text>
+<text x="690" y="976" font-size="10" fill="#8b95a8" text-anchor="middle">and boxes</text>
+<line x1="390" y1="66" x2="390" y2="118" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="390" y1="169" x2="390" y2="232" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="390" y1="298" x2="390" y2="310" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="390" y1="361" x2="390" y2="372" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="390" y1="438" x2="390" y2="470" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="390" y1="506" x2="200" y2="548" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="390" y1="506" x2="585" y2="548" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="200" y1="599" x2="120" y2="636" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="200" y1="599" x2="330" y2="636" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="405" y1="654" x2="585" y2="584" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="585" y1="584" x2="585" y2="730" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="585" y1="796" x2="585" y2="806" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="585" y1="842" x2="585" y2="858" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="585" y1="894" x2="480" y2="940" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<line x1="585" y1="894" x2="690" y2="940" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="596" y="30" width="16" height="12" rx="3" fill="#1a1f2b" stroke="#6dd4a0" stroke-width="1.5"/>
+<text x="620" y="40" font-size="10" fill="#8b95a8">differs between the arms,</text>
+<text x="620" y="53" font-size="10" fill="#8b95a8">measured in both</text>
+<rect x="596" y="64" width="16" height="12" rx="3" fill="#1a1f2b" stroke="#3d4a6a"/>
+<text x="620" y="74" font-size="10" fill="#8b95a8">same in both arms</text>
+</svg>
