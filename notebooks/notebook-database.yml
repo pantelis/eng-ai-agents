@@ -305,7 +305,9 @@ notebooks:
   notebook: mdp/dynamic-programming-algorithms/value-iteration/index.ipynb
   code_cells: 0
   environment: torch.dev.gpu
-  description: null
+  description: Value iteration for the maze problem
+  last_executed: 2026-09-19
+  duration_seconds: 0.9
 - source: aiml-common/lectures/mdp/dynamic-programming-algorithms/value-iteration/gridworld-demo/index.ipynb
   notebook: mdp/dynamic-programming-algorithms/value-iteration/gridworld-demo/index.ipynb
   code_cells: 4
@@ -577,9 +579,37 @@ notebooks:
   environment: torch.dev.gpu
   description: Shadow-invariant vision with OpenCV and Kornia from log-chromaticity to a one-dimensional invariant image
   colab_deps: kornia
+- source: aiml-common/lectures/kinematics/homogeneous-coordinates/index.ipynb
+  notebook: kinematics/homogeneous-coordinates/index.ipynb
+  code_cells: 2
+  environment: torch.dev.gpu
+  description: Homogeneous coordinates for points, vectors and 2D transformations
+  last_executed: 2026-09-20
+  duration_seconds: 1.5
+- source: aiml-common/lectures/optimization/layer-normalization/index.ipynb
+  notebook: optimization/layer-normalization/index.ipynb
+  code_cells: 0
+  environment: torch.dev.gpu
+  description: Layer normalization compared with batch normalization
+  last_executed: 2026-09-19
+  duration_seconds: 1.0
+- source: aiml-common/lectures/sensor-models/cameras/pinhole-model.ipynb
+  notebook: sensor-models/cameras/pinhole-model.ipynb
+  code_cells: 0
+  environment: torch.dev.gpu
+  description: Pinhole camera model and lens distortion
+  last_executed: 2026-09-19
+  duration_seconds: 0.8
 - source: aiml-common/assignments/topics/object-detection/detection-instrumentation/detection-instrumentation.ipynb
   notebook: assignments/topics/object-detection/detection-instrumentation/detection-instrumentation.ipynb
   code_cells: 24
   environment: torch.dev.gpu
   description: Instrument Faster R-CNN training with and without batch normalization and decide from the data
   colab_deps: trackio torchmetrics pycocotools
+- source: aiml-common/lectures/kinematics/planar-motion/so2-manifold/index.ipynb
+  notebook: kinematics/planar-motion/so2-manifold/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: SO(2) rotation matrices as a one-dimensional circle in four-dimensional matrix space
+  last_executed: 2026-09-28
+  duration_seconds: 2.6
