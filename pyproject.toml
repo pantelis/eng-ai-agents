@@ -69,6 +69,8 @@ notebooks = [
     "kornia>=0.7.0",
     "duckdb>=1.1.0",
     "torchmetrics>=1.4.0",
+    "newton[sim]==1.6.0",
+    "rerun-sdk==0.37.0",
 ]
 dev = [
     "pytest>=8.0.0",
