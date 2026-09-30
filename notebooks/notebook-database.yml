@@ -613,3 +613,122 @@ notebooks:
   description: SO(2) rotation matrices as a one-dimensional circle in four-dimensional matrix space
   last_executed: 2026-09-28
   duration_seconds: 2.6
+- source: aiml-common/lectures/3d-reconstruction/images-and-geometry/index.ipynb
+  notebook: CV/mit-foundations/chapter-38-images-and-geometry/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch38, representing images and geometry with homogeneous coordinates, warps and SIREN
+  code_cells: 24
+  last_executed: 2026-09-30
+  duration_seconds: 123.6
+- source: aiml-common/lectures/3d-reconstruction/homographies/index.ipynb
+  notebook: CV/mit-foundations/chapter-41-homographies/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch41, homography estimation with normalized DLT, RANSAC and inverse warping
+  code_cells: 25
+  last_executed: 2026-09-30
+  duration_seconds: 35.4
+- source: aiml-common/lectures/3d-reconstruction/single-view-metrology/index.ipynb
+  notebook: CV/mit-foundations/chapter-42-single-view-metrology/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch42, single view metrology with vanishing points and the cross-ratio
+  code_cells: 22
+  last_executed: 2026-09-30
+  duration_seconds: 4.3
+- source: aiml-common/lectures/3d-reconstruction/stereo-vision/index.ipynb
+  notebook: CV/mit-foundations/chapter-40-stereo-vision/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch40, stereo vision with cost volumes, failure cases and epipolar geometry
+  code_cells: 42
+  last_executed: 2026-09-30
+  duration_seconds: 7.4
+- source: aiml-common/lectures/3d-reconstruction/3d-motion-projection/index.ipynb
+  notebook: CV/mit-foundations/chapter-47-3d-motion-projection/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch47, the motion field of 3D motion projected onto the image
+  code_cells: 14
+  last_executed: 2026-09-30
+  duration_seconds: 4.1
+- source: aiml-common/lectures/3d-reconstruction/motion-estimation/index.ipynb
+  notebook: CV/mit-foundations/chapter-46-motion-estimation/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch46, motion estimation by patch matching on synthetic frames
+  code_cells: 20
+  last_executed: 2026-09-30
+  duration_seconds: 4.3
+- source: aiml-common/lectures/image-processing/linear-filtering/index.ipynb
+  notebook: CV/mit-foundations/chapter-15-linear-image-filtering/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch15, linear image filtering from signals and LTI systems to convolution and template matching
+  code_cells: 29
+  last_executed: 2026-09-30
+  duration_seconds: 8.2
+- source: aiml-common/lectures/image-processing/blur-filters/index.ipynb
+  notebook: CV/mit-foundations/chapter-17-blur-filters/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch17, box, Gaussian and binomial blur filters and their frequency responses
+  code_cells: 26
+  last_executed: 2026-09-30
+  duration_seconds: 5.1
+- source: aiml-common/lectures/image-processing/image-derivatives/index.ipynb
+  notebook: CV/mit-foundations/chapter-18-image-derivatives/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch18, image derivatives, Gaussian derivatives, the Laplacian, sharpening and Retinex
+  code_cells: 37
+  last_executed: 2026-09-30
+  duration_seconds: 7.5
+- source: aiml-common/lectures/image-processing/temporal-filters/index.ipynb
+  notebook: CV/mit-foundations/chapter-19-temporal-filters/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch19, spatiotemporal filters, velocity-tuned blur and velocity-nulling on a pedestrian video
+  code_cells: 12
+  last_executed: 2026-09-30
+  duration_seconds: 4.8
+- source: aiml-common/lectures/image-processing/sampling-and-aliasing/index.ipynb
+  notebook: CV/mit-foundations/chapter-20-sampling-and-aliasing/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch20, sampling, aliasing, reconstruction and anti-aliasing filters
+  code_cells: 34
+  last_executed: 2026-09-30
+  duration_seconds: 6.0
+- source: aiml-common/lectures/sensor-models/cameras/lenses/index.ipynb
+  notebook: CV/mit-foundations/chapter-6-lenses/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch6, lenses from Snell law and the lensmaker formula to depth of field and the telescope
+  code_cells: 19
+  last_executed: 2026-09-30
+  duration_seconds: 5.9
+- source: aiml-common/lectures/sensor-models/cameras/camera-modeling/index.ipynb
+  notebook: CV/mit-foundations/chapter-39-camera-modeling/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch39, camera intrinsics and extrinsics, DLT calibration, and a measured-room calibration attempt
+  code_cells: 18
+  last_executed: 2026-09-30
+  duration_seconds: 7.0
+- source: aiml-common/lectures/vlm/representation-learning/index.ipynb
+  notebook: CV/mit-foundations/chapter-30-representation-learning/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch30, representation learning with autoencoders, k-means and contrastive learning
+  code_cells: 11
+  last_executed: 2026-09-30
+  duration_seconds: 135.1
+- source: aiml-common/lectures/image-processing/statistical-image-models/index.ipynb
+  notebook: CV/mit-foundations/chapter-27-statistical-image-models/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch27, statistical image models from the 1/f power law to heavy-tailed priors and denoising
+  code_cells: 39
+  last_executed: 2026-09-30
+  duration_seconds: 16.3
+- source: aiml-common/lectures/image-processing/textures/index.ipynb
+  notebook: CV/mit-foundations/chapter-28-textures/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch28, texture synthesis with Heeger-Bergen histogram matching and Efros-Leung
+  code_cells: 16
+  last_executed: 2026-09-30
+  duration_seconds: 30.2
+- source: aiml-common/lectures/image-processing/graphical-models/index.ipynb
+  notebook: CV/mit-foundations/chapter-29-probabilistic-graphical-models/index.ipynb
+  environment: torch.dev.gpu
+  description: MIT Foundations of CV ch29, Markov random fields and belief propagation for denoising, segmentation and stereo
+  code_cells: 13
+  last_executed: 2026-09-30
+  duration_seconds: 3.2

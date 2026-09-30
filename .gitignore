@@ -208,3 +208,6 @@ log/
 
 # Beads archive (migrated to Jira 2026-04-13)
 .beads-archive.zip
+
+# fallback downloads of section data (ch19) when assets/ is missing
+/*.npz
