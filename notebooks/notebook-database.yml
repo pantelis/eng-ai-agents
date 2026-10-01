@@ -225,11 +225,11 @@ notebooks:
   duration_seconds: 23.9
 - source: aiml-common/lectures/scene-understanding/semantic-segmentation/unet/pytorch/01_unet_from_scratch/01_unet_from_scratch.ipynb
   notebook: scene-understanding/semantic-segmentation/unet/pytorch/01_unet_from_scratch/01_unet_from_scratch.ipynb
-  code_cells: 7
+  code_cells: 9
   environment: torch.dev.gpu
   description: UNet from scratch with FoodSeg103 streaming dataset
-  last_executed: 2026-02-23
-  duration_seconds: 14.3
+  last_executed: 2026-10-01
+  duration_seconds: 272.2
 - source: aiml-common/lectures/cnn/batch-norm-in-resnets/index.ipynb
   notebook: cnn/batch-norm-in-resnets/index.ipynb
   code_cells: 6
@@ -611,7 +611,7 @@ notebooks:
   code_cells: 10
   environment: torch.dev.gpu
   description: SO(2) rotation matrices as a one-dimensional circle in four-dimensional matrix space
-  last_executed: 2026-09-28
+  last_executed: 2026-10-01
   duration_seconds: 2.6
 - source: aiml-common/lectures/3d-reconstruction/images-and-geometry/index.ipynb
   notebook: CV/mit-foundations/chapter-38-images-and-geometry/index.ipynb
@@ -702,8 +702,8 @@ notebooks:
   environment: torch.dev.gpu
   description: MIT Foundations of CV ch39, camera intrinsics and extrinsics, DLT calibration, and a measured-room calibration attempt
   code_cells: 18
-  last_executed: 2026-09-30
-  duration_seconds: 7.0
+  last_executed: 2026-10-01
+  duration_seconds: 7.3
 - source: aiml-common/lectures/vlm/representation-learning/index.ipynb
   notebook: CV/mit-foundations/chapter-30-representation-learning/index.ipynb
   environment: torch.dev.gpu
@@ -732,3 +732,10 @@ notebooks:
   code_cells: 13
   last_executed: 2026-09-30
   duration_seconds: 3.2
+- source: aiml-common/assignments/topics/camera-calibration/index.ipynb
+  notebook: assignments/topics/camera-calibration/index.ipynb
+  code_cells: 1
+  environment: torch.dev.gpu
+  description: Camera calibration assignment, Zhang method from scratch with an OpenCV comparison
+  last_executed: 2026-10-01
+  duration_seconds: 3.5
