@@ -74,7 +74,7 @@ notebooks = [
     "kaleido>=1.0.0",
 ]
 dev = [
-    "pytest>=8.0.0",
+    "pytest>=9.0.3",
     "pytest-cov>=5.0.0",
     "pytest-xdist>=3.0.0",
     "ruff>=0.8.0",
@@ -87,7 +87,7 @@ eng-ai-agents-cli = "eng-ai-agents.commands.cli:main"
 
 [tool.uv]
 dev-dependencies = [
-    "pytest>=8.0.0",
+    "pytest>=9.0.3",
     "pytest-cov>=5.0.0", 
     "pytest-xdist>=3.0.0",
     "ruff>=0.8.0",
