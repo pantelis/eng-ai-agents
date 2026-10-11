@@ -77,7 +77,7 @@ make clean                    # Remove build artifacts
 Switch services by editing the `"service"` field in `.devcontainer/devcontainer.json` and rebuilding the container.
 
 ### Directory Structure
-- `notebooks/` - executed course notebooks (32 topic subdirs), tracked in `notebooks/notebook-database.yml`. Written by the eaia publishing pipeline, see below
+- `notebooks/` - executed course notebooks, one subdirectory per topic, tracked in `notebooks/notebook-database.yml`. Written by the eaia publishing pipeline, see below
 - `scripts/` - helper scripts including notebook execution
 - `assignments/` - Jupyter notebooks for course assignments
 - `project/` - Student project source code
