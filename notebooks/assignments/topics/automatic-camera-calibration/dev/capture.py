@@ -181,7 +181,10 @@ def save_session(out: Path, session: dict) -> None:
 def next_name(folder: Path, prefix: str, ext: str, tag: str) -> Path:
     folder.mkdir(parents=True, exist_ok=True)
     stem = f"{prefix}_{tag}_" if tag else f"{prefix}_"
-    n = len(list(folder.glob(f"{stem}*{ext}")))
+    # first unused index, so a deleted earlier capture never leads to an overwrite
+    n = 0
+    while (folder / f"{stem}{n:03d}{ext}").exists():
+        n += 1
     return folder / f"{stem}{n:03d}{ext}"
 
 
