@@ -739,3 +739,7 @@ notebooks:
   description: Camera calibration assignment, Zhang method from scratch with an OpenCV comparison
   last_executed: 2026-10-01
   duration_seconds: 3.5
+- source: aiml-common/assignments/topics/automatic-camera-calibration/automatic-camera-calibration.ipynb
+  notebook: assignments/topics/automatic-camera-calibration/automatic-camera-calibration.ipynb
+  environment: colab
+  description: CV take-home midterm, calibrate your own webcam with a checkerboard, GeoCalib and a walking person
