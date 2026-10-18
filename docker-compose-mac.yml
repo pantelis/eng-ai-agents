@@ -28,9 +28,11 @@ services:
       - .:${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
     working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
     environment:
-      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
+      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv-container/bin:$PATH
       - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
-      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
+      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv-container
+      # the container keeps its own environment, so host uv commands cannot break it
+      - UV_PROJECT_ENVIRONMENT=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv-container
       - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
       - UV_EXTRA=${UV_EXTRA:-cpu}
       # For XQuartz GUI support on macOS
@@ -66,9 +68,11 @@ services:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
     working_dir: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
     environment:
-      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv/bin:$PATH
+      - PATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv-container/bin:$PATH
       - PYTHONPATH=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
-      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv
+      - VIRTUAL_ENV=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv-container
+      # the container keeps its own environment, so host uv commands cannot break it
+      - UV_PROJECT_ENVIRONMENT=${WORKSPACE_DIR:-/workspaces/eng-ai-agents}/.venv-container
       - UV_CACHE_DIR=/home/${WORKSPACE_USER:-vscode}/.uv-cache
       - UV_EXTRA=${UV_EXTRA:-cpu}
       - ROS_DISTRO=${ROS_DISTRO:-jazzy}
