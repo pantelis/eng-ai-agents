@@ -736,3 +736,7 @@ notebooks:
   code_cells: 12
   environment: torch.dev.gpu
   description: Covariance correlation and whitening in PyTorch
+- source: aiml-common/assignments/topics/automatic-camera-calibration/automatic-camera-calibration.ipynb
+  notebook: assignments/topics/automatic-camera-calibration/automatic-camera-calibration.ipynb
+  environment: colab
+  description: CV take-home midterm, calibrate your own webcam with a checkerboard, GeoCalib and a walking person
