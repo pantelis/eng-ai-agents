@@ -48,6 +48,14 @@ docker compose up -d ros.dev.gpu
 docker compose exec ros.dev.gpu bash
 ```
 
+To use JupyterLab in a browser instead of VS Code, run `make start` inside the container, then start the server:
+
+```bash
+jupyter lab --ip 0.0.0.0 --port 8888 --no-browser
+```
+
+Open the URL it prints, with `127.0.0.1` as the host. On macOS the same command works in `torch.dev.mac`.
+
 ## macOS Development (Apple Silicon & Intel)
 
 This repository includes dedicated support for macOS users, including both Apple Silicon (M1/M2/M3/M4) and Intel-based Macs.
