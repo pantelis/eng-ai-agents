@@ -744,12 +744,12 @@ notebooks:
   code_cells: 59
   environment: torch.dev.gpu
   description: Discrete Bayes filter tracking a dog in a hallway, adapted from Labbe
-  last_executed: 2026-10-15
-  duration_seconds: 9.4
+  last_executed: 2026-10-18
+  duration_seconds: 10.0
 - source: aiml-common/lectures/rse/kalman-filters/index.ipynb
   notebook: rse/kalman-filters/index.ipynb
   code_cells: 60
   environment: torch.dev.gpu
   description: One-dimensional Kalman filter built from Gaussian products, adapted from Labbe
-  last_executed: 2026-10-15
-  duration_seconds: 9.8
+  last_executed: 2026-10-18
+  duration_seconds: 9.3
