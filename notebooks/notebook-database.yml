@@ -68,11 +68,11 @@ notebooks:
 - '---'
 - source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference/maskrcnn_torchvision_inference.ipynb
   notebook: scene-understanding/maskrcnn/maskrcnn_torchvision_inference.ipynb
-  code_cells: 8
+  code_cells: 7
   environment: torch.dev.gpu
   description: Mask R-CNN instance segmentation inference with TorchVision
-  last_executed: 2026-02-12
-  duration_seconds: 9.9
+  last_executed: 2026-10-18
+  duration_seconds: 10.7
 - source: aiml-common/lectures/dim-reduction/pca/principal_component_analysis.ipynb
   notebook: dim-reduction/pca/principal_component_analysis.ipynb
   code_cells: 26
@@ -279,6 +279,8 @@ notebooks:
   code_cells: 8
   environment: torch.dev.gpu
   description: CLIP zero-shot classification with PCA visualization
+  last_executed: 2026-10-18
+  duration_seconds: 21.5
 - source: aiml-common/lectures/mdp/policy-evaluation/index.ipynb
   notebook: mdp/policy-evaluation/index.ipynb
   code_cells: 4
