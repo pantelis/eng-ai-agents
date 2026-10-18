@@ -66,20 +66,13 @@ notebooks:
   last_executed: 2026-02-25
   duration_seconds: 19.7
 - '---'
-- source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference.ipynb
+- source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/maskrcnn_torchvision_inference/maskrcnn_torchvision_inference.ipynb
   notebook: scene-understanding/maskrcnn/maskrcnn_torchvision_inference.ipynb
   code_cells: 8
   environment: torch.dev.gpu
   description: Mask R-CNN instance segmentation inference with TorchVision
   last_executed: 2026-02-12
   duration_seconds: 9.9
-- source: aiml-common/lectures/scene-understanding/semantic-segmentation/maskrcnn/pytorch/detectron_tutorial.ipynb
-  notebook: scene-understanding/maskrcnn/detectron_tutorial.ipynb
-  code_cells: 22
-  environment: colab
-  description: Detectron2 tutorial - inference and training on custom datasets (requires
-    Colab)
-- '---'
 - source: aiml-common/lectures/dim-reduction/pca/principal_component_analysis.ipynb
   notebook: dim-reduction/pca/principal_component_analysis.ipynb
   code_cells: 26
@@ -281,7 +274,7 @@ notebooks:
   code_cells: 12
   environment: torch.dev.gpu
   description: "BC with CarRacing-v3 \u2014 PPO training metrics callback and plots"
-- source: aiml-common/lectures/VLM/clip/zero-shot/clip_zero_shot.ipynb
+- source: aiml-common/lectures/vlm/clip/zero-shot/clip_zero_shot.ipynb
   notebook: VLM/clip/zero-shot/clip_zero_shot.ipynb
   code_cells: 8
   environment: torch.dev.gpu
@@ -387,12 +380,12 @@ notebooks:
   code_cells: 37
   environment: torch.dev.gpu
   description: VLM SFT - fine-tune SmolVLM2 for food extraction
-- source: aiml-common/lectures/vlm/finetuning/qwen3-vl-2b-instruct/vlm_grpo_trl_smoke.ipynb
+- source: aiml-common/lectures/reasoning/vlm-reasoning/qwen3-vl-2b-instruct/vlm_grpo_trl_smoke.ipynb
   notebook: vlm/finetuning/qwen3-vl-2b-instruct/vlm_grpo_trl_smoke.ipynb
   code_cells: 23
   environment: torch.dev.gpu
   description: GRPO smoke test - Qwen3-VL-2B visual reasoning (20 samples, 5 steps)
-- source: aiml-common/lectures/vlm/finetuning/qwen3-vl-2b-instruct/vlm_grpo_trl.ipynb
+- source: aiml-common/lectures/reasoning/vlm-reasoning/qwen3-vl-2b-instruct/vlm_grpo_trl.ipynb
   notebook: vlm/finetuning/qwen3-vl-2b-instruct/vlm_grpo_trl.ipynb
   code_cells: 23
   environment: torch.dev.gpu
@@ -474,7 +467,7 @@ notebooks:
   description: Multivariate Gaussian PDF and conditional distribution from Bishop
   last_executed: 2026-05-06
   duration_seconds: 2.7
-- source: CV/2026/spring/final/reinforce_charlm_assignment.ipynb
+- source: aiml-common/assignments/main/cv-spring-2026/final-exam/reinforce_charlm_assignment/reinforce_charlm_assignment.ipynb
   notebook: CV/2026/spring/final/reinforce_charlm_assignment.ipynb
   code_cells: 7
   environment: torch.dev.gpu
