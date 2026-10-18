@@ -571,13 +571,13 @@ notebooks:
   environment: torch.dev.gpu
   description: Shadow-invariant vision with OpenCV and Kornia from log-chromaticity to a one-dimensional invariant image
   colab_deps: kornia
-- source: aiml-common/lectures/kinematics/homogeneous-coordinates/index.ipynb
+- source: aiml-common/lectures/motion-algebras/homogeneous-coordinates/index.ipynb
   notebook: kinematics/homogeneous-coordinates/index.ipynb
   code_cells: 2
   environment: torch.dev.gpu
   description: Homogeneous coordinates for points, vectors and 2D transformations
-  last_executed: 2026-09-20
-  duration_seconds: 1.5
+  last_executed: 2026-10-18
+  duration_seconds: 1.3
 - source: aiml-common/lectures/optimization/layer-normalization/index.ipynb
   notebook: optimization/layer-normalization/index.ipynb
   code_cells: 0
@@ -598,12 +598,12 @@ notebooks:
   environment: torch.dev.gpu
   description: Instrument Faster R-CNN training with and without batch normalization and decide from the data
   colab_deps: trackio torchmetrics pycocotools
-- source: aiml-common/lectures/kinematics/planar-motion/so2-manifold/index.ipynb
+- source: aiml-common/lectures/motion-algebras/so2-manifold/index.ipynb
   notebook: kinematics/planar-motion/so2-manifold/index.ipynb
-  code_cells: 10
+  code_cells: 5
   environment: torch.dev.gpu
   description: SO(2) rotation matrices as a one-dimensional circle in four-dimensional matrix space
-  last_executed: 2026-10-01
+  last_executed: 2026-10-18
   duration_seconds: 2.6
 - source: aiml-common/lectures/3d-reconstruction/images-and-geometry/index.ipynb
   notebook: CV/mit-foundations/chapter-38-images-and-geometry/index.ipynb
