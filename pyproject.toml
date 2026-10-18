@@ -25,6 +25,7 @@ classifiers = [
 requires-python = ">=3.11, <3.12.4"
 dependencies = [
     "datasets>=3.6.0",
+    "filterpy>=1.4.5",
     "foxglove>=0.1.10",
     "ipykernel>=6.29.0",
     "jupyterlab>=4.3.4",

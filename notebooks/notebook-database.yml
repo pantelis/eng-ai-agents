@@ -731,6 +731,20 @@ notebooks:
   description: Camera calibration assignment, Zhang method from scratch with an OpenCV comparison
   last_executed: 2026-10-01
   duration_seconds: 3.5
+- source: aiml-common/lectures/rse/discrete-bayesian-filter/index.ipynb
+  notebook: rse/discrete-bayesian-filter/index.ipynb
+  code_cells: 59
+  environment: torch.dev.gpu
+  description: Discrete Bayes filter tracking a dog in a hallway, adapted from Labbe
+  last_executed: 2026-10-18
+  duration_seconds: 10.0
+- source: aiml-common/lectures/rse/kalman-filters/index.ipynb
+  notebook: rse/kalman-filters/index.ipynb
+  code_cells: 60
+  environment: torch.dev.gpu
+  description: One-dimensional Kalman filter built from Gaussian products, adapted from Labbe
+  last_executed: 2026-10-18
+  duration_seconds: 9.3
 - source: aiml-common/lectures/ml-math/probability/gaussians/corr-cov-matrix/index.ipynb
   notebook: ml-math/probability/gaussians/corr-cov-matrix/index.ipynb
   code_cells: 12
