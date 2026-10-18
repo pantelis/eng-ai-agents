@@ -7,12 +7,12 @@
 	"service": "torch.dev.gpu",
 	"workspaceFolder": "/workspaces/eng-ai-agents",
 	"remoteUser": "vscode",
-	"postCreateCommand": "bash -c 'if [ -d \".venv\" ]; then source .venv/bin/activate && echo \"Dev container setup complete! Python available at: $(which python)\" && echo \"UV version: $(uv --version)\"; else echo \"Virtual environment not found. Please run: make start and source your environment\"; fi'",
+	"postCreateCommand": "bash -c 'if [ -d \".venv-container\" ]; then source .venv-container/bin/activate && echo \"Dev container setup complete! Python available at: $(which python)\" && echo \"UV version: $(uv --version)\"; else echo \"Virtual environment not found. Please run: make start and source your environment\"; fi'",
 	"containerEnv": {
 		"DISPLAY": "${localEnv:DISPLAY}",
 		"PYTHONUNBUFFERED": "True",
 		"UV_LINK_MODE": "copy",
-		"UV_PROJECT_ENVIRONMENT": "${workspaceFolder}/.venv"
+		"UV_PROJECT_ENVIRONMENT": "${workspaceFolder}/.venv-container"
 	},
 	"features": {
 		"ghcr.io/devcontainers/features/common-utils:2": {
@@ -54,7 +54,7 @@
 				"tamasfe.even-better-toml"
 			],
 			"settings": {
-				"python.defaultInterpreterPath": "/workspaces/eng-ai-agents/.venv/bin/python",
+				"python.defaultInterpreterPath": "/workspaces/eng-ai-agents/.venv-container/bin/python",
 				"python.terminal.activateEnvironment": true,
 				"python.analysis.extraPaths": [
 					"/workspaces/eng-ai-agents"

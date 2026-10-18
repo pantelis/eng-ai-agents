@@ -5,7 +5,8 @@ CONSTRAINTS := $(if $(wildcard $(CONSTRAINT_FILE)),--constraint $(CONSTRAINT_FIL
 
 export PYTHONPATH = src
 check_dirs := examples tests src utils
-VENV_DIR := .venv
+# inside the containers UV_PROJECT_ENVIRONMENT points at .venv-container
+VENV_DIR := $(or $(UV_PROJECT_ENVIRONMENT),.venv)
 VENV_PY := $(VENV_DIR)/bin/python
 UV := $(shell which uv)
 # Find Python 3.11+ (prefer conda, then /usr/local, then system)
@@ -144,7 +145,7 @@ start:
 	$(MAKE) deps-sync
 	$(MAKE) install
 	$(VENV_PY) -m ipykernel install --user --name python3 --display-name "Python 3 (eng-ai-agents)"
-	@echo "To activate the virtual environment, run: source .venv/bin/activate"
+	@echo "To activate the virtual environment, run: source $(VENV_DIR)/bin/activate"
 
 # Install notebook dependencies and register kernel
 install-notebooks: venv
