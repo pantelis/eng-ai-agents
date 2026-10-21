@@ -70,7 +70,7 @@ make clean                    # Remove build artifacts
 ## Architecture
 
 ### Container Services (docker-compose.yml)
-- **torch.dev.gpu**: PyTorch development with CUDA 12.8 (default)
+- **torch.dev.gpu**: PyTorch development with CUDA 13.0 (default). The host needs NVIDIA driver 580 or newer
 - **torch.dev.cpu**: PyTorch development, CPU-only (no GPU required)
 - **ros.dev.gpu**: ROS 2 Jazzy with TurtleBot3, slam-toolbox, foxglove-bridge
 
