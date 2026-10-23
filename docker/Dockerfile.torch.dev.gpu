@@ -71,7 +71,7 @@ RUN sed -i 's/^fsspec==2025\.5\.1$/fsspec==2025.3.0/' /etc/pip/constraint.txt
 
 
 # Install Node.js (required for some Quarto extensions)
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
     && apt-get install -y nodejs
 
 # Quarto
