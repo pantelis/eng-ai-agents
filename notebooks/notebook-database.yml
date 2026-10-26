@@ -753,3 +753,7 @@ notebooks:
   notebook: assignments/topics/kinematics/turtlebot-kinematics/turtlebot-kinematics.ipynb
   environment: colab
   description: Robotics midterm, differential-drive kinematics of a TurtleBot with Newton simulation experiments
+- source: aiml-common/assignments/topics/object-tracking-kalman/dut-anti-uav/dut-anti-uav.ipynb
+  notebook: assignments/topics/object-tracking-kalman/dut-anti-uav/dut-anti-uav.ipynb
+  environment: colab
+  description: AI assignment 3, drone detection and Kalman-filter tracking on the DUT Anti-UAV benchmark
