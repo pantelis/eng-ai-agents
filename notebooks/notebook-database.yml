@@ -757,3 +757,8 @@ notebooks:
   notebook: assignments/topics/object-tracking-kalman/dut-anti-uav/dut-anti-uav.ipynb
   environment: colab
   description: AI assignment 3, drone detection and Kalman-filter tracking on the DUT Anti-UAV benchmark
+- source: aiml-common/assignments/topics/vlm-finetuning/ar4-assembly-vqa/ar4-assembly-vqa.ipynb
+  notebook: assignments/topics/vlm-finetuning/ar4-assembly-vqa/ar4-assembly-vqa.ipynb
+  code_cells: 20
+  environment: colab
+  description: CV assignment 3, fine-tune SmolVLM-256M on AR4 assembly manual questions with LoRA, DoRA and LayerNorm tuning
