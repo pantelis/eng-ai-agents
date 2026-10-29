@@ -762,3 +762,33 @@ notebooks:
   code_cells: 20
   environment: colab
   description: CV assignment 3, fine-tune SmolVLM-256M on AR4 assembly manual questions with LoRA, DoRA and LayerNorm tuning
+- source: aiml-common/projects/cv/real-to-sim-twin/01-capture-and-poses/01-capture-and-poses.ipynb
+  notebook: projects/cv/real-to-sim-twin/01-capture-and-poses/01-capture-and-poses.ipynb
+  code_cells: 14
+  environment: torch.dev.gpu
+  description: Real-to-sim twin stage 1, capture and camera poses
+- source: aiml-common/projects/cv/real-to-sim-twin/02-masks/02-masks.ipynb
+  notebook: projects/cv/real-to-sim-twin/02-masks/02-masks.ipynb
+  code_cells: 17
+  environment: torch.dev.gpu
+  description: Real-to-sim twin stage 2, object masks
+- source: aiml-common/projects/cv/real-to-sim-twin/03-geometry/03-geometry.ipynb
+  notebook: projects/cv/real-to-sim-twin/03-geometry/03-geometry.ipynb
+  code_cells: 16
+  environment: torch.dev.gpu
+  description: Real-to-sim twin stage 3, geometry
+- source: aiml-common/projects/cv/real-to-sim-twin/04-materials/04-materials.ipynb
+  notebook: projects/cv/real-to-sim-twin/04-materials/04-materials.ipynb
+  code_cells: 16
+  environment: torch.dev.gpu
+  description: Real-to-sim twin stage 4, materials
+- source: aiml-common/projects/cv/real-to-sim-twin/05-physics/05-physics.ipynb
+  notebook: projects/cv/real-to-sim-twin/05-physics/05-physics.ipynb
+  code_cells: 20
+  environment: torch.dev.gpu
+  description: Real-to-sim twin stage 5, physics
+- source: aiml-common/projects/cv/real-to-sim-twin/06-export-and-qa/06-export-and-qa.ipynb
+  notebook: projects/cv/real-to-sim-twin/06-export-and-qa/06-export-and-qa.ipynb
+  code_cells: 21
+  environment: torch.dev.gpu
+  description: Real-to-sim twin stage 6, export and QA
