@@ -789,6 +789,11 @@ notebooks:
   description: Real-to-sim twin stage 5, physics
 - source: aiml-common/projects/cv/real-to-sim-twin/06-export-and-qa/06-export-and-qa.ipynb
   notebook: projects/cv/real-to-sim-twin/06-export-and-qa/06-export-and-qa.ipynb
-  code_cells: 21
+  code_cells: 26
   environment: torch.dev.gpu
   description: Real-to-sim twin stage 6, export and QA
+- source: aiml-common/projects/cv/real-to-sim-twin/04b-inverse-rendering/04b-inverse-rendering.ipynb
+  notebook: projects/cv/real-to-sim-twin/04b-inverse-rendering/04b-inverse-rendering.ipynb
+  code_cells: 21
+  environment: torch.dev.gpu
+  description: Real-to-sim twin stage 4b, inverse rendering
