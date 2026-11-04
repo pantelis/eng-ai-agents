@@ -806,7 +806,7 @@ notebooks:
   duration_seconds: 1.3
 - source: aiml-common/lectures/motion-algebras/motion-representations/index.ipynb
   notebook: motion-algebras/motion-representations/index.ipynb
-  code_cells: 4
+  code_cells: 5
   environment: torch.dev.gpu
   description: Poses, twists and screw motions in the plane and in space
   last_executed: 2026-11-04
@@ -845,10 +845,13 @@ notebooks:
   code_cells: 0
   environment: torch.dev.gpu
   description: The particle filter with an application to localizing phones from cellular measurements
-- source: aiml-common/lectures/kinematics/wheeled-robots/index.ipynb
-  notebook: kinematics/wheeled-robots/index.ipynb
-  code_cells: 14
+- source: aiml-common/lectures/kinematics/omnidirectional-robots/index.ipynb
+  notebook: kinematics/omnidirectional-robots/index.ipynb
+  code_cells: 7
   environment: torch.dev.gpu
-  description: Kinematics of omnidirectional and nonholonomic wheeled robots, and wheel odometry
-  last_executed: 2026-11-04
-  duration_seconds: 116.1
+  description: Omnidirectional wheeled robots, wheel speeds from the body twist and a mecanum robot in simulation
+- source: aiml-common/lectures/kinematics/nonholonomic-robots/index.ipynb
+  notebook: kinematics/nonholonomic-robots/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: Nonholonomic wheeled robots, the differential-drive model, slip on ice and wheel odometry
