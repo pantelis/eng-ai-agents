@@ -76,7 +76,7 @@ notebooks = [
     "duckdb>=1.1.0",
     "torchmetrics>=1.4.0",
     "newton[sim]==1.6.0",
-    "rerun-sdk==0.37.0",
+    "rerun-sdk==0.41.0",
     "kaleido>=1.0.0",
 ]
 dev = [
