@@ -797,3 +797,17 @@ notebooks:
   code_cells: 21
   environment: torch.dev.gpu
   description: Real-to-sim twin stage 4b, inverse rendering
+- source: aiml-common/lectures/motion-algebras/configuration-space/index.ipynb
+  notebook: motion-algebras/configuration-space/index.ipynb
+  code_cells: 3
+  environment: torch.dev.gpu
+  description: Configuration space, its topology, and the TurtleBot velocity constraint
+  last_executed: 2026-11-03
+  duration_seconds: 1.3
+- source: aiml-common/lectures/motion-algebras/motion-representations/index.ipynb
+  notebook: motion-algebras/motion-representations/index.ipynb
+  code_cells: 4
+  environment: torch.dev.gpu
+  description: Poses, twists and screw motions in the plane and in space
+  last_executed: 2026-11-04
+  duration_seconds: 1.4
