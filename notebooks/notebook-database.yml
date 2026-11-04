@@ -825,7 +825,7 @@ notebooks:
   description: Robot localization with the Bayes filter and EKF localization with known correspondences
 - source: aiml-common/lectures/rse/ekf/index.ipynb
   notebook: rse/ekf/index.ipynb
-  code_cells: 10
+  code_cells: 11
   environment: torch.dev.gpu
   description: Extended Kalman filter, linearizing nonlinear models
   last_executed: 2026-11-03
@@ -835,11 +835,6 @@ notebooks:
   code_cells: 7
   environment: torch.dev.gpu
   description: Importance sampling, self-normalized weights, proposal choice and resampling
-- source: aiml-common/lectures/rse/markov-localization/index.ipynb
-  notebook: rse/markov-localization/index.ipynb
-  code_cells: 0
-  environment: torch.dev.gpu
-  description: Markov localization, the Bayes filter with a known map
 - source: aiml-common/lectures/rse/occupancy-mapping/index.ipynb
   notebook: rse/occupancy-mapping/index.ipynb
   code_cells: 7
