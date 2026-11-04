@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 840 320" font-family="'IBM Plex Mono', ui-monospace, monospace">
+  <defs>
+    <marker id="ah-twostate" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#546e7a"/>
+    </marker>
+    <marker id="ah-reward" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#6dd4a0"/>
+    </marker>
+    <marker id="ah-noreward" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#e87e94"/>
+    </marker>
+  </defs>
+
+  <rect width="840" height="320" fill="#0b0f17" rx="12"/>
+
+  <circle cx="140" cy="160" r="42" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1.5"/>
+  <text x="140" y="166" font-size="16" fill="#cdd6e4" text-anchor="middle">s₁</text>
+
+  <circle cx="420" cy="160" r="42" fill="#1a1f2b" stroke="#3d4a6a" stroke-width="1.5"/>
+  <text x="420" y="166" font-size="16" fill="#cdd6e4" text-anchor="middle">s₂</text>
+
+  <rect x="650" y="128" width="140" height="64" rx="6" fill="#141820" stroke="#3d4a6a" stroke-width="1.5"/>
+  <text x="720" y="165" font-size="13" fill="#cdd6e4" text-anchor="middle">terminal</text>
+
+  <path d="M 182 140 Q 281 90 378 140" fill="none" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-twostate)"/>
+  <text x="281" y="82" font-size="12" fill="#cdd6e4" text-anchor="middle">a₁</text>
+  <text x="281" y="98" font-size="10" fill="#8b95a8" text-anchor="middle">π = θ₁</text>
+
+  <path d="M 182 180 Q 281 230 378 180" fill="none" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-twostate)"/>
+  <text x="281" y="246" font-size="12" fill="#cdd6e4" text-anchor="middle">a₂</text>
+  <text x="281" y="262" font-size="10" fill="#8b95a8" text-anchor="middle">π = 1 − θ₁</text>
+
+  <path d="M 462 140 Q 556 90 648 140" fill="none" stroke="#6dd4a0" stroke-width="1.5" marker-end="url(#ah-reward)"/>
+  <text x="555" y="82" font-size="12" fill="#6dd4a0" text-anchor="middle">a₁</text>
+  <text x="555" y="98" font-size="10" fill="#6dd4a0" text-anchor="middle">π = θ₂, R = 1</text>
+
+  <path d="M 462 180 Q 556 230 648 180" fill="none" stroke="#e87e94" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#ah-noreward)"/>
+  <text x="555" y="246" font-size="12" fill="#e87e94" text-anchor="middle">a₂</text>
+  <text x="555" y="262" font-size="10" fill="#e87e94" text-anchor="middle">π = 1 − θ₂, R = 0</text>
+
+  <text x="420" y="300" font-size="10" fill="#8b95a8" text-anchor="middle">green = rewarding branch · red = zero-reward branch</text>
+</svg>
