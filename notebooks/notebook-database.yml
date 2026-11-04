@@ -811,3 +811,49 @@ notebooks:
   description: Poses, twists and screw motions in the plane and in space
   last_executed: 2026-11-04
   duration_seconds: 1.4
+- source: aiml-common/lectures/rse/correspondence-estimation/index.ipynb
+  notebook: rse/correspondence-estimation/index.ipynb
+  code_cells: 9
+  environment: torch.dev.gpu
+  description: Correspondence estimation with landmark data association, joint compatibility and ICP scan registration
+  last_executed: 2026-11-04
+  duration_seconds: 2.2
+- source: aiml-common/lectures/rse/ekf-localization/index.ipynb
+  notebook: rse/ekf-localization/index.ipynb
+  code_cells: 8
+  environment: torch.dev.gpu
+  description: Robot localization with the Bayes filter and EKF localization with known correspondences
+- source: aiml-common/lectures/rse/ekf/index.ipynb
+  notebook: rse/ekf/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: Extended Kalman filter, linearizing nonlinear models
+  last_executed: 2026-11-03
+  duration_seconds: 3.7
+- source: aiml-common/lectures/rse/importance-sampling/index.ipynb
+  notebook: rse/importance-sampling/index.ipynb
+  code_cells: 7
+  environment: torch.dev.gpu
+  description: Importance sampling, self-normalized weights, proposal choice and resampling
+- source: aiml-common/lectures/rse/markov-localization/index.ipynb
+  notebook: rse/markov-localization/index.ipynb
+  code_cells: 0
+  environment: torch.dev.gpu
+  description: Markov localization, the Bayes filter with a known map
+- source: aiml-common/lectures/rse/occupancy-mapping/index.ipynb
+  notebook: rse/occupancy-mapping/index.ipynb
+  code_cells: 7
+  environment: torch.dev.gpu
+  description: Occupancy grid mapping with known poses and the effect of odometry drift
+- source: aiml-common/lectures/rse/particle-filter/index.ipynb
+  notebook: rse/particle-filter/index.ipynb
+  code_cells: 0
+  environment: torch.dev.gpu
+  description: The particle filter with an application to localizing phones from cellular measurements
+- source: aiml-common/lectures/kinematics/wheeled-robots/index.ipynb
+  notebook: kinematics/wheeled-robots/index.ipynb
+  code_cells: 14
+  environment: torch.dev.gpu
+  description: Kinematics of omnidirectional and nonholonomic wheeled robots, and wheel odometry
+  last_executed: 2026-11-04
+  duration_seconds: 116.1
