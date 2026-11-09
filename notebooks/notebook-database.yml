@@ -813,23 +813,25 @@ notebooks:
   duration_seconds: 1.4
 - source: aiml-common/lectures/rse/correspondence-estimation/index.ipynb
   notebook: rse/correspondence-estimation/index.ipynb
-  code_cells: 9
+  code_cells: 6
   environment: torch.dev.gpu
   description: Correspondence estimation with landmark data association, joint compatibility and ICP scan registration
-  last_executed: 2026-11-04
-  duration_seconds: 2.2
+  last_executed: 2026-11-08
+  duration_seconds: 2.0
 - source: aiml-common/lectures/rse/ekf-localization/index.ipynb
   notebook: rse/ekf-localization/index.ipynb
-  code_cells: 8
-  environment: torch.dev.gpu
-  description: Robot localization with the Bayes filter and EKF localization with known correspondences
-- source: aiml-common/lectures/rse/ekf/index.ipynb
-  notebook: rse/ekf/index.ipynb
   code_cells: 11
   environment: torch.dev.gpu
+  description: Robot localization with the Bayes filter and EKF localization with known correspondences
+  last_executed: 2026-11-08
+  duration_seconds: 3.6
+- source: aiml-common/lectures/rse/ekf/index.ipynb
+  notebook: rse/ekf/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
   description: Extended Kalman filter, linearizing nonlinear models
-  last_executed: 2026-11-03
-  duration_seconds: 3.7
+  last_executed: 2026-11-08
+  duration_seconds: 4.2
 - source: aiml-common/lectures/rse/importance-sampling/index.ipynb
   notebook: rse/importance-sampling/index.ipynb
   code_cells: 7
@@ -837,9 +839,11 @@ notebooks:
   description: Importance sampling, self-normalized weights, proposal choice and resampling
 - source: aiml-common/lectures/rse/occupancy-mapping/index.ipynb
   notebook: rse/occupancy-mapping/index.ipynb
-  code_cells: 7
+  code_cells: 9
   environment: torch.dev.gpu
   description: Occupancy grid mapping with known poses and the effect of odometry drift
+  last_executed: 2026-11-07
+  duration_seconds: 3.5
 - source: aiml-common/lectures/rse/particle-filter/index.ipynb
   notebook: rse/particle-filter/index.ipynb
   code_cells: 0
@@ -855,3 +859,73 @@ notebooks:
   code_cells: 10
   environment: torch.dev.gpu
   description: Nonholonomic wheeled robots, the differential-drive model, slip on ice and wheel odometry
+- source: aiml-common/lectures/sensor-models/imu/index.ipynb
+  notebook: sensor-models/imu/index.ipynb
+  code_cells: 6
+  environment: torch.dev.gpu
+  description: IMU sensor model and strapdown dead reckoning
+  last_executed: 2026-11-07
+  duration_seconds: 2.8
+- source: aiml-common/lectures/rse/slam/index.ipynb
+  notebook: rse/slam/index.ipynb
+  code_cells: 18
+  environment: torch.dev.gpu
+  description: EKF SLAM with unknown correspondences, lidar and D435i front ends
+  last_executed: 2026-11-07
+  duration_seconds: 59.1
+- source: aiml-common/lectures/rse/vio/index.ipynb
+  notebook: rse/vio/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: Visual-inertial odometry with an error-state Kalman filter
+  last_executed: 2026-11-07
+  duration_seconds: 3.4
+- source: aiml-common/lectures/rse/visual-slam/index.ipynb
+  notebook: rse/visual-slam/index.ipynb
+  code_cells: 14
+  environment: torch.dev.gpu
+  description: Visual SLAM on a synthetic scene with two-view geometry and loop closure
+  last_executed: 2026-11-07
+  duration_seconds: 12.8
+- source: aiml-common/lectures/planning/local-planning/birds-eye-view/index.ipynb
+  notebook: planning/local-planning/birds-eye-view/index.ipynb
+  code_cells: 13
+  environment: torch.dev.gpu
+  description: Mapping a camera image onto the road plane with a homography
+  last_executed: 2026-11-07
+  duration_seconds: 3.4
+- source: aiml-common/lectures/rse/ekf-overconfident-prediction/index.ipynb
+  notebook: rse/ekf-overconfident-prediction/index.ipynb
+  code_cells: 6
+  environment: torch.dev.gpu
+  description: One EKF prediction step on a TurtleBot compared with sampled motion
+  last_executed: 2026-11-08
+  duration_seconds: 2.5
+- source: aiml-common/lectures/sensor-models/lidar/index.ipynb
+  notebook: sensor-models/lidar/index.ipynb
+  code_cells: 4
+  environment: torch.dev.gpu
+  description: How a LIDAR measures range, the sensors in use and their specifications, and how LIDARs fail
+  last_executed: 2026-11-08
+  duration_seconds: 1.5
+- source: aiml-common/lectures/sensor-models/beam/index.ipynb
+  notebook: sensor-models/beam/index.ipynb
+  code_cells: 9
+  environment: torch.dev.gpu
+  description: From a LIDAR datasheet to a probabilistic model of each range reading
+  last_executed: 2026-11-08
+  duration_seconds: 2.8
+- source: aiml-common/lectures/rse/amcl/index.ipynb
+  notebook: rse/amcl/index.ipynb
+  code_cells: 11
+  environment: torch.dev.gpu
+  description: The particle filter Nav2 uses to localize in a saved map, with KLD sampling and random-pose recovery
+  last_executed: 2026-11-09
+  duration_seconds: 21.7
+- source: aiml-common/lectures/rse/scan-registration/index.ipynb
+  notebook: rse/scan-registration/index.ipynb
+  code_cells: 11
+  environment: torch.dev.gpu
+  description: Aligning two LIDAR scans with ICP, from the closed-form fit to point-to-line and robust variants
+  last_executed: 2026-11-08
+  duration_seconds: 1.8
