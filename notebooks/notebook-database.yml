@@ -379,7 +379,7 @@ notebooks:
   description: SFT fine-tuning Qwen3-0.6B for ticket routing
 - source: aiml-common/lectures/vlm/finetuning/smolVLM/smolVLM.ipynb
   notebook: vlm/finetuning/smolVLM/smolVLM.ipynb
-  code_cells: 37
+  code_cells: 35
   environment: torch.dev.gpu
   description: VLM SFT - fine-tune SmolVLM2 for food extraction
 - source: aiml-common/lectures/reasoning/vlm-reasoning/qwen3-vl-2b-instruct/vlm_grpo_trl_smoke.ipynb
@@ -820,7 +820,7 @@ notebooks:
   duration_seconds: 2.0
 - source: aiml-common/lectures/rse/ekf-localization/index.ipynb
   notebook: rse/ekf-localization/index.ipynb
-  code_cells: 11
+  code_cells: 13
   environment: torch.dev.gpu
   description: Robot localization with the Bayes filter and EKF localization with known correspondences
   last_executed: 2026-11-08
