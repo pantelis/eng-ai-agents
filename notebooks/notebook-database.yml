@@ -365,13 +365,6 @@ notebooks:
   description: Conditional generator p(x|z) example
   last_executed: 2026-04-13
   duration_seconds: 1.5
-- source: aiml-common/lectures/mixture-of-gaussians/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
-  notebook: mixture-of-gaussians/em-gaussian-mixture/em-example-mog/em_example_mog.ipynb
-  code_cells: 3
-  environment: torch.dev.gpu
-  description: EM algorithm on mixture of Gaussians example
-  last_executed: 2026-04-13
-  duration_seconds: 2.8
 - source: aiml-common/lectures/nlp/finetuning/ticket-routing-llm/ticket-routing-llm.ipynb
   notebook: nlp/finetuning/ticket-routing-llm/ticket-routing-llm.ipynb
   code_cells: 20
@@ -929,3 +922,31 @@ notebooks:
   description: Aligning two LIDAR scans with ICP, from the closed-form fit to point-to-line and robust variants
   last_executed: 2026-11-08
   duration_seconds: 1.8
+- source: aiml-common/lectures/mixture-of-gaussians/em-algorithm/index.ipynb
+  notebook: mixture-of-gaussians/em-algorithm/index.ipynb
+  code_cells: 27
+  environment: torch.dev.gpu
+  description: Maximum likelihood for mixtures of Gaussians with expectation-maximization
+  last_executed: 2026-11-12
+  duration_seconds: 3.7
+- source: aiml-common/lectures/robust-estimation/least-squares-outliers/index.ipynb
+  notebook: robust-estimation/least-squares-outliers/index.ipynb
+  code_cells: 21
+  environment: torch.dev.gpu
+  description: The least squares baseline, leverage, robust losses and the inlier and outlier mixture
+  last_executed: 2026-11-12
+  duration_seconds: 22.4
+- source: aiml-common/lectures/robust-estimation/ransac/index.ipynb
+  notebook: robust-estimation/ransac/index.ipynb
+  code_cells: 15
+  environment: torch.dev.gpu
+  description: Fitting minimal random samples and keeping the largest consensus set
+  last_executed: 2026-11-12
+  duration_seconds: 9.2
+- source: aiml-common/lectures/robust-estimation/ransac-applications/index.ipynb
+  notebook: robust-estimation/ransac-applications/index.ipynb
+  code_cells: 7
+  environment: torch.dev.gpu
+  description: Floor planes, homographies and point cloud registration with RANSAC
+  last_executed: 2026-11-12
+  duration_seconds: 1.9
