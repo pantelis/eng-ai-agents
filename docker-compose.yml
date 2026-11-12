@@ -8,6 +8,8 @@ services:
         WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
         WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
     container_name: eng-ai-agents-dev
+    # Ray keeps its object store in /dev/shm; Docker gives a container only 64 MB by default
+    shm_size: 16g
     ports:
       - "${DEV_QUARTO_PORT:-4100}:4100"  # Quarto preview port
       - "${DEV_JUPYTER_PORT:-8888}:8888"  # Jupyter notebook port
@@ -49,6 +51,8 @@ services:
         WORKSPACE_DIR: ${WORKSPACE_DIR:-/workspaces/eng-ai-agents}
         WORKSPACE_USER: ${WORKSPACE_USER:-vscode}
     container_name: eng-ai-agents-cpu
+    # Ray keeps its object store in /dev/shm; Docker gives a container only 64 MB by default
+    shm_size: 16g
     ports:
       - "${CPU_QUARTO_PORT:-4101}:4100"
       - "${CPU_JUPYTER_PORT:-8889}:8888"
