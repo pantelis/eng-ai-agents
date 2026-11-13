@@ -139,7 +139,7 @@ Useful aliases in ROS container: `cbuild` (colcon build), `ssetup` (source setup
 The `make execute-notebook` target automatically looks up the environment from the registry and runs via `docker compose run`:
 ```bash
 # Single notebook: auto-detects Docker service from registry
-make execute-notebook NOTEBOOK=reinforcement-learning/prediction/td-vs-mc-mrp.ipynb
+make execute-notebook NOTEBOOK=reinforcement-learning/value-based-algorithms/prediction/td-vs-mc-mrp/td-vs-mc-mrp.ipynb
 
 # All registered notebooks (uses torch.dev.gpu by default, colab notebooks are skipped)
 make execute-all-notebooks
