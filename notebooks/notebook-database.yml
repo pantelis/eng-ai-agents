@@ -372,7 +372,7 @@ notebooks:
   description: SFT fine-tuning Qwen3-0.6B for ticket routing
 - source: aiml-common/lectures/vlm/finetuning/smolVLM/smolVLM.ipynb
   notebook: vlm/finetuning/smolVLM/smolVLM.ipynb
-  code_cells: 39
+  code_cells: 33
   environment: torch.dev.gpu
   description: VLM SFT - fine-tune SmolVLM2 for food extraction
 - source: aiml-common/lectures/reasoning/vlm-reasoning/qwen3-vl-2b-instruct/vlm_grpo_trl_smoke.ipynb
