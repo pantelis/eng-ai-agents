@@ -276,11 +276,11 @@ notebooks:
   description: "BC with CarRacing-v3 \u2014 PPO training metrics callback and plots"
 - source: aiml-common/lectures/vlm/clip/zero-shot/clip_zero_shot.ipynb
   notebook: VLM/clip/zero-shot/clip_zero_shot.ipynb
-  code_cells: 8
+  code_cells: 7
   environment: torch.dev.gpu
-  description: CLIP zero-shot classification with PCA visualization
-  last_executed: 2026-10-18
-  duration_seconds: 21.5
+  description: CLIP zero-shot classification on CIFAR-10 against a linear probe
+  last_executed: 2026-11-12
+  duration_seconds: 245.7
 - source: aiml-common/lectures/mdp/policy-evaluation/index.ipynb
   notebook: mdp/policy-evaluation/index.ipynb
   code_cells: 4
@@ -372,7 +372,7 @@ notebooks:
   description: SFT fine-tuning Qwen3-0.6B for ticket routing
 - source: aiml-common/lectures/vlm/finetuning/smolVLM/smolVLM.ipynb
   notebook: vlm/finetuning/smolVLM/smolVLM.ipynb
-  code_cells: 35
+  code_cells: 39
   environment: torch.dev.gpu
   description: VLM SFT - fine-tune SmolVLM2 for food extraction
 - source: aiml-common/lectures/reasoning/vlm-reasoning/qwen3-vl-2b-instruct/vlm_grpo_trl_smoke.ipynb
@@ -950,3 +950,39 @@ notebooks:
   description: Floor planes, homographies and point cloud registration with RANSAC
   last_executed: 2026-11-12
   duration_seconds: 1.9
+- source: aiml-common/lectures/vision-transformers/vit/index.ipynb
+  notebook: vision-transformers/vit/index.ipynb
+  code_cells: 15
+  environment: torch.dev.gpu
+  description: A small vision transformer built from patches and trained on CIFAR-10
+  last_executed: 2026-11-12
+  duration_seconds: 2026.5
+- source: aiml-common/lectures/vlm/clip/index.ipynb
+  notebook: vlm/clip/index.ipynb
+  code_cells: 11
+  environment: torch.dev.gpu
+  description: The CLIP loss, temperature, negatives, failure modes and the SigLIP sigmoid loss
+  last_executed: 2026-11-12
+  duration_seconds: 50.9
+- source: aiml-common/lectures/vlm/vlm-evaluation/index.ipynb
+  notebook: vlm/vlm-evaluation/index.ipynb
+  code_cells: 6
+  environment: torch.dev.gpu
+  description: Visual token counts and POPE object hallucination for SmolVLM2
+  last_executed: 2026-11-12
+  duration_seconds: 297.6
+- source: aiml-common/lectures/nlp/transformers/cross-attention-position-encoding/index.ipynb
+  notebook: nlp/transformers/cross-attention-position-encoding/index.ipynb
+  code_cells: 8
+  environment: torch.dev.gpu
+  description: Causal masks, cross-attention and position encodings
+- source: aiml-common/lectures/python/ray/index.ipynb
+  notebook: python/ray/index.ipynb
+  code_cells: 14
+  environment: torch.dev.gpu
+  description: Ray tasks, objects, actors, Ray Train and a local cluster
+- source: aiml-common/assignments/topics/llm-sft/context-and-thinking/context-and-thinking.ipynb
+  notebook: assignments/topics/llm-sft/context-and-thinking/context-and-thinking.ipynb
+  code_cells: 17
+  environment: torch.dev.gpu
+  description: AI fall 2026 assignment 4, context and thinking tokens
