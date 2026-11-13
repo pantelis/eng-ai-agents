@@ -750,6 +750,7 @@ notebooks:
   notebook: assignments/topics/object-tracking-kalman/dut-anti-uav/dut-anti-uav.ipynb
   environment: colab
   description: AI assignment 3, drone detection and Kalman-filter tracking on the DUT Anti-UAV benchmark
+  code_cells: 29
 - source: aiml-common/assignments/topics/vlm-finetuning/ar4-assembly-vqa/ar4-assembly-vqa.ipynb
   notebook: assignments/topics/vlm-finetuning/ar4-assembly-vqa/ar4-assembly-vqa.ipynb
   code_cells: 20
