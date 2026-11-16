@@ -985,3 +985,10 @@ notebooks:
   code_cells: 11
   environment: torch.dev.gpu
   description: Skip-gram with negative sampling, trained on 15 million words.
+- source: aiml-common/lectures/nlp/nlp-introduction/tokenization/index.ipynb
+  notebook: nlp/nlp-introduction/tokenization/index.ipynb
+  code_cells: 17
+  environment: torch.dev.gpu
+  description: Word, character and subword tokenizers, and what vocabulary size costs a model.
+  last_executed: 2026-11-14
+  duration_seconds: 10.9
