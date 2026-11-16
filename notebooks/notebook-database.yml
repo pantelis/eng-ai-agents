@@ -855,9 +855,9 @@ notebooks:
   duration_seconds: 2.8
 - source: aiml-common/lectures/rse/slam/index.ipynb
   notebook: rse/slam/index.ipynb
-  code_cells: 22
+  code_cells: 4
   environment: torch.dev.gpu
-  description: EKF SLAM with unknown correspondences, lidar and D435i front ends
+  description: Why SLAM needs a joint belief, and the EKF SLAM equations
   last_executed: 2026-11-07
   duration_seconds: 59.1
 - source: aiml-common/lectures/rse/vio/index.ipynb
@@ -992,3 +992,8 @@ notebooks:
   description: Word, character and subword tokenizers, and what vocabulary size costs a model.
   last_executed: 2026-11-14
   duration_seconds: 10.9
+- source: aiml-common/lectures/rse/ekf-slam/index.ipynb
+  notebook: rse/ekf-slam/index.ipynb
+  code_cells: 20
+  environment: torch.dev.gpu
+  description: EKF SLAM on a TurtleBot with lidar and D435i landmark front ends
