@@ -855,7 +855,7 @@ notebooks:
   duration_seconds: 2.8
 - source: aiml-common/lectures/rse/slam/index.ipynb
   notebook: rse/slam/index.ipynb
-  code_cells: 21
+  code_cells: 22
   environment: torch.dev.gpu
   description: EKF SLAM with unknown correspondences, lidar and D435i front ends
   last_executed: 2026-11-07
