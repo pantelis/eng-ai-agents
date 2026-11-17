@@ -1004,7 +1004,7 @@ notebooks:
   description: Simple self-attention and the transformer architecture
 - source: aiml-common/lectures/nlp/transformers/singlehead-self-attention/index.ipynb
   notebook: nlp/transformers/singlehead-self-attention/index.ipynb
-  code_cells: 12
+  code_cells: 13
   environment: torch.dev.gpu
   description: Scaled dot-product self-attention with queries keys and values
 - source: aiml-common/lectures/nlp/transformers/multihead-self-attention/index.ipynb
