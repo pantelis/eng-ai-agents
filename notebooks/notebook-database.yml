@@ -999,7 +999,7 @@ notebooks:
   description: EKF SLAM on a TurtleBot with lidar and D435i landmark front ends
 - source: aiml-common/lectures/nlp/transformers/transformers-intro/index.ipynb
   notebook: nlp/transformers/transformers-intro/index.ipynb
-  code_cells: 3
+  code_cells: 4
   environment: torch.dev.gpu
   description: Simple self-attention and the transformer architecture
 - source: aiml-common/lectures/nlp/transformers/singlehead-self-attention/index.ipynb
