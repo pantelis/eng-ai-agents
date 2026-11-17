@@ -1007,6 +1007,7 @@ notebooks = [
     { name = "matplotlib" },
     { name = "minigrid" },
     { name = "newton", extra = ["sim"] },
+    { name = "nltk" },
     { name = "num2words" },
     { name = "opencv-python" },
     { name = "optuna" },
@@ -1061,6 +1062,7 @@ requires-dist = [
     { name = "minigrid", marker = "extra == 'notebooks'", specifier = ">=2.3.0" },
     { name = "mypy", marker = "extra == 'dev'", specifier = ">=1.13.0" },
     { name = "newton", extras = ["sim"], marker = "extra == 'notebooks'", specifier = "==1.6.0" },
+    { name = "nltk", marker = "extra == 'notebooks'", specifier = ">=3.9" },
     { name = "num2words", marker = "extra == 'notebooks'", specifier = ">=0.5.13" },
     { name = "opencv-python", marker = "extra == 'notebooks'", specifier = ">=4.9.0" },
     { name = "optuna", marker = "extra == 'notebooks'", specifier = ">=3.5.0" },
@@ -2869,6 +2871,22 @@ wheels = [
 sim = [
     { name = "mujoco" },
     { name = "mujoco-warp" },
+]
+
+[[package]]
+name = "nltk"
+version = "3.10.4"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "click" },
+    { name = "defusedxml" },
+    { name = "joblib" },
+    { name = "regex" },
+    { name = "tqdm" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3a/cb/bbaa9be58e95d21729c6b9194376610230e0755f6de0bf38b6acc0dce079/nltk-3.10.4.tar.gz", hash = "sha256:44679f4e9220abfd496d2c8cdb22f8425ccbe557604f9aa5cacb1c44003dabc1", size = 4300570, upload-time = "2026-10-21T11:34:35.851Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/04/e7816813e409ca874ba2fcc35455db0e4130b79eb277e1f9edd270ca3c69/nltk-3.10.4-py3-none-any.whl", hash = "sha256:769ba5413f265b7d3e87cd163cc28efa01e29eeef8bb6080bc907949d9fcfb51", size = 1722994, upload-time = "2026-10-21T11:34:27.975Z" },
 ]
 
 [[package]]
