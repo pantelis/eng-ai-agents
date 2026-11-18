@@ -999,12 +999,12 @@ notebooks:
   description: EKF SLAM on a TurtleBot with lidar and D435i landmark front ends
 - source: aiml-common/lectures/nlp/transformers/transformers-intro/index.ipynb
   notebook: nlp/transformers/transformers-intro/index.ipynb
-  code_cells: 3
+  code_cells: 4
   environment: torch.dev.gpu
   description: Simple self-attention and the transformer architecture
 - source: aiml-common/lectures/nlp/transformers/singlehead-self-attention/index.ipynb
   notebook: nlp/transformers/singlehead-self-attention/index.ipynb
-  code_cells: 12
+  code_cells: 13
   environment: torch.dev.gpu
   description: Scaled dot-product self-attention with queries keys and values
 - source: aiml-common/lectures/nlp/transformers/multihead-self-attention/index.ipynb
@@ -1017,3 +1017,8 @@ notebooks:
   code_cells: 3
   environment: torch.dev.gpu
   description: The feed-forward block of a transformer
+- source: aiml-common/lectures/nlp/nmt/nmt-metrics/index.ipynb
+  notebook: nlp/nmt/nmt-metrics/index.ipynb
+  code_cells: 8
+  environment: torch.dev.gpu
+  description: Build the BLEU score from clipped n-gram precision and the brevity penalty
