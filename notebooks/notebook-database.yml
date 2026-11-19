@@ -346,14 +346,14 @@ notebooks:
   duration_seconds: 41.2
 - source: aiml-common/lectures/vae/introduction/monte-carlo-sampling/monte-carlo-sampling.ipynb
   notebook: vae/introduction/monte-carlo-sampling/monte-carlo-sampling.ipynb
-  code_cells: 1
+  code_cells: 9
   environment: torch.dev.gpu
   description: Monte Carlo sampling for variational inference
   last_executed: 2026-04-13
   duration_seconds: 21.5
 - source: aiml-common/lectures/vae/introduction/x-given-z-generator/x_given_z_generator_example.ipynb
   notebook: vae/introduction/x-given-z-generator/x_given_z_generator_example.ipynb
-  code_cells: 1
+  code_cells: 6
   environment: torch.dev.gpu
   description: Conditional generator p(x|z) example
   last_executed: 2026-04-13
@@ -430,7 +430,7 @@ notebooks:
   description: 
 - source: aiml-common/lectures/diffusion/brownian-motion/brownian_motion.ipynb
   notebook: diffusion/brownian-motion/brownian_motion.ipynb
-  code_cells: 4
+  code_cells: 10
   environment: torch.dev.gpu
   description: 
 - source: aiml-common/lectures/diffusion/score-based/song-tutorial-notebook/Tutorial_on_Score_Based_Generative_Modeling.ipynb
@@ -462,7 +462,7 @@ notebooks:
   description: REINFORCE Small Language Model Credit Assignment — student notebook (no solutions)
 - source: aiml-common/lectures/velocity-fields/index.ipynb
   notebook: velocity-fields/index.ipynb
-  code_cells: 4
+  code_cells: 8
   environment: torch.dev.gpu
   description: Velocity fields from storm intuition to flow matching
   last_executed: 2026-05-14
@@ -1017,3 +1017,33 @@ notebooks:
   code_cells: 3
   environment: torch.dev.gpu
   description: The feed-forward block of a transformer
+- source: aiml-common/lectures/optimal-transport/maps-and-couplings/index.ipynb
+  notebook: optimal-transport/maps-and-couplings/index.ipynb
+  code_cells: 26
+  environment: torch.dev.gpu
+  description: Monge maps, Kantorovich couplings and Wasserstein distance on a 1D mixture
+- source: aiml-common/lectures/optimal-transport/dynamic-transport/index.ipynb
+  notebook: optimal-transport/dynamic-transport/index.ipynb
+  code_cells: 18
+  environment: torch.dev.gpu
+  description: Displacement interpolation, the continuity equation and the Benamou-Brenier formula in 1D
+- source: aiml-common/lectures/flow-matching/mog-1d/index.ipynb
+  notebook: flow-matching/mog-1d/index.ipynb
+  code_cells: 30
+  environment: torch.dev.gpu
+  description: Flow matching on a 1D Gaussian mixture with three couplings
+- source: aiml-common/lectures/diffusion/fokker-planck/fokker_planck.ipynb
+  notebook: diffusion/fokker-planck/fokker_planck.ipynb
+  code_cells: 30
+  environment: torch.dev.gpu
+  description: Fokker-Planck equation and the probability flow ODE on a 1D mixture
+- source: aiml-common/lectures/diffusion/gradient-flow/gradient_flow.ipynb
+  notebook: diffusion/gradient-flow/gradient_flow.ipynb
+  code_cells: 23
+  environment: torch.dev.gpu
+  description: Diffusion as a Wasserstein gradient flow and the JKO scheme
+- source: aiml-common/lectures/normalizing-flows/index.ipynb
+  notebook: normalizing-flows/index.ipynb
+  code_cells: 9
+  environment: torch.dev.gpu
+  description: Exact densities of generated samples from invertible maps
