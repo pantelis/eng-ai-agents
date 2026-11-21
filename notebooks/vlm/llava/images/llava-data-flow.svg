@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 720" font-family="'IBM Plex Mono', ui-monospace, monospace">
+  <defs>
+    <marker id="ah-llava" markerWidth="9" markerHeight="7" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L9,3.5 L0,7 z" fill="#546e7a"/>
+    </marker>
+  </defs>
+  <rect width="760" height="720" fill="#0b0f17" rx="12"/>
+  <text x="190" y="40" font-size="11" fill="#8b95a8" text-anchor="middle">VISION PATH</text>
+  <text x="570" y="40" font-size="11" fill="#8b95a8" text-anchor="middle">TEXT PATH</text>
+  <rect x="80" y="60" width="220" height="60" rx="6" fill="#1a1f2b" stroke="#3d4a6a"/>
+  <text x="190" y="86" font-size="12" fill="#cdd6e4" text-anchor="middle">Input Image</text>
+  <text x="190" y="103" font-size="10" fill="#8b95a8" text-anchor="middle">336 × 336</text>
+  <rect x="80" y="140" width="220" height="60" rx="6" fill="#1a1f2b" stroke="#e87e94" stroke-dasharray="4,3"/>
+  <text x="190" y="166" font-size="12" fill="#cdd6e4" text-anchor="middle">CLIP ViT-L/14</text>
+  <text x="190" y="184" font-size="10" fill="#e87e94" text-anchor="middle">frozen</text>
+  <rect x="80" y="220" width="220" height="60" rx="6" fill="#1a1f2b" stroke="#3d4a6a"/>
+  <text x="190" y="246" font-size="12" fill="#cdd6e4" text-anchor="middle">576 patch embeddings</text>
+  <text x="190" y="263" font-size="10" fill="#8b95a8" text-anchor="middle">∈ ℝ¹⁰²⁴</text>
+  <rect x="80" y="300" width="220" height="60" rx="6" fill="#1a1f2b" stroke="#6dd4a0" stroke-width="1.5"/>
+  <text x="190" y="326" font-size="12" fill="#cdd6e4" text-anchor="middle">2-Layer MLP Projector</text>
+  <text x="190" y="344" font-size="10" fill="#6dd4a0" text-anchor="middle">trainable — cross-modal bridge</text>
+  <rect x="80" y="380" width="220" height="60" rx="6" fill="#1a1f2b" stroke="#3d4a6a"/>
+  <text x="190" y="406" font-size="12" fill="#cdd6e4" text-anchor="middle">576 visual tokens</text>
+  <text x="190" y="423" font-size="10" fill="#8b95a8" text-anchor="middle">∈ ℝ⁴⁰⁹⁶</text>
+  <line x1="190" y1="120" x2="190" y2="140" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <line x1="190" y1="200" x2="190" y2="220" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <line x1="190" y1="280" x2="190" y2="300" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <line x1="190" y1="360" x2="190" y2="380" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <rect x="460" y="60" width="220" height="60" rx="6" fill="#1a1f2b" stroke="#3d4a6a"/>
+  <text x="570" y="86" font-size="12" fill="#cdd6e4" text-anchor="middle">Text Prompt</text>
+  <text x="570" y="103" font-size="10" fill="#8b95a8" text-anchor="middle">"What's in this image?"</text>
+  <rect x="460" y="140" width="220" height="60" rx="6" fill="#1a1f2b" stroke="#3d4a6a"/>
+  <text x="570" y="166" font-size="12" fill="#cdd6e4" text-anchor="middle">Tokenizer + Embedding</text>
+  <text x="570" y="184" font-size="10" fill="#8b95a8" text-anchor="middle">LLM vocabulary</text>
+  <rect x="460" y="220" width="220" height="60" rx="6" fill="#1a1f2b" stroke="#3d4a6a"/>
+  <text x="570" y="246" font-size="12" fill="#cdd6e4" text-anchor="middle">Text tokens</text>
+  <text x="570" y="263" font-size="10" fill="#8b95a8" text-anchor="middle">∈ ℝ⁴⁰⁹⁶</text>
+  <line x1="570" y1="120" x2="570" y2="140" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <line x1="570" y1="200" x2="570" y2="220" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <polyline points="190,440 190,455 380,455 380,470" fill="none" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <polyline points="570,280 570,455 380,455 380,470" fill="none" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <rect x="200" y="470" width="360" height="60" rx="6" fill="#1a1f2b" stroke="#3d4a6a"/>
+  <text x="380" y="497" font-size="12" fill="#cdd6e4" text-anchor="middle">Concatenate</text>
+  <text x="380" y="515" font-size="10" fill="#8b95a8" text-anchor="middle">interleaved sequence [visual ‖ text]</text>
+  <line x1="380" y1="530" x2="380" y2="550" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <rect x="220" y="550" width="320" height="60" rx="6" fill="#1a1f2b" stroke="#6dd4a0" stroke-width="1.5"/>
+  <text x="380" y="576" font-size="12" fill="#cdd6e4" text-anchor="middle">Vicuna / LLaMA</text>
+  <text x="380" y="594" font-size="10" fill="#6dd4a0" text-anchor="middle">trainable in Stage 2</text>
+  <line x1="380" y1="610" x2="380" y2="630" stroke="#546e7a" stroke-width="1.5" marker-end="url(#ah-llava)"/>
+  <rect x="240" y="630" width="280" height="50" rx="6" fill="#1a1f2b" stroke="#3d4a6a"/>
+  <text x="380" y="653" font-size="12" fill="#cdd6e4" text-anchor="middle">Generated Response</text>
+  <text x="380" y="669" font-size="9" fill="#8b95a8" text-anchor="middle">caption · answer · description</text>
+  <rect x="30" y="690" width="12" height="12" rx="2" fill="#1a1f2b" stroke="#e87e94" stroke-dasharray="4,3"/>
+  <text x="48" y="700" font-size="10" fill="#8b95a8">frozen</text>
+  <rect x="110" y="690" width="12" height="12" rx="2" fill="#1a1f2b" stroke="#6dd4a0" stroke-width="1.5"/>
+  <text x="128" y="700" font-size="10" fill="#8b95a8">trainable</text>
+</svg>
