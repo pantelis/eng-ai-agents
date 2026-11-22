@@ -78,6 +78,8 @@ notebooks = [
     "newton[sim]==1.6.0",
     "rerun-sdk==0.41.0",
     "kaleido>=1.0.0",
+    # BLEU page (nlp/nmt/nmt-metrics): corpus_bleu and smoothing
+    "nltk>=3.9",
 ]
 dev = [
     "pytest>=9.0.3",
