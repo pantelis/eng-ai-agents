@@ -66,22 +66,6 @@ notebooks:
   last_executed: 2026-02-25
   duration_seconds: 19.7
 - '---'
-- source: aiml-common/lectures/dim-reduction/pca/principal_component_analysis.ipynb
-  notebook: dim-reduction/pca/principal_component_analysis.ipynb
-  code_cells: 26
-  environment: torch.dev.gpu
-  description: PCA workshop - dimensionality reduction, noise filtering, and eigenfaces
-    (VanderPlas)
-  last_executed: 2026-02-12
-  duration_seconds: 24.6
-- source: aiml-common/lectures/dim-reduction/pca/3d_pca.ipynb
-  notebook: dim-reduction/pca/3d_pca.ipynb
-  code_cells: 34
-  environment: torch.dev.gpu
-  description: 3D PCA visualization with projections and interactive Plotly plots
-  colab_deps: matplotlib seaborn scikit-learn scipy plotly
-  last_executed: 2026-02-12
-  duration_seconds: 27.5
 - '---'
 - source: aiml-common/projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
   notebook: projects/cv/sports-analytics/basketball/basketball_ai_how_to_detect_track_and_identify_basketball_players.ipynb
@@ -262,12 +246,12 @@ notebooks:
     factor
   last_executed: 2026-04-01
   duration_seconds: 2.3
-- source: aiml-common/lectures/imitation-learning/behavioral-cloning/behavioral-cloning.ipynb
+- source: aiml-common/lectures/imitation-learning/behavioral-cloning/index.ipynb
   notebook: imitation-learning/behavioral-cloning/behavioral-cloning.ipynb
   code_cells: 12
   environment: torch.dev.gpu
   description: "BC with CarRacing-v3 \u2014 PPO training metrics callback and plots"
-- source: aiml-common/lectures/vlm/clip/zero-shot/clip_zero_shot.ipynb
+- source: aiml-common/lectures/vlm/clip/zero-shot/index.ipynb
   notebook: vlm/clip/zero-shot/clip_zero_shot.ipynb
   code_cells: 7
   environment: torch.dev.gpu
@@ -1047,3 +1031,38 @@ notebooks:
   code_cells: 9
   environment: torch.dev.gpu
   description: Exact densities of generated samples from invertible maps
+- source: aiml-common/lectures/dim-reduction/pca/3d-pca/index.ipynb
+  notebook: dim-reduction/pca/3d-pca/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: PCA of three-dimensional Gaussian data computed with the SVD
+- source: aiml-common/lectures/dim-reduction/pca/pca-workshop/index.ipynb
+  notebook: dim-reduction/pca/pca-workshop/index.ipynb
+  code_cells: 15
+  environment: torch.dev.gpu
+  description: PCA for visualization, noise filtering and eigenfaces
+- source: aiml-common/lectures/dnn/backprop-intro/index.ipynb
+  notebook: dnn/backprop-intro/index.ipynb
+  code_cells: 3
+  environment: torch.dev.gpu
+  description: Backpropagation on a scalar computational graph checked against autograd
+- source: aiml-common/lectures/dim-reduction/low-rank-gaussians/index.ipynb
+  notebook: dim-reduction/low-rank-gaussians/index.ipynb
+  code_cells: 2
+  environment: torch.dev.gpu
+  description: Low-rank covariance geometry and a NumPy LoRA layer
+- source: aiml-common/lectures/mdp/policy-improvement/index.ipynb
+  notebook: mdp/policy-improvement/index.ipynb
+  code_cells: 3
+  environment: torch.dev.gpu
+  description: Greedy policy improvement on a three-state MDP
+- source: aiml-common/lectures/optimization/whitening/index.ipynb
+  notebook: optimization/whitening/index.ipynb
+  code_cells: 6
+  environment: torch.dev.gpu
+  description: Mean subtraction, decorrelation and whitening of synthetic data
+- source: aiml-common/lectures/vlm/llava/vlm-llava-tutorial.ipynb
+  notebook: vlm/llava/vlm-llava-tutorial.ipynb
+  code_cells: 4
+  environment: torch.dev.gpu
+  description: LLaVA family architecture, training, and inference
