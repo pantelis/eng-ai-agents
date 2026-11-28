@@ -1047,3 +1047,23 @@ notebooks:
   code_cells: 9
   environment: torch.dev.gpu
   description: Exact densities of generated samples from invertible maps
+- source: aiml-common/lectures/reinforcement-learning/robot-navigation/navigation-mdp/index.ipynb
+  notebook: reinforcement-learning/robot-navigation/navigation-mdp/index.ipynb
+  code_cells: 15
+  environment: torch.dev.gpu
+  description: TurtleBot3 goal-reaching task written as an MDP with a Monte Carlo value map
+- source: aiml-common/lectures/reinforcement-learning/robot-navigation/q-learning-navigation/index.ipynb
+  notebook: reinforcement-learning/robot-navigation/q-learning-navigation/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: Tabular Q-learning on a discretized TurtleBot3 navigation task
+- source: aiml-common/lectures/reinforcement-learning/robot-navigation/ddpg-navigation/index.ipynb
+  notebook: reinforcement-learning/robot-navigation/ddpg-navigation/index.ipynb
+  code_cells: 7
+  environment: torch.dev.gpu
+  description: DDPG on TurtleBot3 navigation showing critic overestimation
+- source: aiml-common/lectures/reinforcement-learning/robot-navigation/td3-navigation/index.ipynb
+  notebook: reinforcement-learning/robot-navigation/td3-navigation/index.ipynb
+  code_cells: 10
+  environment: torch.dev.gpu
+  description: TD3 on TurtleBot3 navigation with a reward-weight experiment
